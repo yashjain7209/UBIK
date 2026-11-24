@@ -63,10 +63,10 @@ section{position:relative}
 
 /* Header */
 .hdr{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;color:var(--white);transition:background .35s ease,color .35s ease,transform .35s ease}
-.hdr .top{background:var(--white);color:#3f3f3f;border-bottom:1px solid var(--line);font-size:12.5px;font-weight:600}
+.hdr .top{background:var(--ink);color:#d9d9d9;border-bottom:1px solid var(--ink);font-size:12.5px;font-weight:600}
 .hdr .top .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;gap:16px}
 .hdr .top nav{display:flex;gap:24px}
-.hdr .top a{text-decoration:none;color:#3f3f3f;transition:color .25s ease}.hdr .top a:hover{color:var(--red)}
+.hdr .top a{text-decoration:none;color:#d9d9d9;transition:color .25s ease}.hdr .top a:hover{color:var(--red)}
 .hdr .main .wrap{display:flex;align-items:center;gap:40px;height:84px}
 .hdr .logo{display:block;width:100px;flex:none}
 .hdr .logo img{width:100px;height:auto}
@@ -77,7 +77,7 @@ section{position:relative}
 .hdr .main nav a:hover::after{transform:scaleX(1)}
 .hdr .portal{--h:44px;padding:0 24px;font-size:14px}
 .hdr.solid{background:var(--white);color:var(--ink)}
-.hdr.solid .top{border-color:var(--line);background:var(--white)}
+.hdr.solid .top{border-color:var(--ink);background:var(--ink)}
 .hdr.solid .logo .lt{display:none}.hdr.solid .logo .dk{display:block}
 .hdr.on-hero .logo .lt{display:none}.hdr.on-hero .logo .dk{display:block}
 .menu-btn{display:none;margin-left:auto;background:none;border:0;color:inherit;width:44px;height:44px;cursor:pointer;padding:0}
@@ -121,7 +121,6 @@ section{position:relative}
 .hero .frame.shaped{border-radius:0}
 .hero .cue{bottom:calc(var(--hm,18px) + 20px)}
 @media (max-width:700px){.hero .copy.wrap{padding-left:28px;padding-right:28px}}
-.hero .idx{position:absolute;right:var(--hm,18px);bottom:calc(var(--hm,18px) - 4px);z-index:2;font:600 13px/1 var(--font);letter-spacing:.08em;color:var(--ink)}
 @keyframes cue{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
 .hcp-strip{background:var(--red);color:var(--white);font-size:14px;font-weight:600}
 .hcp-strip .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;min-height:52px;flex-wrap:wrap;padding-block:10px}
@@ -800,7 +799,6 @@ html.logo-wait .hdr .logo{opacity:0}
     </div></div>
   </div>
   <svg class="cue" viewBox="148 691 78 53" aria-hidden="true"><use href="#ch-d"/></svg>
-  <span class="idx" aria-hidden="true">01</span>
 </section>
 
 <div class="hcp-strip"><div class="wrap">
