@@ -594,19 +594,6 @@ html.logo-wait .hdr .logo{opacity:0}
     label(ex + sd * 4, ey - 7, 'N 00°  R 284', 1.5, sd > 0 ? 'start' : 'end');
     }
 
-    /* Off-centre circle sets, bleeding off the edges */
-    var ax = W * .06, ay = H * .1, s1 = Math.min(W, H) * .2;
-    ring(ax, ay, s1 * .45, .3, 1.3); ring(ax, ay, s1 * .7, .45, 1.4, 'soft'); ring(ax, ay, s1 * 1.05, .6, 1.5, 'soft');
-    fade(mk('circle', {cx: ax, cy: ay, r: (s1 * .86).toFixed(1)}, 'dash'), .9, 1);
-    line(ax - s1 * 1.2, ay, ax + s1 * 1.2, ay, .5, 1, 'soft'); line(ax, ay - s1 * 1.2, ax, ay + s1 * 1.2, .55, 1, 'soft');
-    label(ax + s1 * .5, ay + s1 * 1.2 + 14, '22.30° N', 1.4);
-
-    var bx = W * .93, by = H * .92, s2 = Math.min(W, H) * .28;
-    ring(bx, by, s2 * .4, .4, 1.3); ring(bx, by, s2 * .75, .55, 1.4, 'soft'); ring(bx, by, s2 * 1.15, .7, 1.6, 'soft');
-    ticks(bx, by, s2 * .75, 72, 4, 1.1, 1);
-    line(bx - s2 * 1.3, by, bx + s2, by, .6, 1, 'soft');
-    label(bx - s2 * 1.25, by - 10, '70.80° E', 1.5);
-
     /* A small square datum box, as on a drawing */
     var qx = W * .1, qy = H * .78;
     draw(mk('rect', {x: qx, y: qy, width: 46, height: 26}), 1.0, .7);
