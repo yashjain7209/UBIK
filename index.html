@@ -34,7 +34,7 @@ p{margin:0}
 .on-dark{background:var(--ink);color:var(--white)}
 .on-dark .lead{color:#c9c9c9}
 section{position:relative}
-.band{padding-block:clamp(72px,10vw,140px)}
+.band{padding-block:clamp(64px,7vw,112px)}
 
 /* Buttons cut from the compass */
 /* Buttons shaped like the I of the UBIK logo, laid on its side: two opposite corners rounded, two sharp */
@@ -111,7 +111,9 @@ section{position:relative}
 .hero .copy{position:relative;z-index:2;padding-block:168px 24px;width:100%}
 .hero h1{font-size:clamp(32px,min(4.4vw,7svh),64px);line-height:1.05;letter-spacing:-0.03em;max-width:16ch}
 .hero h1 .r{color:var(--white);display:block}
-.hero .sub{margin-top:24px;font-size:19px;max-width:44ch;color:#e6e6e6}
+.hero .sub{margin-top:22px;font-size:clamp(17px,1.5vw,21px);line-height:1.45;max-width:40ch;color:#e6e6e6}
+.hero .hero-eb{display:flex;align-items:center;gap:12px;margin-bottom:22px;color:#e6e6e6}
+.hero .hero-eb::before{content:"";width:28px;height:2px;background:var(--red);flex:none}
 .hero .acts{margin-top:36px;display:flex;flex-wrap:wrap;gap:28px;align-items:center}
 .hero .cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;width:26px;animation:cue 2.4s ease-in-out infinite}
 .hero .cue{fill:var(--white)}
@@ -698,8 +700,8 @@ html.logo-wait .hdr .logo{opacity:0}
   <div class="shade"></div>
   </div>
   <div class="copy wrap">
-    <div class="m1"><h1>An Unconventional <span class="r">Pharma Company.</span></h1></div>
-    <div class="m2"><p class="sub">Delivering value beyond expectations in every direction.<span style="display:block;margin-top:10px;opacity:.72">Focusing on dermatology and cosmetology ecosystems.</span></p></div>
+    <div class="m1"><p class="eyebrow hero-eb">Dermatology &amp; Cosmetology Ecosystems</p><h1>An Unconventional <span class="r">Pharma Company.</span></h1></div>
+    <div class="m2"><p class="sub">Delivering value beyond expectations in every direction.</p></div>
     <div class="m3"><div class="acts">
       <a class="btn-arrow" href="#who"><span class="b">Know UBIK</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
       <button class="play" type="button" data-film><span class="ring"><svg class="mk" viewBox="94.25 558.167 184.583 185.833" aria-hidden="true"><use href="#compass"/></svg><svg class="tri" viewBox="0 0 16 18" aria-hidden="true"><path d="M0 0l16 9-16 9z"/></svg></span>Watch the Film</button>
@@ -1034,14 +1036,14 @@ html.logo-wait .hdr .logo{opacity:0}
   /* Smooth scroll */
   let lenis = null;
   if (window.Lenis) {
-    lenis = new Lenis({lerp: .075, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.4});
+    lenis = new Lenis({lerp: .11, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.2});
     if (!window.__preDone && document.getElementById('pre')) lenis.stop();
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(t => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
     $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
       const id = a.getAttribute('href'); const t = id.length > 1 ? document.querySelector(id) : null;
-      if (t) { e.preventDefault(); lenis.scrollTo(t, {offset: -110, duration: 1.4}); }
+      if (t) { e.preventDefault(); lenis.scrollTo(t, {offset: -110, duration: 1.1}); }
     }));
   } else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     /* Fallback smooth wheel if Lenis could not load */
@@ -1056,23 +1058,15 @@ html.logo-wait .hdr .logo{opacity:0}
   }
 
   /* 02 Hero: text rises in */
-  const heroIn = () => gsap.from('.hero h1, .hero .sub, .hero .acts', {y: 60, opacity: 0, duration: 1.3, ease: 'expo.out', stagger: .12, delay: .25});
+  const heroIn = () => gsap.from('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {y: 40, opacity: 0, duration: 1.3, ease: 'expo.out', stagger: .12, delay: .25});
   if (window.__preDone || !document.getElementById('pre')) heroIn();
-  else { gsap.set('.hero h1, .hero .sub, .hero .acts', {opacity: 0}); window.__onPreDone = () => { gsap.set('.hero h1, .hero .sub, .hero .acts', {opacity: 1}); heroIn(); if (lenis) lenis.start(); ScrollTrigger.refresh(); }; }
-  /* Hero scroll: pin, blur the film, lift the text (CTA last), shrink the film into a framed box */
-  const vh = () => window.innerHeight;
-  const heroTl = gsap.timeline({defaults: {ease: 'none'}, scrollTrigger: {trigger: '.hero', start: 'top top', end: () => '+=' + Math.round(vh() * 1.1), pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1}});
-  heroTl
-    .to('#heroMedia', {filter: 'blur(18px)', scale: 1.08, duration: 1}, 0)
-    .to('.hero .m1', {y: () => -vh() * 0.95, duration: 0.8}, 0)
-    .to('.hero .m2', {y: () => -vh() * 0.85, duration: 0.85}, 0.03)
-    .to('.hero .m3', {y: () => -vh() * 0.74, duration: 0.9}, 0.06)
-    .to('.hero .cue', {opacity: 0, duration: 0.15}, 0)
-    .fromTo('#heroFrame', {clipPath: 'inset(0px 0px 0px 0px round 0px)'}, {clipPath: () => {
-      const s = window.innerWidth < 700 ? 12 : 32; const top = $('#hdr').offsetHeight + Math.round(s / 2);
-      const r = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--radius")) || 28;
-      return `inset(${top}px ${s}px ${s}px ${s}px round ${r}px)`;
-    }, duration: 0.7}, 0.3);
+  else { gsap.set('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {opacity: 0}); window.__onPreDone = () => { gsap.set('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {opacity: 1}); heroIn(); if (lenis) lenis.start(); ScrollTrigger.refresh(); }; }
+  /* Hero scroll: no pin. The page moves immediately; the film drifts slower than the page and the copy eases away,
+     so the next section is always arriving and the screen never goes empty */
+  gsap.timeline({defaults: {ease: 'none'}, scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}})
+    .to('#heroMedia', {yPercent: 22, scale: 1.05}, 0)
+    .to('.hero .copy', {y: () => -window.innerHeight * 0.12, opacity: 0.15}, 0)
+    .to('.hero .cue', {opacity: 0, duration: 0.12}, 0);
 
   /* 03 Who we are: the statement types itself out once; facts count up once */
   const st = $('#statement');
