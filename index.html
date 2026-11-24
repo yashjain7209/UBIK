@@ -122,12 +122,6 @@ section{position:relative}
 .hero .cue{bottom:calc(var(--hm,18px) + 20px)}
 @media (max-width:700px){.hero .copy.wrap{padding-left:28px;padding-right:28px}}
 .hero .idx{position:absolute;right:var(--hm,18px);bottom:calc(var(--hm,18px) - 4px);z-index:2;font:600 13px/1 var(--font);letter-spacing:.08em;color:var(--ink)}
-/* Row of horizontal I-shapes, after the pill row in the reference: some solid, some outlined */
-.ipills{display:flex;width:min(560px,100%);margin-bottom:30px}
-.ipills i{flex:1;height:30px;border-radius:0 15px 0 15px;background:var(--white);border:1.5px solid var(--white);margin-right:-1px}
-.ipills i.o{background:transparent;border-color:rgba(255,255,255,.75)}
-.ipills i.p{background:var(--red);border-color:var(--red)}
-@media (max-width:700px){.ipills{width:100%;margin-bottom:22px}.ipills i{height:20px;border-radius:0 10px 0 10px}.ipills i:nth-child(n+7){display:none}}
 @keyframes cue{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
 .hcp-strip{background:var(--red);color:var(--white);font-size:14px;font-weight:600}
 .hcp-strip .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;min-height:52px;flex-wrap:wrap;padding-block:10px}
@@ -798,7 +792,7 @@ html.logo-wait .hdr .logo{opacity:0}
   <div class="shade"></div>
   </div>
   <div class="copy wrap">
-    <div class="m1"><div class="ipills" aria-hidden="true"><i class="o"></i><i></i><i></i><i class="o"></i><i class="p"></i><i></i><i class="o"></i><i></i></div><p class="eyebrow hero-eb">Dermatology &amp; Cosmetology Ecosystems</p><h1>An Unconventional <span class="r">Pharma Company.</span></h1></div>
+    <div class="m1"><p class="eyebrow hero-eb">Dermatology &amp; Cosmetology Ecosystems</p><h1>An Unconventional <span class="r">Pharma Company.</span></h1></div>
     <div class="m2"><p class="sub">Delivering value beyond expectations in every direction.</p></div>
     <div class="m3"><div class="acts">
       <a class="btn-arrow" href="#who"><span class="b">Know UBIK</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
@@ -1191,8 +1185,7 @@ html.logo-wait .hdr .logo{opacity:0}
   }
 
   /* 02 Hero: text rises in */
-  const pillsIn = () => gsap.from('.ipills i', {scaleX: 0, transformOrigin: '0 50%', opacity: 0, duration: .9, ease: 'expo.out', stagger: .06, delay: .15});
-  const heroIn = () => { pillsIn(); gsap.from('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {y: 40, opacity: 0, duration: 1.3, ease: 'expo.out', stagger: .12, delay: .25}); };
+  const heroIn = () => { gsap.from('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {y: 40, opacity: 0, duration: 1.3, ease: 'expo.out', stagger: .12, delay: .25}); };
   if (window.__preDone || !document.getElementById('pre')) heroIn();
   else { gsap.set('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {opacity: 0}); window.__onPreDone = () => { gsap.set('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {opacity: 1}); heroIn(); if (lenis) lenis.start(); ScrollTrigger.refresh(); }; }
   /* Hero scroll: no pin. The page moves immediately; the film drifts slower than the page and the copy eases away,
