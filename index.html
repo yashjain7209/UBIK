@@ -37,17 +37,22 @@ section{position:relative}
 .band{padding-block:clamp(72px,10vw,140px)}
 
 /* Buttons cut from the compass */
-.btn-arrow{display:inline-flex;align-items:stretch;height:56px;text-decoration:none;font-weight:700;font-size:16px;color:var(--white);border:0;background:none;padding:0;cursor:pointer;font-family:inherit}
-.btn-arrow .b{display:flex;align-items:center;padding:0 12px 0 26px;background:var(--red)}
-.btn-arrow svg{height:56px;width:auto;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
-.btn-arrow svg *{fill:var(--red)}
-.btn-arrow:hover svg{transform:translateX(6px)}
-.btn-arrow.k .b{background:var(--ink)} .btn-arrow.k svg *{fill:var(--ink)}
-.btn-arrow.w{color:var(--ink)} .btn-arrow.w .b{background:var(--white)} .btn-arrow.w svg *{fill:var(--white)}
-.btn-brk{display:inline-flex;align-items:center;gap:14px;min-height:48px;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:inherit;background:none;border:0;padding:0 2px;cursor:pointer;font-family:inherit}
-.btn-brk svg{height:22px;width:auto;transition:transform .3s ease}
-.btn-brk svg{fill:var(--red)}
-.btn-brk:hover .l{transform:translateX(-5px)} .btn-brk:hover .r{transform:translateX(5px)}
+/* Buttons shaped like the I of the UBIK logo, laid on its side: two opposite corners fully rounded, two sharp.
+   On hover the rounded corners swap, as if the I flips, and the chevron nudges forward. */
+.btn-arrow,.btn-brk{--h:56px;--ease:cubic-bezier(.65,0,.35,1);display:inline-flex;align-items:center;justify-content:center;gap:12px;height:var(--h);padding:0 34px;border-radius:0 var(--h) 0 var(--h);text-decoration:none;font-family:inherit;cursor:pointer;white-space:nowrap;transition:border-radius .55s var(--ease),background-color .35s ease,color .35s ease,border-color .35s ease}
+.btn-arrow:hover,.btn-brk:hover,.btn-arrow:focus-visible,.btn-brk:focus-visible{border-radius:var(--h) 0 var(--h) 0}
+.btn-arrow svg,.btn-brk svg{height:11px;width:auto;flex:none;fill:currentColor;transition:transform .45s var(--ease)}
+.btn-arrow:hover svg,.btn-brk:hover svg{transform:translateX(4px)}
+.btn-arrow{font-weight:700;font-size:15px;color:var(--white);background:var(--red);border:0}
+.btn-arrow .b{display:contents}
+.btn-arrow:hover{background:#d4114a}
+.btn-arrow.k{background:var(--ink)} .btn-arrow.k:hover{background:#000}
+.btn-arrow.w{color:var(--ink);background:var(--white)} .btn-arrow.w:hover{background:#f1f1f1}
+.btn-brk{--h:48px;padding:0 28px;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:inherit;background:transparent;border:1.5px solid var(--red)}
+.btn-brk svg.l{display:none}
+.two article .btn-brk{align-self:flex-start;justify-self:start;width:auto}
+.btn-brk svg.r{fill:var(--red)}
+.btn-brk:hover{background:var(--red);color:var(--white)} .btn-brk:hover svg.r{fill:var(--white)}
 .link{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:inherit}
 .link svg{height:14px;width:auto;transition:transform .3s ease}.link svg{fill:var(--red)}
 .link:hover svg{transform:translateX(5px)}
@@ -73,7 +78,7 @@ section{position:relative}
 .hdr .main nav a{text-decoration:none;position:relative}
 .hdr .main nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
 .hdr .main nav a:hover::after{transform:scaleX(1)}
-.hdr .portal{height:46px}.hdr .portal .b{font-size:14px;padding-left:20px}.hdr .portal svg{height:46px}
+.hdr .portal{--h:44px;padding:0 24px;font-size:14px}
 .hdr.solid{background:var(--white);color:var(--ink)}
 .hdr.solid .top{border-color:var(--line);background:var(--white)}
 .hdr.solid .logo .lt{display:none}.hdr.solid .logo .dk{display:block}
@@ -676,7 +681,7 @@ html.logo-wait .hdr .logo{opacity:0}
     <nav aria-label="Main">
       <a href="#who">About</a><a href="#wwd">What We Do</a><a href="#therapy">Therapy Areas</a><a href="#derm">For Dermatologists</a><a href="#science">Science</a><a href="#brands">Our Brands</a>
     </nav>
-    <a class="btn-arrow portal" href="#derm"><span class="b">Doctor Portal</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#cap"/></svg></a>
+    <a class="btn-arrow portal" href="#derm"><span class="b">Doctor Portal</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mob"><span></span><span></span><span></span></button>
   </div></div>
   <div class="mob" id="mob" hidden><div class="wrap">
@@ -699,7 +704,7 @@ html.logo-wait .hdr .logo{opacity:0}
     <div class="m1"><h1>An Unconventional <span class="r">Pharma Company.</span></h1></div>
     <div class="m2"><p class="sub">Delivering value beyond expectations in every direction.<span style="display:block;margin-top:10px;opacity:.72">Focusing on dermatology and cosmetology ecosystems.</span></p></div>
     <div class="m3"><div class="acts">
-      <a class="btn-arrow" href="#who"><span class="b">Know UBIK</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#cap"/></svg></a>
+      <a class="btn-arrow" href="#who"><span class="b">Know UBIK</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
       <button class="play" type="button" data-film><span class="ring"><svg class="mk" viewBox="94.25 558.167 184.583 185.833" aria-hidden="true"><use href="#compass"/></svg><svg class="tri" viewBox="0 0 16 18" aria-hidden="true"><path d="M0 0l16 9-16 9z"/></svg></span>Watch the Film</button>
     </div></div>
   </div>
@@ -770,14 +775,14 @@ html.logo-wait .hdr .logo{opacity:0}
         <li><button type="button" data-i="4" aria-pressed="false"><span class="n">05</span><span class="t">Dermapreneur<small>Guidance for doctors building their practice into a business.</small></span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></button></li>
       </ul>
       <div class="acts dx-acts">
-        <a class="btn-arrow k" href="#derm"><span class="b">Join the Doctor Portal</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#cap"/></svg></a>
+        <a class="btn-arrow k" href="#derm"><span class="b">Join the Doctor Portal</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
         <a class="btn-brk" href="#wwd"><svg class="l" viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg>Practice Solutions<svg class="r" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
       </div>
     </div>
     <div class="guide">
       <div class="cover"><svg viewBox="94.25 558.167 184.583 185.833" aria-hidden="true"><use href="#compass"/></svg></div>
       <div><p class="eyebrow" style="color:#a3a3a3">Featured clinical resource · for healthcare professionals</p><h3>The Acne Treatment Pathway: A Practical Guide</h3><p class="s">Free for registered dermatologists in the Doctor Portal.</p></div>
-      <a class="btn-arrow w" href="#derm"><span class="b">Get the Guide</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#cap"/></svg></a>
+      <a class="btn-arrow w" href="#derm"><span class="b">Get the Guide</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
     </div>
   </div>
 </section>
@@ -886,7 +891,7 @@ html.logo-wait .hdr .logo{opacity:0}
       <div class="m-text">
         <p>A responsibility towards life starts with the people who carry it. At UBIK, our sales, science, quality and marketing teams work closely with the dermatologists they serve.</p>
         <p>We partner with distributors abroad and with clinics building their own skincare label through BrandYou. Investors can find reports and disclosures in one place.</p>
-        <a class="btn-arrow k" href="#work"><span class="b">Explore Careers</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#cap"/></svg></a>
+        <a class="btn-arrow k" href="#work"><span class="b">Explore Careers</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
         <span class="fraud">Beware of fake job offers. UBIK never charges a fee to apply.</span>
       </div>
     </div>
