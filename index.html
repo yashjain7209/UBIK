@@ -461,32 +461,21 @@ dialog.vid .x{position:absolute;right:10px;top:10px;z-index:2;width:44px;height:
   .two .ph img{transform:none}
 }
 
-/* Preloader: compass dial finds north, brand mark assembles, then lifts away */
+/* Preloader: dial draws in, four brand chevrons converge, the mark turns to north, then the curtain lifts */
 html.is-loading,html.is-loading body{overflow:hidden}
-#pre{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.76,0,.24,1)}
-#pre.out{clip-path:inset(0 0 100% 0)}
-#pre .dialwrap{position:relative;width:min(74vmin,540px);aspect-ratio:1}
+#pre{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;clip-path:inset(0 0 0 0)}
+#pre .dialwrap{position:relative;width:min(78vmin,560px);aspect-ratio:1}
 #pre svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-#pre .dial{transform-origin:50% 50%;transition:opacity .6s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
-#pre .dial line{stroke:#b9b9b9;stroke-width:.8}
-#pre .dial line.lg{stroke:#a3a3a3;stroke-width:1.1}
-#pre .dial circle{fill:none;stroke:#bdbdbd;stroke-width:1.2}
-#pre .dial text{fill:#a9a9a9;font-family:Manrope,system-ui,sans-serif;font-size:15px;font-weight:600;text-anchor:middle;dominant-baseline:central}
-#pre .dial text.c{font-size:44px;font-weight:800;fill:#9a9a9a}
-#pre .dial text.ic{font-size:30px;font-weight:800;fill:#a3a3a3}
-#pre .ring{opacity:0;animation:preRing 1.1s cubic-bezier(.2,.7,.2,1) forwards}
-#pre .ring.r2{animation-delay:.12s}#pre .ring.r3{animation-delay:.24s}
-@keyframes preRing{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
-#pre .ring{transform-origin:0 0}
-#pre .mark{transition:transform 1s cubic-bezier(.76,0,.24,1),opacity .5s ease}
-#pre .mark path{fill:#ed1651;opacity:0;transform-box:fill-box;transform-origin:center;animation:preBlade .9s cubic-bezier(.2,.7,.2,1) forwards}
-@keyframes preBlade{from{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.6)}to{opacity:1;transform:none}}
-#pre .count{position:absolute;left:50%;bottom:clamp(24px,6vh,56px);transform:translateX(-50%);font:600 13px/1 Manrope,system-ui,sans-serif;letter-spacing:.24em;color:#8a8a8a;font-variant-numeric:tabular-nums;transition:opacity .4s ease}
-#pre .count b{color:#1d1d1d;font-weight:700}
-#pre.done .dial{opacity:0;transform:scale(1.18) rotate(-30deg)}
-#pre.done .count{opacity:0}
-#pre.done .mark{transform:rotate(45deg) scale(.62)}
-@media (prefers-reduced-motion:reduce){#pre .ring,#pre .mark path{animation:none;opacity:1}}
+#pre .dial line{stroke:#c9c9c9;stroke-width:.7}
+#pre .dial line.lg{stroke:#b3b3b3;stroke-width:1}
+#pre .dial circle{fill:none;stroke:#d2d2d2;stroke-width:1}
+#pre .dial text{fill:#bdbdbd;font-family:Manrope,system-ui,sans-serif;font-size:14px;font-weight:600;text-anchor:middle;dominant-baseline:central}
+#pre .dial text.c{font-size:40px;font-weight:800;fill:#b0b0b0}
+#pre .dial text.ic{font-size:26px;font-weight:800;fill:#c2c2c2}
+#pre .dial,#pre .mark,#pre .chev{opacity:0}
+#pre .mark path{fill:#ed1651}
+#pre .bar{position:absolute;left:50%;bottom:clamp(28px,7vh,64px);width:min(160px,40vw);height:1px;margin-left:calc(min(160px,40vw) / -2);background:#ececec;overflow:hidden}
+#pre .bar i{position:absolute;inset:0;background:#ed1651;transform:scaleX(0);transform-origin:0 50%}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -512,65 +501,115 @@ html.is-loading,html.is-loading body{overflow:hidden}
 <div id="pre" role="status" aria-label="Loading UBIK Solutions">
   <div class="dialwrap">
     <svg viewBox="-300 -300 600 600" aria-hidden="true">
-      <g class="dial" id="preDial"></g>
-      <g class="mark" id="preMark" style="transform-origin:0 0"><g transform="scale(1.32) translate(-186.54 -651.08)"><path d="M120.399 640.065L144.922 612.329L137.282 612.329C130.175 612.329 123.413 615.394 118.728 620.739L94.487 648.395L101.915 648.395C108.985 648.395 115.716 645.362 120.399 640.065Z" style="--dx:-30px;--dy:0px;animation-delay:1.18s"/><path d="M101.919 649.598L94.298 649.598L119.914 680.812C124.601 686.522 131.599 689.832 138.987 689.832L146.583 689.832L120.999 658.628C116.312 652.912 109.31 649.598 101.919 649.598Z" style="--dx:-30px;--dy:0px;animation-delay:1.09s"/><path d="M175.845 584.305L148.109 608.828L148.109 601.188C148.109 594.081 151.174 587.319 156.519 582.634L184.175 558.393L184.175 565.821C184.175 572.891 181.142 579.622 175.845 584.305Z" style="--dx:0px;--dy:-30px;animation-delay:0.55s"/><path d="M185.378 565.825L185.378 558.204L216.592 583.82C222.302 588.507 225.612 595.505 225.612 602.893L225.612 610.489L194.408 584.905C188.692 580.218 185.378 573.216 185.378 565.825Z" style="--dx:0px;--dy:-30px;animation-delay:0.64s"/><path d="M175.845 717.927L148.109 693.404L148.109 701.044C148.109 708.151 151.174 714.913 156.519 719.598L184.175 743.839L184.175 736.411C184.175 729.341 181.142 722.609 175.845 717.927Z" style="--dx:0px;--dy:30px;animation-delay:1.00s"/><path d="M185.378 736.407L185.378 744.028L216.592 718.412C222.302 713.725 225.612 706.727 225.612 699.339L225.612 691.743L194.408 717.327C188.692 722.014 185.378 729.016 185.378 736.407Z" style="--dx:0px;--dy:30px;animation-delay:0.91s"/><path d="M252.747 640.065L228.224 612.329L235.864 612.329C242.971 612.329 249.733 615.394 254.418 620.739L278.659 648.395L271.231 648.395C264.161 648.395 257.43 645.362 252.747 640.065Z" style="--dx:30px;--dy:0px;animation-delay:0.73s"/><path d="M271.227 649.598L278.848 649.598L253.232 680.812C248.545 686.522 241.547 689.832 234.159 689.832L226.563 689.832L252.147 658.628C256.834 652.912 263.836 649.598 271.227 649.598Z" style="--dx:30px;--dy:0px;animation-delay:0.82s"/></g></g>
+      <defs><mask id="preSweep" maskUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600"><circle id="preSweepArc" r="150" fill="none" stroke="#fff" stroke-width="300" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" transform="rotate(-90)"/></mask></defs>
+      <g class="dial" id="preDial"><g id="preDialInner" mask="url(#preSweep)"></g></g>
+      <g class="mark" id="preMark"><g transform="scale(1.32) translate(-186.54 -651.08)">
+        <g class="chev" data-dx="0" data-dy="-1"><path d="M175.845 584.305L148.109 608.828L148.109 601.188C148.109 594.081 151.174 587.319 156.519 582.634L184.175 558.393L184.175 565.821C184.175 572.891 181.142 579.622 175.845 584.305Z"/><path d="M185.378 565.825L185.378 558.204L216.592 583.82C222.302 588.507 225.612 595.505 225.612 602.893L225.612 610.489L194.408 584.905C188.692 580.218 185.378 573.216 185.378 565.825Z"/></g>
+        <g class="chev" data-dx="1" data-dy="0"><path d="M252.747 640.065L228.224 612.329L235.864 612.329C242.971 612.329 249.733 615.394 254.418 620.739L278.659 648.395L271.231 648.395C264.161 648.395 257.43 645.362 252.747 640.065Z"/><path d="M271.227 649.598L278.848 649.598L253.232 680.812C248.545 686.522 241.547 689.832 234.159 689.832L226.563 689.832L252.147 658.628C256.834 652.912 263.836 649.598 271.227 649.598Z"/></g>
+        <g class="chev" data-dx="0" data-dy="1"><path d="M175.845 717.927L148.109 693.404L148.109 701.044C148.109 708.151 151.174 714.913 156.519 719.598L184.175 743.839L184.175 736.411C184.175 729.341 181.142 722.609 175.845 717.927Z"/><path d="M185.378 736.407L185.378 744.028L216.592 718.412C222.302 713.725 225.612 706.727 225.612 699.339L225.612 691.743L194.408 717.327C188.692 722.014 185.378 729.016 185.378 736.407Z"/></g>
+        <g class="chev" data-dx="-1" data-dy="0"><path d="M120.399 640.065L144.922 612.329L137.282 612.329C130.175 612.329 123.413 615.394 118.728 620.739L94.487 648.395L101.915 648.395C108.985 648.395 115.716 645.362 120.399 640.065Z"/><path d="M101.919 649.598L94.298 649.598L119.914 680.812C124.601 686.522 131.599 689.832 138.987 689.832L146.583 689.832L120.999 658.628C116.312 652.912 109.31 649.598 101.919 649.598Z"/></g>
+      </g></g>
     </svg>
   </div>
-  <div class="count"><b id="preNum">000</b> &nbsp;LOADING</div>
+  <div class="bar"><i id="preBar"></i></div>
 </div>
 <script>
 (function(){
   var root = document.documentElement; root.classList.add('is-loading');
-  var NS = 'http://www.w3.org/2000/svg', dial = document.getElementById('preDial');
-  function el(t, a, p){ var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); (p||dial).appendChild(e); return e; }
-  var g1 = el('g', {'class':'ring'}), g2 = el('g', {'class':'ring r2'}), g3 = el('g', {'class':'ring r3'});
-  el('circle', {r:284}, g1); el('circle', {r:262}, g1);
-  for (var a = 0; a < 360; a++) {
-    var lg = a % 5 === 0, r1 = 262, r2 = lg ? 276 : 270, rad = (a - 90) * Math.PI / 180;
-    el('line', {x1:(r1*Math.cos(rad)).toFixed(1), y1:(r1*Math.sin(rad)).toFixed(1), x2:(r2*Math.cos(rad)).toFixed(1), y2:(r2*Math.sin(rad)).toFixed(1), 'class': lg ? 'lg' : ''}, g1);
+  var NS = 'http://www.w3.org/2000/svg', inner = document.getElementById('preDialInner');
+  function el(t, a, p){ var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); (p||inner).appendChild(e); return e; }
+
+  /* Build the dial: bezel, degree ticks, bearings, intercardinals */
+  el('circle', {r:284}); el('circle', {r:262});
+  for (var a = 0; a < 360; a += 2) {
+    var lg = a % 10 === 0, r1 = 262, r2 = lg ? 276 : 270, rad = (a - 90) * Math.PI / 180;
+    el('line', {x1:(r1*Math.cos(rad)).toFixed(1), y1:(r1*Math.sin(rad)).toFixed(1), x2:(r2*Math.cos(rad)).toFixed(1), y2:(r2*Math.sin(rad)).toFixed(1), 'class': lg ? 'lg' : ''});
   }
   var card = {0:'N', 90:'E', 180:'S', 270:'W'};
   for (var b = 0; b < 360; b += 10) {
     var t = card[b] !== undefined ? card[b] : String(b % 90);
-    var tx = el('text', {y:-232, transform:'rotate(' + b + ')', 'class': card[b] !== undefined ? 'c' : ''}, g2); tx.textContent = t;
-    var rr = (b - 90) * Math.PI / 180;
-    el('line', {x1:(206*Math.cos(rr)).toFixed(1), y1:(206*Math.sin(rr)).toFixed(1), x2:(214*Math.cos(rr)).toFixed(1), y2:(214*Math.sin(rr)).toFixed(1)}, g2);
+    var tx = el('text', {y:-232, transform:'rotate(' + b + ')', 'class': card[b] !== undefined ? 'c' : ''}); tx.textContent = t;
   }
-  el('circle', {r:206}, g2);
-  [['NE',45],['SE',135],['SW',225],['NW',315]].forEach(function(d){ var x = el('text', {y:-176, transform:'rotate(' + d[1] + ')', 'class':'ic'}, g3); x.textContent = d[0]; });
-  el('circle', {r:150}, g3);
+  el('circle', {r:206});
+  [['NE',45],['SE',135],['SW',225],['NW',315]].forEach(function(d){ var x = el('text', {y:-176, transform:'rotate(' + d[1] + ')', 'class':'ic'}); x.textContent = d[0]; });
+  el('circle', {r:150});
 
-  /* The dial swings like a needle settling on north while the page loads */
-  var pre = document.getElementById('pre'), num = document.getElementById('preNum');
+  var pre = document.getElementById('pre'), dial = document.getElementById('preDial'), arc = document.getElementById('preSweepArc');
+  var mark = document.getElementById('preMark'), chevs = [].slice.call(pre.querySelectorAll('.chev')), bar = document.getElementById('preBar');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var t0 = performance.now(), MIN = reduce ? 400 : 2400, loaded = false, shown = 0, finished = false;
+  var loaded = document.readyState === 'complete';
   window.addEventListener('load', function(){ loaded = true; });
-  if (document.readyState === 'complete') loaded = true;
   setTimeout(function(){ loaded = true; }, 9000);
-  function tick(now){
+
+  /* Easing */
+  function eo(x){ return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x); }               /* expo out */
+  function q(x){ return x < .5 ? 8*x*x*x*x : 1 - Math.pow(-2*x + 2, 4) / 2; }   /* quart in-out */
+  function io(x){ return x < .5 ? 16*Math.pow(x,5) : 1 - Math.pow(-2*x + 2, 5) / 2; } /* quint in-out */
+  function cl(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function seg(t, s, d){ return cl((t - s) / d); }
+
+  /* Timeline (seconds) */
+  var SWEEP = [0.15, 1.6], CHEV = 1.05, CHEV_D = 1.0, CHEV_GAP = 0.11, SPIN = 1.95, SPIN_D = 1.7, HOLD = 0.25, OUT_D = 1.1;
+  var spinEnd = SPIN + SPIN_D, extra = 0, outStart = null, t0 = performance.now(), done = false, progress = 0;
+
+  function frame(now){
     var t = (now - t0) / 1000;
-    var ang = reduce ? 0 : 140 * Math.exp(-t * 1.25) * Math.cos(t * 3.4);
-    dial.style.transform = 'rotate(' + ang.toFixed(2) + 'deg)';
-    var target = loaded ? 100 : Math.min(92, 100 * (1 - Math.exp(-t * 0.9)));
-    var cap = Math.min(100, (now - t0) / MIN * 100);
-    shown += (Math.min(target, cap) - shown) * 0.12;
-    if (target === 100 && cap >= 100 && shown > 99.4) shown = 100;
-    num.textContent = String(Math.round(shown)).padStart(3, '0');
-    if (shown === 100 && !finished) { finished = true; finish(); return; }
-    requestAnimationFrame(tick);
+
+    /* 1. Dial: fades up and sweeps in clockwise from north while turning gently into place */
+    var s = eo(seg(t, SWEEP[0], SWEEP[1]));
+    arc.setAttribute('stroke-dashoffset', (1 - s).toFixed(4));
+    dial.style.opacity = Math.min(1, seg(t, SWEEP[0], .5));
+    var dialRot = -24 * (1 - s);
+
+    /* 2. Chevrons: N, E, S, W converge one after another */
+    chevs.forEach(function(c, i){
+      var p = eo(seg(t, CHEV + i * CHEV_GAP, CHEV_D));
+      var d = 46 * (1 - p);
+      c.style.opacity = Math.min(1, seg(t, CHEV + i * CHEV_GAP, .45));
+      c.setAttribute('transform', 'translate(' + (c.dataset.dx * d).toFixed(2) + ' ' + (c.dataset.dy * d).toFixed(2) + ')');
+    });
+    mark.style.opacity = 1;
+
+    /* 3. The mark turns a full revolution to find north; keeps turning while the page is still loading */
+    if (t > spinEnd && !loaded && outStart === null) { extra += 1; spinEnd += SPIN_D * 1.15; }
+    var turns = 0, sp;
+    if (t < SPIN) sp = 0;
+    else if (t < SPIN + SPIN_D) sp = io(seg(t, SPIN, SPIN_D));
+    else { var k = Math.floor((t - SPIN - SPIN_D) / (SPIN_D * 1.15)); sp = 1 + Math.min(k, extra - 1) + (k < extra ? q(seg(t - SPIN - SPIN_D - k * SPIN_D * 1.15, 0, SPIN_D * 1.15)) : 1); if (extra === 0) sp = 1; }
+    var markRot = 360 * sp;
+    var markScale = 1;
+    dialRot += -10 * io(seg(t, SPIN, SPIN_D + 0.4));
+
+    /* Progress hairline */
+    var target = loaded ? 1 : Math.min(.9, 1 - Math.exp(-t * .6));
+    progress += (Math.min(target, t / (SPIN + SPIN_D)) - progress) * .08;
+    bar.style.transform = 'scaleX(' + progress.toFixed(4) + ')';
+
+    /* 4. Exit: dial dissolves, mark lifts, curtain rises */
+    if (outStart === null && loaded && t >= spinEnd + HOLD) {
+      outStart = t; window.__preDone = true; root.classList.remove('is-loading');
+      if (typeof window.__onPreDone === 'function') setTimeout(window.__onPreDone, 350);
+    }
+    if (outStart !== null) {
+      var o = seg(t, outStart, OUT_D), oe = q(o);
+      dial.style.opacity = (1 - eo(seg(t, outStart, .6))).toFixed(3);
+      dialRot += 14 * eo(o);
+      markScale = 1 - .18 * oe;
+      mark.style.opacity = (1 - q(seg(t, outStart + .15, .7))).toFixed(3);
+      pre.style.clipPath = 'inset(0 0 ' + (100 * q(seg(t, outStart + .2, OUT_D - .2))).toFixed(2) + '% 0)';
+      document.querySelector('#pre .bar').style.opacity = 1 - o * 3;
+      if (o >= 1) { pre.remove(); return; }
+    }
+    dial.setAttribute('transform', 'rotate(' + dialRot.toFixed(3) + ')');
+    mark.setAttribute('transform', 'rotate(' + markRot.toFixed(3) + ') scale(' + markScale.toFixed(4) + ')');
+    requestAnimationFrame(frame);
   }
-  requestAnimationFrame(tick);
-  function finish(){
-    dial.style.transform = '';
-    pre.classList.add('done');
-    setTimeout(function(){
-      pre.classList.add('out');
-      root.classList.remove('is-loading');
-      window.__preDone = true;
-      if (typeof window.__onPreDone === 'function') window.__onPreDone();
-    }, reduce ? 50 : 750);
-    setTimeout(function(){ pre.remove(); }, reduce ? 200 : 1900);
-  }
+
+  if (reduce) {
+    arc.setAttribute('stroke-dashoffset', 0); dial.style.opacity = 1; mark.style.opacity = 1;
+    chevs.forEach(function(c){ c.style.opacity = 1; });
+    setTimeout(function(){ window.__preDone = true; root.classList.remove('is-loading'); if (typeof window.__onPreDone === 'function') window.__onPreDone(); pre.remove(); }, 600);
+  } else requestAnimationFrame(frame);
 })();
 </script>
 <header class="hdr" id="hdr">
