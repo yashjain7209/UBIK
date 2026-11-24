@@ -479,8 +479,11 @@ html.logo-wait .hdr .logo{opacity:0}
 #pre .dial text.ic{font-size:26px;font-weight:800;fill:#c2c2c2}
 #pre .dial,#pre .mark,#pre .chev{opacity:0}
 #pre .mark path{fill:#ed1651}
-#pre .bar{position:absolute;left:50%;bottom:clamp(28px,7vh,64px);width:min(160px,40vw);height:1px;margin-left:calc(min(160px,40vw) / -2);background:#ececec;overflow:hidden}
-#pre .bar i{position:absolute;inset:0;background:#ed1651;transform:scaleX(0);transform-origin:0 50%}
+#pre .bp *{fill:none;stroke:#dedede;stroke-width:1}
+#pre .bp .soft{stroke:#ececec}
+#pre .bp .dash{stroke-dasharray:2 7}
+#pre .bp .dot{fill:#ed1651;stroke:none}
+#pre .bp text{fill:#b4b4b4;stroke:none;font:500 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -504,6 +507,7 @@ html.logo-wait .hdr .logo{opacity:0}
 </svg>
 
 <div id="pre" role="status" aria-label="Loading UBIK Solutions">
+  <svg class="bp" id="preBp" aria-hidden="true"></svg>
   <div class="dialwrap">
     <svg viewBox="-300 -300 600 600" aria-hidden="true">
       <defs><mask id="preSweep" maskUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600"><circle id="preSweepArc" r="150" fill="none" stroke="#fff" stroke-width="300" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" transform="rotate(-90)"/></mask></defs>
@@ -516,7 +520,6 @@ html.logo-wait .hdr .logo{opacity:0}
       </g></g>
     </svg>
   </div>
-  <div class="bar"><i id="preBar"></i></div>
 </div>
 <script>
 (function(){
@@ -540,7 +543,72 @@ html.logo-wait .hdr .logo{opacity:0}
   el('circle', {r:150});
 
   var pre = document.getElementById('pre'), dial = document.getElementById('preDial'), arc = document.getElementById('preSweepArc');
-  var mark = document.getElementById('preMark'), chevs = [].slice.call(pre.querySelectorAll('.chev')), bar = document.getElementById('preBar');
+  var mark = document.getElementById('preMark'), chevs = [].slice.call(pre.querySelectorAll('.chev'));
+  /* Blueprint layer: concentric rings, guide lines, off-centre circle sets and coordinates, drawn in like a plan */
+  var bp = document.getElementById('preBp'), bpItems = [], bpSpin = [];
+  (function(){
+    var W = window.innerWidth, H = window.innerHeight, cx = W / 2, cy = H / 2;
+    var R = document.querySelector('#pre .dialwrap').offsetWidth / 2 * (284 / 300);
+    bp.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    function mk(t, a, cls){ var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); if (cls) e.setAttribute('class', cls); bp.appendChild(e); return e; }
+    function draw(e, s, d){ e.setAttribute('pathLength', 1); e.setAttribute('stroke-dasharray', '1 1'); e.setAttribute('stroke-dashoffset', 1); bpItems.push({el: e, s: s, d: d}); return e; }
+    function fade(e, s, d){ e.style.opacity = 0; bpItems.push({el: e, s: s, d: d, f: 1}); return e; }
+    function ring(x, y, r, s, d, cls){ return draw(mk('circle', {cx: x, cy: y, r: r.toFixed(1), transform: 'rotate(-90 ' + x + ' ' + y + ')'}, cls), s, d); }
+    function arc(x, y, r, a0, a1, s, d, cls){
+      var p0 = [x + r * Math.cos(a0), y + r * Math.sin(a0)], p1 = [x + r * Math.cos(a1), y + r * Math.sin(a1)];
+      return draw(mk('path', {d: 'M' + p0[0].toFixed(1) + ' ' + p0[1].toFixed(1) + 'A' + r + ' ' + r + ' 0 ' + (a1 - a0 > Math.PI ? 1 : 0) + ' 1 ' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1)}, cls), s, d);
+    }
+    function line(x1, y1, x2, y2, s, d, cls){ return draw(mk('line', {x1: x1, y1: y1, x2: x2, y2: y2}, cls), s, d); }
+    function label(x, y, txt, s, anchor){ var e = mk('text', {x: x, y: y, 'text-anchor': anchor || 'start'}); e.textContent = txt; return fade(e, s, .6); }
+    function ticks(x, y, r, n, len, s, d){
+      var g = mk('g', {}, 'soft');
+      for (var i = 0; i < n; i++) { var a = i / n * Math.PI * 2, l = i % 5 === 0 ? len * 1.8 : len;
+        var e = document.createElementNS(NS, 'line'); e.setAttribute('x1', (x + r * Math.cos(a)).toFixed(1)); e.setAttribute('y1', (y + r * Math.sin(a)).toFixed(1)); e.setAttribute('x2', (x + (r + l) * Math.cos(a)).toFixed(1)); e.setAttribute('y2', (y + (r + l) * Math.sin(a)).toFixed(1)); g.appendChild(e); }
+      return fade(g, s, d);
+    }
+
+    /* Guides through the centre, drawn outward */
+    line(cx, cy, 0, cy, 0, 1.3, 'soft'); line(cx, cy, W, cy, 0, 1.3, 'soft');
+    line(cx, cy, cx, 0, .08, 1.2, 'soft'); line(cx, cy, cx, H, .08, 1.2, 'soft');
+
+    /* Concentric rings around the dial */
+    ring(cx, cy, R * 1.14, .2, 1.4);
+    var dsh = fade(mk('circle', {cx: cx, cy: cy, r: (R * 1.24).toFixed(1)}, 'dash'), .5, 1); bpSpin.push({el: dsh, v: 4, cx: cx, cy: cy});
+    ring(cx, cy, R * 1.5, .35, 1.6, 'soft');
+    ticks(cx, cy, R * 1.5, 120, 5, .9, 1.1);
+    ring(cx, cy, R * 2.05, .5, 1.8, 'soft');
+    arc(cx, cy, R * 1.78, -2.6, -1.25, .7, 1.2);
+    arc(cx, cy, R * 1.78, .55, 1.6, .8, 1.2);
+    fade(mk('circle', {cx: cx, cy: (cy - R * 1.14).toFixed(1), r: 2.5}, 'dot'), 1.2, .5);
+
+    /* Leader line with a reading, like a plan annotation */
+    var sd = 1;
+    if (W >= 600) { /* only where there is room beside the dial */
+    var la = sd > 0 ? -0.72 : -Math.PI + 0.72, lx = cx + R * 1.14 * Math.cos(la), ly = cy + R * 1.14 * Math.sin(la), ex = lx + sd * R * .32, ey = ly - R * .26;
+    line(lx.toFixed(1), ly.toFixed(1), ex.toFixed(1), ey.toFixed(1), 1.1, .5);
+    line(ex.toFixed(1), ey.toFixed(1), (ex + sd * 92).toFixed(1), ey.toFixed(1), 1.4, .4);
+    label(ex + sd * 4, ey - 7, 'N 00°  R 284', 1.5, sd > 0 ? 'start' : 'end');
+    }
+
+    /* Off-centre circle sets, bleeding off the edges */
+    var ax = W * .06, ay = H * .1, s1 = Math.min(W, H) * .2;
+    ring(ax, ay, s1 * .45, .3, 1.3); ring(ax, ay, s1 * .7, .45, 1.4, 'soft'); ring(ax, ay, s1 * 1.05, .6, 1.5, 'soft');
+    fade(mk('circle', {cx: ax, cy: ay, r: (s1 * .86).toFixed(1)}, 'dash'), .9, 1);
+    line(ax - s1 * 1.2, ay, ax + s1 * 1.2, ay, .5, 1, 'soft'); line(ax, ay - s1 * 1.2, ax, ay + s1 * 1.2, .55, 1, 'soft');
+    label(ax + s1 * .5, ay + s1 * 1.2 + 14, '22.30° N', 1.4);
+
+    var bx = W * .93, by = H * .92, s2 = Math.min(W, H) * .28;
+    ring(bx, by, s2 * .4, .4, 1.3); ring(bx, by, s2 * .75, .55, 1.4, 'soft'); ring(bx, by, s2 * 1.15, .7, 1.6, 'soft');
+    ticks(bx, by, s2 * .75, 72, 4, 1.1, 1);
+    line(bx - s2 * 1.3, by, bx + s2, by, .6, 1, 'soft');
+    label(bx - s2 * 1.25, by - 10, '70.80° E', 1.5);
+
+    /* A small square datum box, as on a drawing */
+    var qx = W * .1, qy = H * .78;
+    draw(mk('rect', {x: qx, y: qy, width: 46, height: 26}), 1.0, .7);
+    label(qx + 23, qy + 17, '2003', 1.3, 'middle');
+  })();
+
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var loaded = document.readyState === 'complete';
   window.addEventListener('load', function(){ loaded = true; });
@@ -585,10 +653,12 @@ html.logo-wait .hdr .logo{opacity:0}
     var markScale = 1;
     dialRot += -10 * io(seg(t, SPIN, SPIN_D + 0.4));
 
-    /* Progress hairline */
-    var target = loaded ? 1 : Math.min(.9, 1 - Math.exp(-t * .6));
-    progress += (Math.min(target, t / (SPIN + SPIN_D)) - progress) * .08;
-    bar.style.transform = 'scaleX(' + progress.toFixed(4) + ')';
+    /* Blueprint layer draws itself in */
+    bpItems.forEach(function(it){
+      var k = eo(seg(t, it.s, it.d));
+      if (it.f) it.el.style.opacity = k.toFixed(3); else it.el.setAttribute('stroke-dashoffset', (1 - k).toFixed(4));
+    });
+    bpSpin.forEach(function(r){ r.el.setAttribute('transform', 'rotate(' + (t * r.v).toFixed(2) + ' ' + r.cx + ' ' + r.cy + ')'); });
 
     /* 4. Exit: dial dissolves, three chevrons fade, the west chevron flies up and becomes the K of the logo */
     if (outStart === null && loaded && t >= spinEnd + HOLD) {
@@ -602,7 +672,7 @@ html.logo-wait .hdr .logo{opacity:0}
         dialRot += 14 * eo(cl(u / 1.1));
         chevs.forEach(function(c, i){ if (c !== flyer) c.style.opacity = (1 - q(cl((u - i * .06) / .55))).toFixed(3); });
         pre.style.clipPath = 'inset(0 0 ' + (100 * q(cl((u - CURTAIN[0]) / CURTAIN[1]))).toFixed(2) + '% 0)';
-        preBarWrap.style.opacity = Math.max(0, 1 - u * 3);
+        bp.style.opacity = (1 - eo(cl(u / .7))).toFixed(3);
       }
       if (fly(u)) return;
       if (pre.isConnected && u >= CURTAIN[0] + CURTAIN[1]) pre.remove();
@@ -615,7 +685,7 @@ html.logo-wait .hdr .logo{opacity:0}
   }
 
   /* The flight: the west chevron leaves the compass, travels to the header and lands exactly on the K's arms */
-  var flyer = chevs[3], preBarWrap = pre.querySelector('.bar'), CURTAIN = [.35, 1.05];
+  var flyer = chevs[3], CURTAIN = [.35, 1.05];
   var FLY0 = .15, FLY_D = 1.45, ov = null, ovChev, ovK, startR, logoWrap = null;
   var PINK = [237, 22, 81];
   var KX = 248.045, KY = 356.043, KW = 41.808, KH = 63.78; /* K arms inside the logo's viewBox */
