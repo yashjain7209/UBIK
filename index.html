@@ -79,6 +79,7 @@ section{position:relative}
 .hdr.solid{background:var(--white);color:var(--ink)}
 .hdr.solid .top{border-color:var(--line);background:var(--white)}
 .hdr.solid .logo .lt{display:none}.hdr.solid .logo .dk{display:block}
+.hdr.on-hero .logo .lt{display:none}.hdr.on-hero .logo .dk{display:block}
 .menu-btn{display:none;margin-left:auto;background:none;border:0;color:inherit;width:44px;height:44px;cursor:pointer;padding:0}
 .menu-btn span{display:block;width:24px;height:2px;background:currentColor;margin:5px auto;transition:transform .3s ease,opacity .3s ease}
 .hdr.open .menu-btn span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -116,6 +117,17 @@ section{position:relative}
 .hero .acts{margin-top:36px;display:flex;flex-wrap:wrap;gap:28px;align-items:center}
 .hero .cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;width:26px;animation:cue 2.4s ease-in-out infinite}
 .hero .cue{fill:var(--white)}
+/* Hero card: inset from the edges, stepped cut-out top-left for the logo, chamfered bottom-right (shape set in JS) */
+.hero .frame.shaped{border-radius:0}
+.hero .cue{bottom:calc(var(--hm,18px) + 20px)}
+@media (max-width:700px){.hero .copy.wrap{padding-left:28px;padding-right:28px}}
+.hero .idx{position:absolute;right:var(--hm,18px);bottom:calc(var(--hm,18px) - 4px);z-index:2;font:600 13px/1 var(--font);letter-spacing:.08em;color:var(--ink)}
+/* Row of horizontal I-shapes, after the pill row in the reference: some solid, some outlined */
+.ipills{display:flex;width:min(560px,100%);margin-bottom:30px}
+.ipills i{flex:1;height:30px;border-radius:0 15px 0 15px;background:var(--white);border:1.5px solid var(--white);margin-right:-1px}
+.ipills i.o{background:transparent;border-color:rgba(255,255,255,.75)}
+.ipills i.p{background:var(--red);border-color:var(--red)}
+@media (max-width:700px){.ipills{width:100%;margin-bottom:22px}.ipills i{height:20px;border-radius:0 10px 0 10px}.ipills i:nth-child(n+7){display:none}}
 @keyframes cue{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
 .hcp-strip{background:var(--red);color:var(--white);font-size:14px;font-weight:600}
 .hcp-strip .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;min-height:52px;flex-wrap:wrap;padding-block:10px}
@@ -786,7 +798,7 @@ html.logo-wait .hdr .logo{opacity:0}
   <div class="shade"></div>
   </div>
   <div class="copy wrap">
-    <div class="m1"><p class="eyebrow hero-eb">Dermatology &amp; Cosmetology Ecosystems</p><h1>An Unconventional <span class="r">Pharma Company.</span></h1></div>
+    <div class="m1"><div class="ipills" aria-hidden="true"><i class="o"></i><i></i><i></i><i class="o"></i><i class="p"></i><i></i><i class="o"></i><i></i></div><p class="eyebrow hero-eb">Dermatology &amp; Cosmetology Ecosystems</p><h1>An Unconventional <span class="r">Pharma Company.</span></h1></div>
     <div class="m2"><p class="sub">Delivering value beyond expectations in every direction.</p></div>
     <div class="m3"><div class="acts">
       <a class="btn-arrow" href="#who"><span class="b">Know UBIK</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
@@ -794,6 +806,7 @@ html.logo-wait .hdr .logo{opacity:0}
     </div></div>
   </div>
   <svg class="cue" viewBox="148 691 78 53" aria-hidden="true"><use href="#ch-d"/></svg>
+  <span class="idx" aria-hidden="true">01</span>
 </section>
 
 <div class="hcp-strip"><div class="wrap">
@@ -1112,6 +1125,40 @@ html.logo-wait .hdr .logo{opacity:0}
     requestAnimationFrame(step);
   }
 
+  /* 02 Hero card shape: rounded polygon with a stepped notch for the logo and a chamfered corner */
+  (function(){
+    const frame = $('#heroFrame'), hero = $('.hero'), top = $('.hdr .top'), main = $('.hdr .main'), logo = $('.hdr .logo');
+    if (!frame || !window.CSS || !CSS.supports('clip-path', 'path("M0 0")')) return;
+    function rounded(pts, r){
+      let d = '';
+      pts.forEach((p, i) => {
+        const a = pts[(i - 1 + pts.length) % pts.length], b = pts[(i + 1) % pts.length];
+        const la = Math.hypot(a[0] - p[0], a[1] - p[1]), lb = Math.hypot(b[0] - p[0], b[1] - p[1]);
+        const ra = Math.min(r, la / 2), rb = Math.min(r, lb / 2);
+        const p1 = [p[0] + (a[0] - p[0]) / la * ra, p[1] + (a[1] - p[1]) / la * ra];
+        const p2 = [p[0] + (b[0] - p[0]) / lb * rb, p[1] + (b[1] - p[1]) / lb * rb];
+        d += (i ? 'L' : 'M') + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1) + 'Q' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+      });
+      return d + 'Z';
+    }
+    function shape(){
+      const W = frame.offsetWidth, H = frame.offsetHeight, small = W < 700;
+      const m = small ? 10 : 18, r = small ? 16 : 26, c = small ? 34 : 64;
+      const tH = top.offsetHeight, mH = main.offsetHeight, lr = logo.getBoundingClientRect();
+      const T1 = tH + (small ? 6 : 10), T2 = tH + mH + (small ? 2 : 6);
+      const nx = Math.round(lr.right + (small ? 18 : 34)), run = Math.round((T2 - T1) * .85);
+      const pts = [[m, T2], [nx, T2], [nx + run, T1], [W - m, T1], [W - m, H - m - c], [W - m - c, H - m], [m, H - m]];
+      frame.style.clipPath = 'path("' + rounded(pts, r) + '")';
+      frame.classList.add('shaped');
+      hero.style.setProperty('--hm', m + 'px');
+    }
+    shape(); window.addEventListener('resize', shape);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(shape);
+    /* logo turns dark while it sits in the white cut-out */
+    const onHero = () => hdr.classList.toggle('on-hero', window.scrollY <= 60);
+    onHero(); window.addEventListener('scroll', onHero, {passive: true});
+  })();
+
   if (reduce || !window.gsap || !window.ScrollTrigger) {
     $$('#statement .w').forEach(w => w.classList.add('lit'));
     return;
@@ -1144,7 +1191,8 @@ html.logo-wait .hdr .logo{opacity:0}
   }
 
   /* 02 Hero: text rises in */
-  const heroIn = () => gsap.from('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {y: 40, opacity: 0, duration: 1.3, ease: 'expo.out', stagger: .12, delay: .25});
+  const pillsIn = () => gsap.from('.ipills i', {scaleX: 0, transformOrigin: '0 50%', opacity: 0, duration: .9, ease: 'expo.out', stagger: .06, delay: .15});
+  const heroIn = () => { pillsIn(); gsap.from('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {y: 40, opacity: 0, duration: 1.3, ease: 'expo.out', stagger: .12, delay: .25}); };
   if (window.__preDone || !document.getElementById('pre')) heroIn();
   else { gsap.set('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {opacity: 0}); window.__onPreDone = () => { gsap.set('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {opacity: 1}); heroIn(); if (lenis) lenis.start(); ScrollTrigger.refresh(); }; }
   /* Hero scroll: no pin. The page moves immediately; the film drifts slower than the page and the copy eases away,
