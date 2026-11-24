@@ -37,12 +37,9 @@ section{position:relative}
 .band{padding-block:clamp(72px,10vw,140px)}
 
 /* Buttons cut from the compass */
-/* Buttons shaped like the I of the UBIK logo, laid on its side: two opposite corners fully rounded, two sharp.
-   On hover the rounded corners swap, as if the I flips, and the chevron nudges forward. */
-.btn-arrow,.btn-brk{--h:56px;--ease:cubic-bezier(.65,0,.35,1);display:inline-flex;align-items:center;justify-content:center;gap:12px;height:var(--h);padding:0 34px;border-radius:0 var(--h) 0 var(--h);text-decoration:none;font-family:inherit;cursor:pointer;white-space:nowrap;transition:border-radius .55s var(--ease),background-color .35s ease,color .35s ease,border-color .35s ease}
-.btn-arrow:hover,.btn-brk:hover,.btn-arrow:focus-visible,.btn-brk:focus-visible{border-radius:var(--h) 0 var(--h) 0}
-.btn-arrow svg,.btn-brk svg{height:11px;width:auto;flex:none;fill:currentColor;transition:transform .45s var(--ease)}
-.btn-arrow:hover svg,.btn-brk:hover svg{transform:translateX(4px)}
+/* Buttons shaped like the I of the UBIK logo, laid on its side: two opposite corners rounded, two sharp */
+.btn-arrow,.btn-brk{--h:56px;--ease:cubic-bezier(.65,0,.35,1);display:inline-flex;align-items:center;justify-content:center;gap:12px;height:var(--h);padding:0 34px;border-radius:0 calc(var(--h) * .5) 0 calc(var(--h) * .5);text-decoration:none;font-family:inherit;cursor:pointer;white-space:nowrap;transition:background-color .3s ease,color .3s ease}
+.btn-arrow svg,.btn-brk svg{height:11px;width:auto;flex:none;fill:currentColor}
 .btn-arrow{font-weight:700;font-size:15px;color:var(--white);background:var(--red);border:0}
 .btn-arrow .b{display:contents}
 .btn-arrow:hover{background:#d4114a}
