@@ -63,10 +63,10 @@ section{position:relative}
 
 /* Header */
 .hdr{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;color:var(--white);transition:background .35s ease,color .35s ease,transform .35s ease}
-.hdr .top{background:var(--ink);color:#d9d9d9;border-bottom:1px solid var(--ink);font-size:12.5px;font-weight:600}
+.hdr .top{background:var(--white);color:#3f3f3f;border-bottom:1px solid var(--line);font-size:12.5px;font-weight:600}
 .hdr .top .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;gap:16px}
 .hdr .top nav{display:flex;gap:24px}
-.hdr .top a{text-decoration:none;color:#d9d9d9;transition:color .25s ease}.hdr .top a:hover{color:var(--red)}
+.hdr .top a{text-decoration:none;color:#3f3f3f;transition:color .25s ease}.hdr .top a:hover{color:var(--red)}
 .hdr .main .wrap{display:flex;align-items:center;gap:40px;height:84px}
 .hdr .logo{display:block;width:100px;flex:none}
 .hdr .logo img{width:100px;height:auto}
@@ -77,7 +77,9 @@ section{position:relative}
 .hdr .main nav a:hover::after{transform:scaleX(1)}
 .hdr .portal{--h:44px;padding:0 24px;font-size:14px}
 .hdr.solid{background:var(--white);color:var(--ink)}
-.hdr.solid .top{border-color:var(--ink);background:var(--ink)}
+.hdr.solid .top{border-color:var(--line);background:var(--white)}
+.hdr:not(.solid):not(.open) .portal{background:var(--white);color:var(--ink)}
+.hdr:not(.solid):not(.open) .portal:hover{background:#f1f1f1}
 .hdr.solid .logo .lt{display:none}.hdr.solid .logo .dk{display:block}
 .menu-btn{display:none;margin-left:auto;background:none;border:0;color:inherit;width:44px;height:44px;cursor:pointer;padding:0}
 .menu-btn span{display:block;width:24px;height:2px;background:currentColor;margin:5px auto;transition:transform .3s ease,opacity .3s ease}
@@ -110,9 +112,14 @@ section{position:relative}
 .hero .mark path{fill:rgba(255,255,255,.16)}
 .hero .mark path.hot{fill:rgba(237,22,81,.85)}
 .hero .copy{position:relative;z-index:2;padding-block:168px 24px;width:100%}
-.hero h1{font-size:clamp(32px,min(4.4vw,7svh),64px);line-height:1.05;letter-spacing:-0.03em;max-width:16ch}
+.hero.center .copy{text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero.center h1{margin-inline:auto;max-width:16ch}
+.hero.center .sub{margin-inline:auto}
+.hero.center .acts{justify-content:center}
+.hero.center .shade{background:linear-gradient(180deg,rgba(14,14,14,.42) 0%,rgba(14,14,14,.4) 45%,rgba(14,14,14,.55) 100%)}
+.hero h1{font-size:clamp(40px,min(6.4vw,10.5svh),104px);line-height:1.02;letter-spacing:-0.035em;max-width:14ch}
 .hero h1 .r{color:var(--white);display:block}
-.hero .sub{margin-top:22px;font-size:clamp(17px,1.5vw,21px);line-height:1.45;max-width:40ch;color:#e6e6e6}
+.hero .sub{margin-top:24px;font-size:clamp(18px,1.8vw,25px);line-height:1.4;max-width:38ch;color:#e6e6e6}
 .hero .hero-eb{margin-bottom:22px;color:#e6e6e6}
 .hero .acts{margin-top:36px;display:flex;flex-wrap:wrap;gap:28px;align-items:center}
 .hero .cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;width:26px;animation:cue 2.4s ease-in-out infinite}
@@ -454,7 +461,7 @@ dialog.vid .x{position:absolute;right:10px;top:10px;z-index:2;width:44px;height:
   .facts{grid-template-columns:1fr;gap:28px}
   .guide{grid-template-columns:1fr}.guide .cover{width:110px}
   .hero .copy{padding-block:140px 24px}
-  .hero .sub{margin-top:20px;font-size:17px}
+  .hero .sub{margin-top:20px;font-size:18px}
   .hero .acts{margin-top:32px;gap:20px}
   .hcp-strip .wrap{font-size:13px}
   .film .media{height:70vh}
@@ -790,7 +797,7 @@ html.logo-wait .hdr .logo{opacity:0}
     <div class="m1"><p class="eyebrow hero-eb">Dermatology &amp; Cosmetology Ecosystems</p><h1>An Unconventional <span class="r">Pharma Company.</span></h1></div>
     <div class="m2"><p class="sub">Delivering value beyond expectations in every direction.</p></div>
     <div class="m3"><div class="acts">
-      <a class="btn-arrow" href="#who"><span class="b">Know UBIK</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+      <a class="btn-arrow w" href="#who"><span class="b">Know UBIK</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
       <button class="play" type="button" data-film><span class="ring"><svg class="mk" viewBox="94.25 558.167 184.583 185.833" aria-hidden="true"><use href="#compass"/></svg><svg class="tri" viewBox="0 0 16 18" aria-hidden="true"><path d="M0 0l16 9-16 9z"/></svg></span>Watch the Film</button>
     </div></div>
   </div>

@@ -1,0 +1,1263 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>UBIK Homepage Centered Hero</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: full-bleed bands on a 1280px grid; white-led brand (70/20/10 white, black, neon red), square corners, no shadows or gradients. Single deliberate look. */
+:root{
+  --white:#ffffff; --ink:#1d1d1d; --red:#ed1651;
+  --grey-1:#3f3f3f; --grey-2:#727272; --line:#d9d9d9; --wash:#f6f6f6; --blush:#fef0f4;
+  --font:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --radius:28px; --radius-s:12px;
+  --max:1280px; --gut-l:max(16px, env(safe-area-inset-left,0px)); --gut-r:max(16px, env(safe-area-inset-right,0px));
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:hidden}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-0.02em;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:calc(var(--max) + 64px);margin:0 auto;padding-left:max(32px,var(--gut-l));padding-right:max(32px,var(--gut-r))}
+@media (max-width:700px){.wrap{padding-left:var(--gut-l);padding-right:var(--gut-r)}}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--grey-2)}
+.on-dark .eyebrow{color:#a3a3a3}
+.h2{font-size:clamp(34px,4.4vw,60px);line-height:1.06}
+.h2 em{font-style:normal;color:var(--red)}
+.lead{font-size:18px;line-height:1.65;color:var(--grey-1);max-width:58ch}
+.on-dark{background:var(--ink);color:var(--white)}
+.on-dark .lead{color:#c9c9c9}
+section{position:relative}
+.band{padding-block:clamp(64px,7vw,112px)}
+
+/* Buttons cut from the compass */
+/* Buttons shaped like the I of the UBIK logo, laid on its side: two opposite corners rounded, two sharp */
+.btn-arrow,.btn-brk{--h:56px;--ease:cubic-bezier(.65,0,.35,1);display:inline-flex;align-items:center;justify-content:center;gap:12px;height:var(--h);padding:0 34px;border-radius:0 calc(var(--h) * .5) 0 calc(var(--h) * .5);text-decoration:none;font-family:inherit;cursor:pointer;white-space:nowrap;transition:background-color .3s ease,color .3s ease}
+.btn-arrow svg,.btn-brk svg{height:11px;width:auto;flex:none;fill:currentColor}
+.btn-arrow{font-weight:700;font-size:15px;color:var(--white);background:var(--red);border:0}
+.btn-arrow .b{display:contents}
+.btn-arrow:hover{background:#d4114a}
+.btn-arrow.k{background:var(--ink)} .btn-arrow.k:hover{background:#000}
+.btn-arrow.w{color:var(--ink);background:var(--white)} .btn-arrow.w:hover{background:#f1f1f1}
+.btn-brk{--h:48px;padding:0 28px;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:inherit;background:transparent;border:1.5px solid var(--red)}
+.btn-brk svg.l{display:none}
+.two article .btn-brk{align-self:flex-start;justify-self:start;width:auto}
+.btn-brk svg.r{fill:var(--red)}
+.btn-brk:hover{background:var(--red);color:var(--white)} .btn-brk:hover svg.r{fill:var(--white)}
+.link{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:inherit}
+.link svg{height:14px;width:auto;transition:transform .3s ease}.link svg{fill:var(--red)}
+.link:hover svg{transform:translateX(5px)}
+.play{display:inline-flex;align-items:center;gap:16px;background:none;border:0;color:inherit;cursor:pointer;font:700 13px/1 var(--font);letter-spacing:.14em;text-transform:uppercase;padding:0}
+.play .ring{position:relative;width:60px;height:60px;flex:none;transition:transform .5s ease}
+.play:hover .ring{transform:rotate(90deg)}
+.play .ring svg.mk{width:60px;height:60px}
+.play .ring svg.mk{fill:var(--red)}
+.play .tri{position:absolute;left:50%;top:50%;transform:translate(-38%,-50%);width:13px;height:15px}
+.play .tri path{fill:currentColor}
+
+/* Header */
+.hdr{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;color:var(--white);transition:background .35s ease,color .35s ease,transform .35s ease}
+.hdr .top{background:var(--white);color:#3f3f3f;border-bottom:1px solid var(--line);font-size:12.5px;font-weight:600}
+.hdr .top .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;gap:16px}
+.hdr .top nav{display:flex;gap:24px}
+.hdr .top a{text-decoration:none;color:#3f3f3f;transition:color .25s ease}.hdr .top a:hover{color:var(--red)}
+.hdr .main .wrap{display:flex;align-items:center;gap:40px;height:84px}
+.hdr .logo{display:block;width:100px;flex:none}
+.hdr .logo img{width:100px;height:auto}
+.hdr .logo .dk{display:none}
+.hdr .main nav{display:flex;justify-content:flex-end;gap:30px;flex:1;font-size:15px;font-weight:600}
+.hdr .main nav a{text-decoration:none;position:relative}
+.hdr .main nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.hdr .main nav a:hover::after{transform:scaleX(1)}
+.hdr .portal{--h:44px;padding:0 24px;font-size:14px}
+.hdr.solid{background:var(--white);color:var(--ink)}
+.hdr.solid .top{border-color:var(--line);background:var(--white)}
+.hdr:not(.solid):not(.open) .portal{background:var(--white);color:var(--ink)}
+.hdr:not(.solid):not(.open) .portal:hover{background:#f1f1f1}
+.hdr.solid .logo .lt{display:none}.hdr.solid .logo .dk{display:block}
+.menu-btn{display:none;margin-left:auto;background:none;border:0;color:inherit;width:44px;height:44px;cursor:pointer;padding:0}
+.menu-btn span{display:block;width:24px;height:2px;background:currentColor;margin:5px auto;transition:transform .3s ease,opacity .3s ease}
+.hdr.open .menu-btn span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hdr.open .menu-btn span:nth-child(2){opacity:0}
+.hdr.open .menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob{display:none}
+@media (max-width:1080px){
+  .hdr .main nav,.hdr .portal,.hdr .top nav.aud{display:none}
+  .menu-btn{display:block}
+  .hdr .logo,.hdr .logo img{width:82px}
+  .hdr.open{background:var(--ink);color:var(--white)}
+  .hdr.open .logo .lt{display:block}.hdr.open .logo .dk{display:none}
+  .mob{display:block;background:var(--ink);color:var(--white);max-height:calc(100dvh - 122px);overflow:auto}
+  .mob[hidden]{display:none!important}
+  .mob .wrap{padding-block:16px 32px;display:flex;flex-direction:column;gap:0}
+  .mob a{display:block;padding:14px 0;border-bottom:1px solid #333;text-decoration:none;font-size:20px;font-weight:700}
+  .mob .small a{font-size:15px;font-weight:600;color:#c9c9c9}
+}
+
+/* Hero */
+.hero{height:100svh;min-height:640px;color:var(--white);background:var(--white);overflow:hidden;display:flex;align-items:center}
+.hero .frame{position:absolute;inset:0;background:var(--ink);overflow:hidden;will-change:clip-path}
+.hero .frame .media{position:absolute;inset:0;will-change:filter,transform}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .m1,.hero .m2,.hero .m3{will-change:transform}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,14,14,.38) 0%,rgba(14,14,14,0) 26%),linear-gradient(90deg,rgba(14,14,14,.66) 0%,rgba(14,14,14,.42) 42%,rgba(14,14,14,.1) 78%,rgba(14,14,14,.04) 100%)}
+@media (max-width:700px){.hero .shade{background:linear-gradient(180deg,rgba(14,14,14,.4) 0%,rgba(14,14,14,.5) 40%,rgba(14,14,14,.62) 100%)}}
+.hero .mark{position:absolute;right:-12vw;top:50%;width:min(86vw,1100px);height:auto;transform:translateY(-50%);pointer-events:none;opacity:.9}
+.hero .mark path{fill:rgba(255,255,255,.16)}
+.hero .mark path.hot{fill:rgba(237,22,81,.85)}
+.hero .copy{position:relative;z-index:2;padding-block:168px 24px;width:100%}
+.hero.center .copy{text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero.center h1{margin-inline:auto;max-width:16ch}
+.hero.center .sub{margin-inline:auto}
+.hero.center .acts{justify-content:center}
+.hero.center .shade{background:linear-gradient(180deg,rgba(14,14,14,.42) 0%,rgba(14,14,14,.4) 45%,rgba(14,14,14,.55) 100%)}
+.hero h1{font-size:clamp(40px,min(6.4vw,10.5svh),104px);line-height:1.02;letter-spacing:-0.035em;max-width:14ch}
+.hero h1 .r{color:var(--white);display:block}
+.hero .sub{margin-top:24px;font-size:clamp(18px,1.8vw,25px);line-height:1.4;max-width:38ch;color:#e6e6e6}
+.hero .hero-eb{margin-bottom:22px;color:#e6e6e6}
+.hero .acts{margin-top:36px;display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.hero .cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;width:26px;animation:cue 2.4s ease-in-out infinite}
+.hero .cue{fill:var(--white)}
+@keyframes cue{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+.hcp-strip{background:var(--red);color:var(--white);font-size:14px;font-weight:600}
+.hcp-strip .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;min-height:52px;flex-wrap:wrap;padding-block:10px}
+.hcp-strip a{color:var(--white);font-weight:700}
+
+/* 03 Who we are */
+.who{overflow:hidden}
+.who .bgmark{position:absolute;left:-14vw;top:50%;width:min(70vw,860px);transform:translateY(-50%);pointer-events:none}
+.who .bgmark{fill:none;stroke:#3a3a3a;stroke-width:.35}
+.who .grid{position:relative;display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+.who .statement{font-size:clamp(30px,3.8vw,54px);line-height:1.14;font-weight:700;letter-spacing:-0.02em}
+.who .statement .red{color:var(--white)}
+.who .statement .w{color:var(--white)}
+.who .statement .w.lit{color:var(--white)}
+.who .statement .w.red.lit{color:var(--white)}
+.who .statement .ch.off{visibility:hidden}
+.who .statement .caret{display:inline-block;width:3px;height:.9em;margin:0 1px;background:var(--red);vertical-align:-.08em;animation:blink 1s steps(1) infinite}
+.who .statement .caret.done{display:none}
+@keyframes blink{50%{opacity:0}}
+.facts{margin-top:72px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border-top:1px solid #3a3a3a;padding-top:32px}
+.facts b{display:block;font-size:clamp(44px,5vw,72px);line-height:1;font-weight:700;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+.facts span{display:block;margin-top:12px;color:#bdbdbd;font-size:15px}
+.who .more{margin-top:48px}
+
+/* 04 What we do (pinned) */
+.wwd{overflow:hidden}
+.wwd .head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.wwd .count{display:flex;align-items:center;gap:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.wwd .bar{width:120px;height:3px;background:var(--line);position:relative}
+.wwd .bar i{position:absolute;left:0;top:0;bottom:0;width:25%;background:var(--red)}
+.track{display:flex;gap:28px;margin-top:56px;padding-left:max(32px,calc((100vw - var(--max)) / 2));padding-right:max(32px,calc((100vw - var(--max)) / 2));will-change:transform}
+.biz{flex:0 0 min(78vw,600px);display:flex;flex-direction:column;gap:18px;text-decoration:none;color:inherit}
+.biz .ph{position:relative;aspect-ratio:6/5;overflow:hidden;background:var(--wash);max-width:100%}
+.biz .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.biz:hover .ph img{transform:scale(1.04)}
+.biz .dir{position:absolute;left:20px;top:20px;width:64px;height:64px;background:var(--white);display:grid;place-items:center}
+.biz .dir svg{width:34px;height:34px}.biz .dir svg{fill:var(--red)}
+.biz .meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.biz h3{font-size:28px;line-height:1.15}
+.biz .mean{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+.biz p{color:var(--grey-1);max-width:46ch}
+@media (max-width:899px){
+  .track{overflow-x:auto;scroll-snap-type:x mandatory;padding-left:var(--gut-l);padding-right:var(--gut-r);scrollbar-width:none}
+  .track::-webkit-scrollbar{display:none}
+  .biz{scroll-snap-align:start;flex-basis:84vw}
+}
+
+/* 05 For dermatologists */
+.derm{background:var(--wash)}
+.derm .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:start}
+.svc{margin-top:48px;border-top:1px solid var(--line);list-style:none;padding:0}
+.svc li{border-bottom:1px solid var(--line)}
+.svc button{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:44px 1fr 24px;align-items:center;gap:12px;padding:22px 0;cursor:pointer}
+.svc .n{font-size:13px;font-weight:700;color:var(--grey-2);font-variant-numeric:tabular-nums}
+.svc .t{font-size:clamp(20px,2vw,28px);font-weight:700;color:#a6a6a6;transition:color .3s ease}
+.svc .t small{display:block;font-size:15px;font-weight:500;color:var(--grey-2);margin-top:4px;max-height:0;overflow:hidden;transition:max-height .4s ease}
+.svc svg{width:16px;height:24px;transition:transform .3s ease}
+.svc svg{fill:#c4c4c4;transition:fill .3s ease}
+.svc li.on .t{color:var(--ink)}
+.svc li.on .t small{max-height:60px}
+.svc li.on svg{transform:translateX(4px)}.svc li.on svg{fill:var(--red)}
+.derm .acts{margin-top:40px;display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.stage{position:sticky;top:150px;aspect-ratio:4/5;overflow:hidden;background:#e9e9e9;max-width:100%}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease}
+.stage img.on{opacity:1}
+.stage .cap{position:absolute;left:0;bottom:0;background:var(--white);padding:14px 20px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.guide{margin-top:88px;background:var(--ink);color:var(--white);display:grid;grid-template-columns:120px 1fr auto;gap:32px;align-items:center;padding:24px}
+.guide .cover{aspect-ratio:3/4;background:var(--red);display:grid;place-items:center}
+.guide .cover svg{width:56%}.guide .cover svg{fill:var(--white)}
+.guide h3{font-size:clamp(22px,2.4vw,30px);margin-top:8px}
+.guide p.s{color:#c9c9c9;margin-top:6px;font-size:15px}
+
+/* 06 Therapy areas */
+.ta .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.tiles{margin-top:48px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.tile{position:relative;aspect-ratio:16/10;overflow:hidden;border:1px solid var(--line);text-decoration:none;color:var(--ink);display:flex;flex-direction:column;justify-content:space-between;padding:22px;background:var(--white);max-width:100%}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);opacity:0;transition:opacity .45s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.tile::after{content:"";position:absolute;inset:0;background:rgba(14,14,14,.45);opacity:0;transition:opacity .45s ease}
+.tile h3{position:relative;z-index:1;font-size:21px;line-height:1.2;transition:color .3s ease}
+.tile svg{position:relative;z-index:1;width:14px;height:21px;align-self:flex-end}
+.tile svg{fill:var(--red);transition:fill .3s ease}
+.tile:hover img,.tile:focus-visible img{opacity:1;transform:scale(1)}
+.tile:hover::after,.tile:focus-visible::after{opacity:1}
+.tile:hover h3,.tile:focus-visible h3{color:var(--white)}
+.tile:hover svg,.tile:focus-visible svg{fill:var(--white)}
+.tile.all{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.tile.all svg{fill:var(--white)}
+
+/* 07 Film */
+.film{padding-block:40px 0}
+.film .media{position:relative;height:min(88vh,820px);overflow:hidden;clip-path:inset(6% 10% 6% 10% round var(--radius));background:var(--ink)}
+.film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.film .shade{position:absolute;inset:0;background:rgba(14,14,14,.42)}
+.film .over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;color:var(--white);text-align:center;padding-inline:24px}
+.film .over h2{font-size:clamp(34px,5vw,72px);line-height:1.04;max-width:16ch}
+.film .over h2 em{font-style:normal;color:var(--red)}
+.film details{color:#e6e6e6;font-size:14px;max-width:52ch}
+.film summary{cursor:pointer;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px;list-style:none}
+.film summary::-webkit-details-marker{display:none}
+.film details p{margin-top:12px;text-align:left;background:rgba(14,14,14,.6);padding:14px 16px}
+
+/* 08 Science and quality */
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin-top:56px}
+.two article{display:flex;flex-direction:column;gap:18px}
+.two .lab{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.two .ph{aspect-ratio:4/3;overflow:hidden;max-width:100%}
+.two .ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.08)}
+.two p{color:var(--grey-1);max-width:50ch}
+
+/* 09 Insights + 10 Brands carousels */
+.rail-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.arrows{display:flex;gap:10px}
+.arrows button{width:52px;height:52px;border:1.5px solid var(--ink);background:var(--white);display:grid;place-items:center;cursor:pointer;transition:background .25s ease}
+.arrows button svg{width:12px;height:18px}.arrows button svg{fill:var(--ink)}
+.arrows button:hover{background:var(--ink)}.arrows button:hover svg{fill:var(--white)}
+.arrows button:disabled{opacity:.3;cursor:default;background:var(--white)}.arrows button:disabled svg{fill:var(--ink)}
+.tabs{display:flex;gap:26px;flex-wrap:wrap;margin-top:28px}
+.tabs button{all:unset;cursor:pointer;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--grey-2);padding-bottom:6px;border-bottom:2px solid transparent}
+.tabs button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
+.tabs button:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.rail{margin-top:40px;display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.rail::-webkit-scrollbar{display:none}
+.card{flex:0 0 min(84vw,380px);scroll-snap-align:start;display:flex;flex-direction:column;gap:14px;text-decoration:none;color:inherit}
+.card .ph{aspect-ratio:4/3;overflow:hidden;background:var(--wash);max-width:100%}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.card:hover .ph img{transform:scale(1.05)}
+.card .k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--grey-2)}
+.card h3{font-size:22px;line-height:1.25}
+.card.feature{flex-basis:min(92vw,780px);display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--ink);color:var(--white)}
+.card.feature .ph{aspect-ratio:auto;height:100%;min-height:360px}
+.card.feature .tx{padding:32px;display:flex;flex-direction:column;gap:16px;justify-content:space-between}
+.card.feature .k{color:#a3a3a3}
+.card.feature h3{font-size:clamp(24px,2.4vw,32px)}
+.card.feature p{color:#c9c9c9}
+.progress{margin-top:28px;height:3px;background:var(--line);position:relative}
+.progress i{position:absolute;left:0;top:0;bottom:0;background:var(--ink);width:20%}
+.note-s{margin-top:14px;font-size:13px;color:var(--grey-2)}
+.brands{background:var(--wash)}
+.pack{flex:0 0 min(60vw,230px);scroll-snap-align:start;display:flex;flex-direction:column;gap:14px;text-decoration:none;color:inherit}
+.pack .ph{aspect-ratio:4/5;background:var(--white);display:grid;place-items:center;padding:24px;max-width:100%}
+.pack .ph img{max-height:100%;width:auto;object-fit:contain;mix-blend-mode:multiply;transition:transform .5s ease}
+.pack:hover .ph img{transform:translateY(-6px)}
+.pack h3{font-size:17px}
+.pack span{font-size:14px;color:var(--grey-2)}
+
+/* 11 Global + work */
+.glob .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:64px;align-items:center}
+.glob .ph{aspect-ratio:16/10;overflow:hidden;max-width:100%}
+.glob .ph img{width:100%;height:100%;object-fit:cover}
+.work{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.work a{display:flex;flex-direction:column;gap:14px;text-decoration:none;color:inherit}
+.work .lab{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.work .ph{aspect-ratio:4/3;overflow:hidden;max-width:100%}
+.work .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.work a:hover .ph img{transform:scale(1.05)}
+.work p{color:var(--grey-1)}
+.fraud{font-size:13px;color:var(--grey-2);border-left:3px solid var(--red);padding-left:12px}
+
+/* 12 Footer */
+.ftr{background:var(--ink);color:var(--white);overflow:hidden;padding-bottom:max(32px,env(safe-area-inset-bottom,0px))}
+.ftr .echo{position:absolute;width:min(60vw,720px);top:-42%;pointer-events:none}
+.ftr .echo{fill:#2a2a2a}
+.ftr .e1{left:-12vw}.ftr .e2{right:-12vw}
+.ftr .inner{position:relative;padding-top:clamp(80px,9vw,120px)}
+.news{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:end;padding-bottom:56px;border-bottom:1px solid #3a3a3a}
+.news h2{font-size:clamp(34px,4vw,56px)}
+.news form{display:flex;flex-direction:column;gap:14px}
+.news .row{display:flex}
+.news input[type=email]{flex:1;min-width:0;height:56px;border:1.5px solid var(--white);background:transparent;color:var(--white);padding:0 18px;font:500 16px var(--font);border-radius:0}
+.news input::placeholder{color:#9a9a9a}
+.news button{height:56px;padding:0 26px;border:0;background:var(--white);color:var(--ink);font:700 13px var(--font);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.news label{display:flex;gap:10px;align-items:center;font-size:14px;color:#c9c9c9}
+.news input[type=checkbox]{width:18px;height:18px;accent-color:var(--red)}
+.news .msg{font-size:14px;color:var(--white);min-height:22px}
+.cols{display:grid;grid-template-columns:1.3fr repeat(4,minmax(0,1fr));gap:32px;padding-block:56px}
+.cols h4{margin:0 0 16px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#a3a3a3}
+.cols ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.cols a{text-decoration:none;color:#e6e6e6}.cols a:hover{color:var(--white);text-decoration:underline}
+.cols .safety a{font-weight:700;color:var(--white)}
+.cols .logo img{width:150px}
+.cols .about{margin-top:18px;color:#bdbdbd;font-size:14px;max-width:34ch}
+.legal{border-top:1px solid #3a3a3a;padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:#a3a3a3}
+.legal a{color:#a3a3a3}
+.ftr-mark{position:relative;height:clamp(220px,34vw,460px);overflow:hidden;margin-top:56px}
+.ftr-mark svg{position:absolute;left:50%;top:24px;width:min(64vw,620px);height:auto;transform:translateX(-50%);overflow:visible}
+.ftr-mark .bl{fill:#2e2e2e}
+.ftr-mark .bl.hot{fill:var(--red)}
+
+/* Modal */
+dialog.vid{border:0;padding:0;background:#000;max-width:min(1100px,94vw);width:100%}
+dialog.vid::backdrop{background:rgba(0,0,0,.82)}
+dialog.vid video{width:100%;height:auto}
+dialog.vid .x{position:absolute;right:10px;top:10px;z-index:2;width:44px;height:44px;border:0;background:var(--white);font:700 20px var(--font);cursor:pointer}
+
+/* 05 For Dermatologists, editorial redesign (scoped to this section only) */
+.derm{background:#F7F7F5}
+.derm .wrap{max-width:calc(1240px + 64px)}
+.dx{display:grid;grid-template-columns:minmax(0,48fr) minmax(0,52fr);column-gap:clamp(40px,6vw,96px);grid-template-areas:"intro stage" "nav stage" "acts stage";align-items:start}
+.dx-intro{grid-area:intro}
+.dx-h{margin-top:16px;font-size:clamp(34px,3.5vw,52px);line-height:1.08;letter-spacing:-.025em;font-weight:700;color:var(--ink);max-width:15ch}
+.dx-h em{font-style:normal;color:var(--red)}
+.dx-lead{margin-top:20px;font-size:17px;line-height:1.65;color:var(--grey-1);max-width:44ch}
+.derm .dx-stage{grid-area:stage;position:sticky;top:150px;aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:#e8e8e4}
+.derm .dx-stage img{transform:scale(1.04);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.derm .dx-stage img.on{transform:scale(1)}
+.derm .dx-stage .cap{left:16px;bottom:16px;background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:12px;padding:10px 14px;font-size:12px;letter-spacing:.12em;color:var(--ink)}
+.dx-nav{grid-area:nav;list-style:none;margin:44px 0 0;padding:0;border-top:1px solid rgba(29,29,29,.12)}
+.dx-nav li{position:relative;border-bottom:1px solid rgba(29,29,29,.12)}
+.dx-nav li::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:0;background:var(--red);transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.dx-nav li.on::before{width:100%}
+.dx-nav button{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:40px minmax(0,1fr) 24px;align-items:start;gap:8px;padding:22px 0;cursor:pointer}
+.dx-nav button:focus-visible{outline:3px solid var(--red);outline-offset:4px}
+.dx-nav .n{padding-top:7px;font-size:12px;font-weight:600;letter-spacing:.06em;color:#9b9b98;font-variant-numeric:tabular-nums;transition:color .3s ease}
+.dx-nav .t{font-size:clamp(20px,1.8vw,24px);line-height:1.25;font-weight:700;color:#3f3f3f;transition:color .35s ease}
+.dx-nav .t small{display:block;max-height:0;opacity:0;overflow:hidden;margin-top:0;font-size:15px;line-height:1.55;font-weight:500;color:var(--grey-1);transition:max-height .5s cubic-bezier(.2,.7,.2,1),opacity .4s ease,margin-top .4s ease}
+.dx-nav .ar{width:13px;height:20px;margin-top:5px;fill:currentColor;color:#9b9b98;transition:transform .35s cubic-bezier(.2,.7,.2,1),color .3s ease}
+.dx-nav button:hover .t{color:var(--ink)}
+.dx-nav button:hover .ar{transform:translateX(5px);color:var(--ink)}
+.dx-nav li.on .n,.dx-nav li.on .t,.dx-nav li.on .ar{color:var(--red)}
+.dx-nav li.on .t small{max-height:80px;opacity:1;margin-top:8px}
+.dx-nav li.on .ar{transform:translateX(5px)}
+.dx-acts{grid-area:acts;margin-top:40px}
+@media (max-width:1000px){
+  .dx{grid-template-columns:1fr;grid-template-areas:"intro" "stage" "nav" "acts"}
+  .derm .dx-stage{position:relative;top:0;aspect-ratio:4/3;margin-top:32px}
+  .dx-nav{margin-top:28px}
+  .dx-nav button{padding:18px 0;grid-template-columns:32px minmax(0,1fr) 24px}
+}
+
+/* 06 Therapy Areas, editorial asymmetric grid (scoped to this section) */
+.ta{background:#FBFAF8}
+.ta .wrap{max-width:calc(1240px + 64px)}
+.ta-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.ta-h{margin-top:16px;font-size:clamp(36px,4.2vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:700;color:var(--ink)}
+.ta-link{display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding-bottom:6px;border-bottom:1px solid rgba(29,29,29,.18);transition:border-color .35s ease}
+.ta-link svg{width:9px;height:13px;fill:var(--red);color:var(--red);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.ta-link:hover{border-color:var(--red)}.ta-link:hover svg{transform:translateX(6px)}
+.ta-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:clamp(170px,17vw,230px);gap:16px}
+.ta-card{position:relative;overflow:hidden;border-radius:18px;text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end;padding:22px 24px;isolation:isolate;max-width:100%}
+.ta-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:saturate(.88) contrast(1.02);transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.ta-card .ov{position:absolute;inset:0;z-index:-1;background:rgba(18,18,18,.26);transition:background .6s cubic-bezier(.2,.7,.2,1)}
+.ta-card .nm{position:absolute;left:24px;top:20px;font-size:12px;font-weight:600;letter-spacing:.1em;font-variant-numeric:tabular-nums}
+.ta-card .tt{font-size:clamp(20px,1.8vw,26px);line-height:1.15;font-weight:700;letter-spacing:-.01em;padding-right:44px;text-wrap:balance}
+.ta-card .ar{position:absolute;right:24px;bottom:24px;width:11px;height:16px;fill:currentColor;transition:transform .45s cubic-bezier(.2,.7,.2,1),color .35s ease}
+.ta-card.img{color:var(--white)}
+.ta-card.img .nm{color:rgba(255,255,255,.82)}
+.ta-card.plain{background:#EFEDE8;color:var(--ink)}
+.ta-card.plain .nm{color:#8d8b86}
+.ta-card.plain .ar{color:var(--ink)}
+.ta-card.all{background:var(--ink);color:var(--white)}
+.ta-card.all .nm{color:#9a9a9a;letter-spacing:.12em;text-transform:uppercase}
+.ta-card.all .ar{color:var(--red)}
+.ta-card:hover img,.ta-card:focus-visible img{transform:scale(1.03)}
+.ta-card:hover .ov,.ta-card:focus-visible .ov{background:rgba(18,18,18,.4)}
+.ta-card:hover .ar,.ta-card:focus-visible .ar{transform:translateX(5px)}
+.ta-card.plain:hover .ar,.ta-card.plain:focus-visible .ar{color:var(--red)}
+.ta-card.plain:hover{background:#E8E5DF}
+.ta-card:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.c-acne{grid-column:1/7;grid-row:1/3}
+.c-pig{grid-column:7/10;grid-row:1}
+.c-hair{grid-column:10/13;grid-row:1}
+.c-pso{grid-column:7/13;grid-row:2}
+.c-ecz{grid-column:1/4;grid-row:3}
+.c-fun{grid-column:4/7;grid-row:3}
+.c-age{grid-column:7/10;grid-row:3}
+.c-all{grid-column:10/13;grid-row:3}
+@media (max-width:900px){
+  .ta-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:170px;gap:12px}
+  .ta-grid .ta-card{grid-column:auto;grid-row:auto}
+  .ta-grid .c-acne{grid-column:1/-1;grid-row:span 2}
+  .ta-grid .c-pso{grid-column:1/-1}
+  .ta-grid .c-all{grid-column:1/-1;grid-row:auto}
+  .ta-card{padding:18px 18px}
+  .ta-card .nm{left:18px;top:16px}
+  .ta-card .ar{right:18px;bottom:22px}
+}
+
+/* 11b Work with UBIK: offset mosaic of labelled photo tiles */
+.mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;align-items:start}
+.m-intro{grid-column:1/5;grid-row:1;align-self:start;padding-right:24px}
+.mt{position:relative;display:block;overflow:hidden;border-radius:var(--radius);text-decoration:none;max-width:100%}
+.mt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.mt:hover img,.mt:focus-visible img{transform:scale(1.05)}
+.mt .lab{position:absolute;left:18px;top:18px;color:var(--white);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(29,29,29,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:9px 14px;border-radius:var(--radius-s);line-height:1}
+.mt img{will-change:transform}
+.t-careers{grid-column:5/10;grid-row:1;aspect-ratio:1/1}
+.t-investors{grid-column:10/13;grid-row:1;align-self:end;aspect-ratio:3/4}
+.t-partners{grid-column:1/5;grid-row:2;aspect-ratio:1/1}
+.t-place{grid-column:5/9;grid-row:2;aspect-ratio:4/5}
+.m-text{grid-column:10/13;grid-row:2;display:flex;flex-direction:column;gap:18px;padding-top:48px;color:var(--grey-1);font-size:16px;line-height:1.65}
+.m-text .btn-arrow{margin-top:14px;align-self:flex-start}
+@media (max-width:1000px){
+  .mosaic{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .m-intro{grid-column:1/-1;grid-row:auto;padding:0 0 12px}
+  .t-careers{grid-column:1/-1;grid-row:auto;aspect-ratio:4/3}
+  .t-investors,.t-partners,.t-place{grid-column:auto;grid-row:auto;align-self:start;aspect-ratio:4/5}
+  .t-place{grid-column:1/-1;aspect-ratio:16/10}
+  .m-text{grid-column:1/-1;grid-row:auto;padding-top:16px}
+}
+
+/* 04 pinned section fits the screen on desktop, so card text and links stay visible */
+@media (min-width:900px){
+  .wwd.band{height:100svh;min-height:640px;padding-block:176px 32px;display:flex;flex-direction:column;box-sizing:border-box}
+  .wwd .head .h2{font-size:clamp(30px,3.2vw,48px)}
+  .wwd .track{flex:1;min-height:0;margin-top:28px;align-items:stretch}
+  .wwd .biz{flex:0 0 min(560px,44vw);height:100%;gap:12px}
+  .wwd .biz .ph{flex:1;min-height:0;aspect-ratio:auto}
+  .wwd .biz h3{font-size:24px}
+  .wwd .biz p{font-size:15px;line-height:1.5;min-height:3em}
+  .wwd .head{width:100%;box-sizing:border-box}
+}
+
+/* Curved corners: one radius for every card and media box (buttons and CTAs unchanged) */
+.biz .ph,.stage,.guide,.tile,.two .ph,.card .ph,.card.feature,.pack .ph,.glob .ph,.work .ph{border-radius:var(--radius);overflow:hidden}
+.card.feature .ph{border-radius:0}
+.guide .cover,.biz .dir{border-radius:var(--radius-s)}
+.stage .cap{border-top-right-radius:var(--radius-s)}
+@media (max-width:700px){:root{--radius:18px;--radius-s:10px}}
+
+/* Responsive */
+@media (max-width:1000px){
+  .who .grid,.derm .grid,.glob .grid,.news{grid-template-columns:1fr}
+  .stage{position:relative;top:0;aspect-ratio:16/11}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cols{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cols .brand{grid-column:1/-1}
+  .work{grid-template-columns:1fr}
+  .card.feature{grid-template-columns:1fr}
+  .card.feature .ph{min-height:240px;aspect-ratio:4/3}
+}
+@media (max-width:640px){
+  .two{grid-template-columns:1fr}
+  .tiles{grid-template-columns:1fr 1fr;gap:10px}
+  .tile{padding:14px}.tile h3{font-size:16px}
+  .facts{grid-template-columns:1fr;gap:28px}
+  .guide{grid-template-columns:1fr}.guide .cover{width:110px}
+  .hero .copy{padding-block:140px 24px}
+  .hero .sub{margin-top:20px;font-size:18px}
+  .hero .acts{margin-top:32px;gap:20px}
+  .hcp-strip .wrap{font-size:13px}
+  .film .media{height:70vh}
+  .news .row{flex-direction:column;gap:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .film .media{clip-path:none}
+  .two .ph img{transform:none}
+}
+
+/* Preloader: dial draws in, four brand chevrons converge, the mark turns to north, then the curtain lifts */
+html.is-loading,html.is-loading body{overflow:hidden}
+html.logo-wait .hdr .logo{opacity:0}
+#pre{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;clip-path:inset(0 0 0 0)}
+#pre .dialwrap{position:relative;width:min(78vmin,560px);aspect-ratio:1}
+#pre svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#pre .dial line{stroke:#c9c9c9;stroke-width:.7}
+#pre .dial line.lg{stroke:#b3b3b3;stroke-width:1}
+#pre .dial circle{fill:none;stroke:#d2d2d2;stroke-width:1}
+#pre .dial text{fill:#bdbdbd;font-family:Manrope,system-ui,sans-serif;font-size:14px;font-weight:600;text-anchor:middle;dominant-baseline:central}
+#pre .dial text.c{font-size:40px;font-weight:800;fill:#b0b0b0}
+#pre .dial text.ic{font-size:26px;font-weight:800;fill:#c2c2c2}
+#pre .dial,#pre .mark,#pre .chev{opacity:0}
+#pre .mark path{fill:#ed1651}
+#pre .labs text{font-family:Manrope,system-ui,sans-serif;dominant-baseline:central;stroke:none}
+#pre .labs .k{fill:#1d1d1d;font-weight:600;font-size:23px}
+#pre .labs .m{fill:#b3b3b3;font-weight:500;font-size:21px}
+#pre .bp *{fill:none;stroke:#dedede;stroke-width:1}
+#pre .bp .soft{stroke:#ececec}
+#pre .bp .dash{stroke-dasharray:2 7}
+#pre .bp .dot{fill:#ed1651;stroke:none}
+#pre .bp text{fill:#b4b4b4;stroke:none;font:500 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="compass" viewBox="94.25 558.167 184.583 185.833">
+      <path d="M120.399 640.065L144.922 612.329L137.282 612.329C130.175 612.329 123.413 615.394 118.728 620.739L94.487 648.395L101.915 648.395C108.985 648.395 115.716 645.362 120.399 640.065Z"/>
+      <path d="M101.919 649.598L94.298 649.598L119.914 680.812C124.601 686.522 131.599 689.832 138.987 689.832L146.583 689.832L120.999 658.628C116.312 652.912 109.31 649.598 101.919 649.598Z"/>
+      <path d="M175.845 584.305L148.109 608.828L148.109 601.188C148.109 594.081 151.174 587.319 156.519 582.634L184.175 558.393L184.175 565.821C184.175 572.891 181.142 579.622 175.845 584.305Z"/>
+      <path d="M185.378 565.825L185.378 558.204L216.592 583.82C222.302 588.507 225.612 595.505 225.612 602.893L225.612 610.489L194.408 584.905C188.692 580.218 185.378 573.216 185.378 565.825Z"/>
+      <path d="M175.845 717.927L148.109 693.404L148.109 701.044C148.109 708.151 151.174 714.913 156.519 719.598L184.175 743.839L184.175 736.411C184.175 729.341 181.142 722.609 175.845 717.927Z"/>
+      <path d="M185.378 736.407L185.378 744.028L216.592 718.412C222.302 713.725 225.612 706.727 225.612 699.339L225.612 691.743L194.408 717.327C188.692 722.014 185.378 729.016 185.378 736.407Z"/>
+      <path d="M252.747 640.065L228.224 612.329L235.864 612.329C242.971 612.329 249.733 615.394 254.418 620.739L278.659 648.395L271.231 648.395C264.161 648.395 257.43 645.362 252.747 640.065Z"/>
+      <path d="M271.227 649.598L278.848 649.598L253.232 680.812C248.545 686.522 241.547 689.832 234.159 689.832L226.563 689.832L252.147 658.628C256.834 652.912 263.836 649.598 271.227 649.598Z"/>
+    </symbol>
+    <symbol id="ch-r" viewBox="226 612 53 78"><path d="M252.747 640.065L228.224 612.329L235.864 612.329C242.971 612.329 249.733 615.394 254.418 620.739L278.659 648.395L271.231 648.395C264.161 648.395 257.43 645.362 252.747 640.065Z"/><path d="M271.227 649.598L278.848 649.598L253.232 680.812C248.545 686.522 241.547 689.832 234.159 689.832L226.563 689.832L252.147 658.628C256.834 652.912 263.836 649.598 271.227 649.598Z"/></symbol>
+    <symbol id="ch-l" viewBox="94 612 53 78"><path d="M120.399 640.065L144.922 612.329L137.282 612.329C130.175 612.329 123.413 615.394 118.728 620.739L94.487 648.395L101.915 648.395C108.985 648.395 115.716 645.362 120.399 640.065Z"/><path d="M101.919 649.598L94.298 649.598L119.914 680.812C124.601 686.522 131.599 689.832 138.987 689.832L146.583 689.832L120.999 658.628C116.312 652.912 109.31 649.598 101.919 649.598Z"/></symbol>
+    <symbol id="ch-u" viewBox="148 558 78 53"><path d="M175.845 584.305L148.109 608.828L148.109 601.188C148.109 594.081 151.174 587.319 156.519 582.634L184.175 558.393L184.175 565.821C184.175 572.891 181.142 579.622 175.845 584.305Z"/><path d="M185.378 565.825L185.378 558.204L216.592 583.82C222.302 588.507 225.612 595.505 225.612 602.893L225.612 610.489L194.408 584.905C188.692 580.218 185.378 573.216 185.378 565.825Z"/></symbol>
+    <symbol id="ch-d" viewBox="148 691 78 53"><path d="M175.845 717.927L148.109 693.404L148.109 701.044C148.109 708.151 151.174 714.913 156.519 719.598L184.175 743.839L184.175 736.411C184.175 729.341 181.142 722.609 175.845 717.927Z"/><path d="M185.378 736.407L185.378 744.028L216.592 718.412C222.302 713.725 225.612 706.727 225.612 699.339L225.612 691.743L194.408 717.327C188.692 722.014 185.378 729.016 185.378 736.407Z"/></symbol>
+    <symbol id="cap" viewBox="226 612 53 78"><polygon points="226,612.3 228.2,612.3 252.7,640.1 271.2,648.4 271.2,649.6 252.1,658.6 226.5,689.8 226,689.8"/><path d="M252.747 640.065L228.224 612.329L235.864 612.329C242.971 612.329 249.733 615.394 254.418 620.739L278.659 648.395L271.231 648.395C264.161 648.395 257.43 645.362 252.747 640.065Z"/><path d="M271.227 649.598L278.848 649.598L253.232 680.812C248.545 686.522 241.547 689.832 234.159 689.832L226.563 689.832L252.147 658.628C256.834 652.912 263.836 649.598 271.227 649.598Z"/></symbol>
+  </defs>
+</svg>
+
+<div id="pre" role="status" aria-label="Loading UBIK Solutions">
+  <svg class="bp" id="preBp" aria-hidden="true"></svg>
+  <div class="dialwrap">
+    <svg viewBox="-300 -300 600 600" aria-hidden="true">
+      <defs><mask id="preSweep" maskUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600"><circle id="preSweepArc" r="150" fill="none" stroke="#fff" stroke-width="300" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" transform="rotate(-90)"/></mask></defs>
+      <g class="dial" id="preDial"><g id="preDialInner" mask="url(#preSweep)"></g></g>
+      <g class="mark" id="preMark"><g transform="scale(1.32) translate(-186.54 -651.08)">
+        <g class="chev" data-dx="0" data-dy="-1"><path d="M175.845 584.305L148.109 608.828L148.109 601.188C148.109 594.081 151.174 587.319 156.519 582.634L184.175 558.393L184.175 565.821C184.175 572.891 181.142 579.622 175.845 584.305Z"/><path d="M185.378 565.825L185.378 558.204L216.592 583.82C222.302 588.507 225.612 595.505 225.612 602.893L225.612 610.489L194.408 584.905C188.692 580.218 185.378 573.216 185.378 565.825Z"/></g>
+        <g class="chev" data-dx="1" data-dy="0"><path d="M252.747 640.065L228.224 612.329L235.864 612.329C242.971 612.329 249.733 615.394 254.418 620.739L278.659 648.395L271.231 648.395C264.161 648.395 257.43 645.362 252.747 640.065Z"/><path d="M271.227 649.598L278.848 649.598L253.232 680.812C248.545 686.522 241.547 689.832 234.159 689.832L226.563 689.832L252.147 658.628C256.834 652.912 263.836 649.598 271.227 649.598Z"/></g>
+        <g class="chev" data-dx="0" data-dy="1"><path d="M175.845 717.927L148.109 693.404L148.109 701.044C148.109 708.151 151.174 714.913 156.519 719.598L184.175 743.839L184.175 736.411C184.175 729.341 181.142 722.609 175.845 717.927Z"/><path d="M185.378 736.407L185.378 744.028L216.592 718.412C222.302 713.725 225.612 706.727 225.612 699.339L225.612 691.743L194.408 717.327C188.692 722.014 185.378 729.016 185.378 736.407Z"/></g>
+        <g class="chev" data-dx="-1" data-dy="0"><path d="M120.399 640.065L144.922 612.329L137.282 612.329C130.175 612.329 123.413 615.394 118.728 620.739L94.487 648.395L101.915 648.395C108.985 648.395 115.716 645.362 120.399 640.065Z"/><path d="M101.919 649.598L94.298 649.598L119.914 680.812C124.601 686.522 131.599 689.832 138.987 689.832L146.583 689.832L120.999 658.628C116.312 652.912 109.31 649.598 101.919 649.598Z"/></g>
+      </g></g>
+      <g class="labs" id="preLabs"></g>
+    </svg>
+  </div>
+</div>
+<script>
+(function(){
+  var root = document.documentElement; root.classList.add('is-loading'); if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('logo-wait');
+  var NS = 'http://www.w3.org/2000/svg', inner = document.getElementById('preDialInner');
+  function el(t, a, p){ var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); (p||inner).appendChild(e); return e; }
+
+  /* Build the dial: bezel, degree ticks, bearings, intercardinals */
+  el('circle', {r:284}); el('circle', {r:262});
+  for (var a = 0; a < 360; a += 2) {
+    var lg = a % 10 === 0, r1 = 262, r2 = lg ? 276 : 270, rad = (a - 90) * Math.PI / 180;
+    el('line', {x1:(r1*Math.cos(rad)).toFixed(1), y1:(r1*Math.sin(rad)).toFixed(1), x2:(r2*Math.cos(rad)).toFixed(1), y2:(r2*Math.sin(rad)).toFixed(1), 'class': lg ? 'lg' : ''});
+  }
+  var card = {0:'N', 90:'E', 180:'S', 270:'W'};
+  for (var b = 0; b < 360; b += 10) {
+    var t = card[b] !== undefined ? card[b] : String(b % 90);
+    var tx = el('text', {y:-232, transform:'rotate(' + b + ')', 'class': card[b] !== undefined ? 'c' : ''}); tx.textContent = t;
+  }
+  el('circle', {r:206});
+  [['NE',45],['SE',135],['SW',225],['NW',315]].forEach(function(d){ var x = el('text', {y:-176, transform:'rotate(' + d[1] + ')', 'class':'ic'}); x.textContent = d[0]; });
+  el('circle', {r:150});
+
+  var pre = document.getElementById('pre'), dial = document.getElementById('preDial'), arc = document.getElementById('preSweepArc');
+  var mark = document.getElementById('preMark'), chevs = [].slice.call(pre.querySelectorAll('.chev'));
+  /* Blueprint layer: concentric rings, guide lines, off-centre circle sets and coordinates, drawn in like a plan */
+  var bp = document.getElementById('preBp'), bpItems = [], bpSpin = [];
+  (function(){
+    var W = window.innerWidth, H = window.innerHeight, cx = W / 2, cy = H / 2;
+    var R = document.querySelector('#pre .dialwrap').offsetWidth / 2 * (284 / 300);
+    bp.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    function mk(t, a, cls){ var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); if (cls) e.setAttribute('class', cls); bp.appendChild(e); return e; }
+    function draw(e, s, d){ e.setAttribute('pathLength', 1); e.setAttribute('stroke-dasharray', '1 1'); e.setAttribute('stroke-dashoffset', 1); bpItems.push({el: e, s: s, d: d}); return e; }
+    function fade(e, s, d){ e.style.opacity = 0; bpItems.push({el: e, s: s, d: d, f: 1}); return e; }
+    function ring(x, y, r, s, d, cls){ return draw(mk('circle', {cx: x, cy: y, r: r.toFixed(1), transform: 'rotate(-90 ' + x + ' ' + y + ')'}, cls), s, d); }
+    function arc(x, y, r, a0, a1, s, d, cls){
+      var p0 = [x + r * Math.cos(a0), y + r * Math.sin(a0)], p1 = [x + r * Math.cos(a1), y + r * Math.sin(a1)];
+      return draw(mk('path', {d: 'M' + p0[0].toFixed(1) + ' ' + p0[1].toFixed(1) + 'A' + r + ' ' + r + ' 0 ' + (a1 - a0 > Math.PI ? 1 : 0) + ' 1 ' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1)}, cls), s, d);
+    }
+    function line(x1, y1, x2, y2, s, d, cls){ return draw(mk('line', {x1: x1, y1: y1, x2: x2, y2: y2}, cls), s, d); }
+    function label(x, y, txt, s, anchor){ var e = mk('text', {x: x, y: y, 'text-anchor': anchor || 'start'}); e.textContent = txt; return fade(e, s, .6); }
+    function ticks(x, y, r, n, len, s, d){
+      var g = mk('g', {}, 'soft');
+      for (var i = 0; i < n; i++) { var a = i / n * Math.PI * 2, l = i % 5 === 0 ? len * 1.8 : len;
+        var e = document.createElementNS(NS, 'line'); e.setAttribute('x1', (x + r * Math.cos(a)).toFixed(1)); e.setAttribute('y1', (y + r * Math.sin(a)).toFixed(1)); e.setAttribute('x2', (x + (r + l) * Math.cos(a)).toFixed(1)); e.setAttribute('y2', (y + (r + l) * Math.sin(a)).toFixed(1)); g.appendChild(e); }
+      return fade(g, s, d);
+    }
+
+    /* Guides through the centre, drawn outward */
+    line(cx, cy, 0, cy, 0, 1.3, 'soft'); line(cx, cy, W, cy, 0, 1.3, 'soft');
+    line(cx, cy, cx, 0, .08, 1.2, 'soft'); line(cx, cy, cx, H, .08, 1.2, 'soft');
+
+    /* Concentric rings around the dial */
+    ring(cx, cy, R * 1.14, .2, 1.4);
+    var dsh = fade(mk('circle', {cx: cx, cy: cy, r: (R * 1.24).toFixed(1)}, 'dash'), .5, 1); bpSpin.push({el: dsh, v: 4, cx: cx, cy: cy});
+    ring(cx, cy, R * 1.5, .35, 1.6, 'soft');
+    ticks(cx, cy, R * 1.5, 120, 5, .9, 1.1);
+    ring(cx, cy, R * 2.05, .5, 1.8, 'soft');
+    arc(cx, cy, R * 1.78, -2.6, -1.25, .7, 1.2);
+    arc(cx, cy, R * 1.78, .55, 1.6, .8, 1.2);
+    fade(mk('circle', {cx: cx, cy: (cy - R * 1.14).toFixed(1), r: 2.5}, 'dot'), 1.2, .5);
+
+    /* Leader line with a reading, like a plan annotation */
+    var sd = 1;
+    if (W >= 600) { /* only where there is room beside the dial */
+    var la = sd > 0 ? -0.72 : -Math.PI + 0.72, lx = cx + R * 1.14 * Math.cos(la), ly = cy + R * 1.14 * Math.sin(la), ex = lx + sd * R * .32, ey = ly - R * .26;
+    line(lx.toFixed(1), ly.toFixed(1), ex.toFixed(1), ey.toFixed(1), 1.1, .5);
+    line(ex.toFixed(1), ey.toFixed(1), (ex + sd * 92).toFixed(1), ey.toFixed(1), 1.4, .4);
+    label(ex + sd * 4, ey - 7, 'N 00°  R 284', 1.5, sd > 0 ? 'start' : 'end');
+    }
+
+    /* A small square datum box, as on a drawing */
+    var qx = W * .1, qy = H * .78;
+    draw(mk('rect', {x: qx, y: qy, width: 46, height: 26}), 1.0, .7);
+    label(qx + 23, qy + 17, '2003', 1.3, 'middle');
+  })();
+
+  /* Direction labels: who each arrow points to, and what it means */
+  var labsG = document.getElementById('preLabs'), labs = [];
+  (function(){
+    var narrow = window.innerWidth < 600;
+    function tx(g, x, y, cls, anchor, txt){ var e = document.createElementNS(NS, 'text'); e.setAttribute('x', x); e.setAttribute('y', y); e.setAttribute('class', cls); e.setAttribute('text-anchor', anchor); e.textContent = txt; g.appendChild(e); }
+    [['Dermatologists','Guidance',0,-1],['Team','Progress',1,0],['Customers','Alignment',0,1],['Practices','Direction',-1,0]].forEach(function(d){
+      var g = document.createElementNS(NS, 'g'); g.style.opacity = 0; labsG.appendChild(g);
+      if (d[3] === -1) { tx(g, 0, -146, 'k', 'middle', d[0]); tx(g, 0, -180, 'm', 'middle', d[1]); }
+      else if (d[3] === 1) { tx(g, 0, 146, 'k', 'middle', d[0]); tx(g, 0, 180, 'm', 'middle', d[1]); }
+      else if (narrow) { var x = d[2] * 140, a = d[2] > 0 ? 'start' : 'end'; tx(g, x, -2, 'k', a, d[0]); tx(g, x, 30, 'm', a, d[1]); }
+      else if (d[2] > 0) { tx(g, 140, 0, 'k', 'start', d[0]); tx(g, 212, 0, 'm', 'start', d[1]); }
+      else { tx(g, -140, 0, 'k', 'end', d[0]); tx(g, -258, 0, 'm', 'end', d[1]); }
+      labs.push({g: g, dx: d[2], dy: d[3]});
+    });
+  })();
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Ready once the page itself is parsed; heavy media (the hero film) keeps loading behind the curtain */
+  var loaded = document.readyState !== 'loading';
+  document.addEventListener('DOMContentLoaded', function(){ loaded = true; });
+  setTimeout(function(){ loaded = true; }, 5000);
+
+  /* Easing */
+  function eo(x){ return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x); }               /* expo out */
+  function q(x){ return x < .5 ? 8*x*x*x*x : 1 - Math.pow(-2*x + 2, 4) / 2; }   /* quart in-out */
+  function io(x){ return x < .5 ? 16*Math.pow(x,5) : 1 - Math.pow(-2*x + 2, 5) / 2; } /* quint in-out */
+  function cl(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function seg(t, s, d){ return cl((t - s) / d); }
+
+  /* Timeline (seconds) */
+  var SWEEP = [0, 1.1], CHEV = .15, CHEV_D = .8, CHEV_GAP = .07, SPIN = .9, SPIN_D = 2.4, HOLD = .35, LAB = .45, OUT_D = 1.1;
+  var spinEnd = SPIN + SPIN_D, extra = 0, outStart = null, t0 = performance.now(), done = false, progress = 0;
+
+  function frame(now){
+    var t = (now - t0) / 1000;
+
+    /* 1. Dial: fades up and sweeps in clockwise from north while turning gently into place */
+    var s = eo(seg(t, SWEEP[0], SWEEP[1]));
+    arc.setAttribute('stroke-dashoffset', (1 - s).toFixed(4));
+    /* Once the mark settles on north the dial steps back and the four directions are named */
+    var dim = 1; /* the dial stays a faint backdrop from the start */
+    dial.style.opacity = (Math.min(1, seg(t, SWEEP[0], .5)) * (1 - .86 * dim)).toFixed(3);
+    bp.style.opacity = (1 - .45 * dim).toFixed(3);
+    labs.forEach(function(l, i){
+      var k = eo(seg(t, LAB + i * .09, .8));
+      l.g.style.opacity = k.toFixed(3);
+      l.g.setAttribute('transform', 'translate(' + (l.dx * -14 * (1 - k)).toFixed(2) + ' ' + (l.dy * -14 * (1 - k)).toFixed(2) + ')');
+    });
+    var dialRot = -24 * (1 - s);
+
+    /* 2. Chevrons: N, E, S, W converge one after another */
+    chevs.forEach(function(c, i){
+      var p = eo(seg(t, CHEV + i * CHEV_GAP, CHEV_D));
+      var d = 46 * (1 - p);
+      if (outStart === null) c.style.opacity = Math.min(1, seg(t, CHEV + i * CHEV_GAP, .45));
+      c.setAttribute('transform', 'translate(' + (c.dataset.dx * d).toFixed(2) + ' ' + (c.dataset.dy * d).toFixed(2) + ')');
+    });
+    mark.style.opacity = 1;
+
+    /* 3. The mark turns a full revolution to find north; keeps turning while the page is still loading */
+    /* exactly one turn: if the page is still parsing, the mark simply rests on north until it is ready */
+    var turns = 0, sp;
+    if (t < SPIN) sp = 0;
+    else if (t < SPIN + SPIN_D) sp = (function(x){ return -(Math.cos(Math.PI * x) - 1) / 2; })(seg(t, SPIN, SPIN_D)) /* sine in-out: slow, even turn */;
+    else { var k = Math.floor((t - SPIN - SPIN_D) / (SPIN_D * 1.15)); sp = 1 + Math.min(k, extra - 1) + (k < extra ? q(seg(t - SPIN - SPIN_D - k * SPIN_D * 1.15, 0, SPIN_D * 1.15)) : 1); if (extra === 0) sp = 1; }
+    var markRot = 360 * sp;
+    var markScale = 1;
+    dialRot += -10 * io(seg(t, SPIN, SPIN_D + 0.4));
+
+    /* Blueprint layer draws itself in */
+    bpItems.forEach(function(it){
+      var k = eo(seg(t, it.s * .55, it.d * .7));
+      if (it.f) it.el.style.opacity = k.toFixed(3); else it.el.setAttribute('stroke-dashoffset', (1 - k).toFixed(4));
+    });
+    bpSpin.forEach(function(r){ r.el.setAttribute('transform', 'rotate(' + (t * r.v).toFixed(2) + ' ' + r.cx + ' ' + r.cy + ')'); });
+
+    /* 4. Exit: dial dissolves, three chevrons fade, the west chevron flies up and becomes the K of the logo */
+    if (outStart === null && loaded && t >= spinEnd + HOLD) {
+      outStart = t; window.__preDone = true; root.classList.remove('is-loading');
+      if (typeof window.__onPreDone === 'function') setTimeout(window.__onPreDone, 350);
+    }
+    if (outStart !== null) {
+      var u = t - outStart;
+      if (pre.isConnected) {
+        dial.style.opacity = (.14 * (1 - eo(cl(u / .6)))).toFixed(3);
+        dialRot += 14 * eo(cl(u / 1.1));
+        chevs.forEach(function(c, i){ if (c !== flyer) c.style.opacity = (1 - q(cl((u - i * .06) / .55))).toFixed(3); });
+        pre.style.clipPath = 'inset(0 0 ' + (100 * q(cl((u - CURTAIN[0]) / CURTAIN[1]))).toFixed(2) + '% 0)';
+        bp.style.opacity = (.55 * (1 - eo(cl(u / .7)))).toFixed(3);
+        labsG.style.opacity = (1 - eo(cl(u / .5))).toFixed(3);
+      }
+      if (fly(u)) return;
+      if (pre.isConnected && u >= CURTAIN[0] + CURTAIN[1]) pre.remove();
+    }
+    if (pre.isConnected) {
+      dial.setAttribute('transform', 'rotate(' + dialRot.toFixed(3) + ')');
+      mark.setAttribute('transform', 'rotate(' + markRot.toFixed(3) + ') scale(' + markScale.toFixed(4) + ')');
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* The flight: the west chevron leaves the compass, travels to the header and lands exactly on the K's arms */
+  var flyer = chevs[3], CURTAIN = [.35, 1.05];
+  var FLY0 = .15, FLY_D = 1.45, ov = null, ovChev, ovK, startR, logoWrap = null;
+  var PINK = [237, 22, 81];
+  var KX = 248.045, KY = 356.043, KW = 41.808, KH = 63.78; /* K arms inside the logo's viewBox */
+  function logoImg(){ var im = logoWrap && [].slice.call(logoWrap.querySelectorAll('img')).filter(function(i){ return i.offsetWidth > 0; })[0]; return im; }
+  function targetRect(){
+    var im = logoImg(); if (!im) return null; var r = im.getBoundingClientRect(), k = r.width / 185.917;
+    return {x: r.left + (KX - 105.833) * k, y: r.top + (KY - 356) * k, w: KW * k, h: KH * k, dark: im.classList.contains('dk')};
+  }
+  function lerp(a, b, x){ return a + (b - a) * x; }
+  function fly(u){
+    if (!logoWrap) logoWrap = document.querySelector('.hdr .logo');
+    if (!logoWrap) return u >= CURTAIN[0] + CURTAIN[1] + .1;
+    if (!ov) {
+      if (u < FLY0) return false;
+      startR = flyer.getBoundingClientRect();
+      ov = document.createElement('div');
+      ov.setAttribute('aria-hidden', 'true');
+      ov.style.cssText = 'position:fixed;left:0;top:0;z-index:10000;pointer-events:none;will-change:transform,width,height';
+      ov.innerHTML = '<svg viewBox="' + KX + ' ' + KY + ' ' + KW + ' ' + KH + '" preserveAspectRatio="none" style="display:block;width:100%;height:100%;overflow:visible">'
+        + '<g class="c" fill="#ed1651" transform="translate(' + KX + ' ' + KY + ') scale(' + (KW / 52.285).toFixed(5) + ' ' + (KH / 77.503).toFixed(5) + ') translate(-94.298 -612.329)">' + flyer.innerHTML + '</g>'
+        + '<g class="k" fill="#ed1651" opacity="0"><path d="M254.139 387.651L248.045 387.651L268.528 412.61C272.276 417.176 277.872 419.823 283.779 419.823L289.853 419.823L269.395 394.871C265.648 390.301 260.049 387.651 254.139 387.651Z"/><path d="M254.139 386.889L248.045 386.889L268.528 362.958C272.276 358.58 277.872 356.043 283.779 356.043L289.853 356.043L269.395 379.966C265.648 384.348 260.049 386.889 254.139 386.889Z"/></g></svg>';
+      document.body.appendChild(ov);
+      ovChev = ov.querySelector('.c'); ovK = ov.querySelector('.k');
+      flyer.style.opacity = 0;
+    }
+    var tr = targetRect(); if (!tr) { ov.remove(); return true; }
+    var p = cl((u - FLY0) / FLY_D), px = io(p), py = io(cl(p * 1.1)), ps = q(p);
+    var x = lerp(startR.left, tr.x, px), y = lerp(startR.top, tr.y, py);
+    var w = lerp(startR.width, tr.w, ps), h = lerp(startR.height, tr.h, ps);
+    var rot = -14 * Math.sin(Math.PI * p);
+    ov.style.width = w.toFixed(2) + 'px'; ov.style.height = h.toFixed(2) + 'px';
+    ov.style.transform = 'translate(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px) rotate(' + rot.toFixed(2) + 'deg)';
+    /* chevron blades resolve into the K's arms in the last stretch of the flight */
+    var m = q(cl((p - .5) / .42));
+    ovChev.setAttribute('opacity', (1 - m).toFixed(3)); ovK.setAttribute('opacity', m.toFixed(3));
+    /* after landing: pink settles into the logo colour, and the rest of the wordmark fades up around it */
+    var land = u - FLY0 - FLY_D;
+    var c = q(cl(land / .55)), to = tr.dark ? [35, 31, 32] : [255, 255, 255];
+    ovK.setAttribute('fill', 'rgb(' + PINK.map(function(v, i){ return Math.round(lerp(v, to[i], c)); }).join(',') + ')');
+    logoWrap.style.opacity = q(cl((land + .05) / .7)).toFixed(3);
+    if (land >= .8) { ov.remove(); root.classList.remove('logo-wait'); logoWrap.style.opacity = ''; return true; }
+    return false;
+  }
+
+  if (reduce) {
+    arc.setAttribute('stroke-dashoffset', 0); dial.style.opacity = 1; mark.style.opacity = 1;
+    chevs.forEach(function(c){ c.style.opacity = 1; });
+    setTimeout(function(){ window.__preDone = true; root.classList.remove('is-loading'); if (typeof window.__onPreDone === 'function') window.__onPreDone(); pre.remove(); }, 600);
+  } else requestAnimationFrame(frame);
+})();
+</script>
+<header class="hdr" id="hdr">
+  <div class="top"><div class="wrap">
+    <a href="#global" style="display:inline-flex;align-items:center;gap:8px"><svg viewBox="94.25 558.167 184.583 185.833" width="14" height="14" fill="currentColor" aria-hidden="true"><use href="#compass"/></svg>UBIK Global</a>
+    <nav class="aud" aria-label="Audiences">
+      <a href="#derm">Healthcare Professionals</a><a href="#therapy">Patients and Public</a><a href="#work">Partners and Investors</a><a href="#work">Careers</a>
+    </nav>
+  </div></div>
+  <div class="main"><div class="wrap">
+    <a class="logo" href="#top" aria-label="UBIK Solutions home"><img class="lt" src="assets/logo-white.svg" alt="UBIK Solutions"><img class="dk" src="assets/logo.svg" alt="UBIK Solutions"></a>
+    <nav aria-label="Main">
+      <a href="#who">About</a><a href="#wwd">What We Do</a><a href="#therapy">Therapy Areas</a><a href="#derm">For Dermatologists</a><a href="#science">Science</a><a href="#brands">Our Brands</a>
+    </nav>
+    <a class="btn-arrow portal" href="#derm"><span class="b">Doctor Portal</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mob"><span></span><span></span><span></span></button>
+  </div></div>
+  <div class="mob" id="mob" hidden><div class="wrap">
+    <a href="#who">About</a><a href="#wwd">What We Do</a><a href="#therapy">Therapy Areas</a><a href="#derm">For Dermatologists</a><a href="#science">Science</a><a href="#brands">Our Brands</a><a href="#derm">Doctor Portal</a>
+    <div class="small"><a href="#derm">Healthcare Professionals</a><a href="#therapy">Patients and Public</a><a href="#work">Partners and Investors</a><a href="#work">Careers</a></div>
+  </div></div>
+</header>
+
+<main id="top">
+<!-- 02 Hero -->
+<section class="hero center" aria-label="Introduction">
+  <div class="frame" id="heroFrame">
+  <div class="media" id="heroMedia">
+  <img class="poster" src="assets/hero-poster.jpg" alt="">
+  <video id="heroVid" autoplay muted loop playsinline poster="assets/hero-poster.jpg" aria-hidden="true"><source src="assets/hero.mp4" type="video/mp4"></video>
+  </div>
+  <div class="shade"></div>
+  </div>
+  <div class="copy wrap">
+    <div class="m1"><p class="eyebrow hero-eb">Dermatology &amp; Cosmetology Ecosystems</p><h1>An Unconventional <span class="r">Pharma Company.</span></h1></div>
+    <div class="m2"><p class="sub">Delivering value beyond expectations in every direction.</p></div>
+    <div class="m3"><div class="acts">
+      <a class="btn-arrow w" href="#who"><span class="b">Know UBIK</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+      <button class="play" type="button" data-film><span class="ring"><svg class="mk" viewBox="94.25 558.167 184.583 185.833" aria-hidden="true"><use href="#compass"/></svg><svg class="tri" viewBox="0 0 16 18" aria-hidden="true"><path d="M0 0l16 9-16 9z"/></svg></span>Watch the Film</button>
+    </div></div>
+  </div>
+  <svg class="cue" viewBox="148 691 78 53" aria-hidden="true"><use href="#ch-d"/></svg>
+</section>
+
+<div class="hcp-strip"><div class="wrap">
+  <span>Product and clinical information on this site is for registered healthcare professionals in India.</span>
+  <a href="#derm">Enter the Doctor Portal</a>
+</div></div>
+
+<!-- 03 Who we are -->
+<section class="who on-dark band" id="who">
+  <div class="wrap grid">
+    <div><p class="eyebrow">Who we are</p></div>
+    <div>
+      <p class="statement" id="statement">We believe healthcare is beyond profession; <span class="red">it is a responsibility towards life.</span></p>
+      <div class="facts">
+        <div><b data-count="2003" data-plain>2003</b><span>Founded in Rajkot, Gujarat</span></div>
+        <div><b data-count="11">11</b><span>Therapy areas we serve</span></div>
+        <div><b data-count="5">5</b><span>Services that help clinics grow</span></div>
+      </div>
+      <div class="more"><a class="btn-brk" href="#wwd"><svg class="l" viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg>Our Story<svg class="r" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 What we do -->
+<section class="wwd band" id="wwd">
+  <div class="wrap head">
+    <div><p class="eyebrow">What we do</p><h2 class="h2" style="margin-top:14px">One Purpose. <em>Every Direction.</em></h2></div>
+    <div class="count" aria-hidden="true"><span id="wwdNum">01</span><span style="color:var(--grey-2)">/ 04</span><span class="bar"><i id="wwdBar"></i></span></div>
+  </div>
+  <div class="track" id="track">
+    <a class="biz" href="#therapy"><div class="ph"><img src="assets/clinical.jpg" alt="Dermatologist examining a patient's skin with a dermatoscope"><span class="dir"><svg viewBox="148 558 78 53" aria-hidden="true"><use href="#ch-u"/></svg></span></div>
+      <div class="meta"><h3>Clinical Dermatology</h3><span class="mean">Guidance</span></div><p>Helping dermatologists care for more skin and hair concerns through specialised pharmaceutical solutions.</p><span class="link">Explore<svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></span></a>
+    <a class="biz" href="#brands"><div class="ph"><img src="assets/cream.jpg" alt="Texture of a skin cream"><span class="dir"><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></span></div>
+      <div class="meta"><h3>Dermocosmetics</h3><span class="mean">Progress</span></div><p>Making everyday skincare more thoughtful with solutions for different skin types and needs.</p><span class="link">Explore<svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></span></a>
+    <a class="biz" href="#therapy"><div class="ph"><img src="assets/cosmetology.jpg" alt="Aesthetic treatment in a clinic"><span class="dir"><svg viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg></span></div>
+      <div class="meta"><h3>Professional Aesthetics &amp; Cosmetology</h3><span class="mean">Direction</span></div><p>Supporting skincare professionals with specialised products that help them take their practice further.</p><span class="link">Explore<svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></span></a>
+    <a class="biz" href="#derm"><div class="ph"><img src="assets/portal.jpg" alt="Doctor using a tablet"><span class="dir"><svg viewBox="148 691 78 53" aria-hidden="true"><use href="#ch-d"/></svg></span></div>
+      <div class="meta"><h3>Practice Solutions</h3><span class="mean">Direction</span></div><p>Helping dermatologists grow beyond their clinical practice with the knowledge, tools and support they need.</p><span class="link">Explore<svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></span></a>
+  </div>
+</section>
+
+<!-- 05 For dermatologists -->
+<section class="derm band" id="derm">
+  <div class="wrap">
+    <div class="dx">
+      <div class="dx-intro">
+        <p class="eyebrow">Beyond the prescription</p>
+        <h2 class="dx-h">Beyond the Clinic. <em>Beside Every Doctor.</em></h2>
+        <p class="dx-lead">A dermatologist's responsibility doesn't end with treating patients. Our practice solutions bring the knowledge, tools and support to help doctors grow with confidence and focus on what matters most: their patients.</p>
+      </div>
+      <div class="stage dx-stage" id="stage">
+        <img class="on" src="assets/portal.jpg" alt="Dermatologist reviewing learning material on a tablet">
+        <img src="assets/careers.jpg" alt="Team planning clinic marketing at a whiteboard">
+        <img src="assets/cream.jpg" alt="Texture of a skin care formulation">
+        <img src="assets/clinical.jpg" alt="Dermatologist examining a patient's skin">
+        <img src="assets/investors.jpg" alt="Dermatologists at a business workshop">
+        <span class="cap" id="stageCap">iDoc Academy</span>
+      </div>
+      <ul class="dx-nav" id="svc">
+        <li class="on"><button type="button" data-i="0" aria-pressed="true"><span class="n">01</span><span class="t">iDoc Academy<small>Continuing education that keeps dermatologists ahead of an evolving field.</small></span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></button></li>
+        <li><button type="button" data-i="1" aria-pressed="false"><span class="n">02</span><span class="t">iDoc Solutions<small>Branding, marketing and communication for a practice patients trust.</small></span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></button></li>
+        <li><button type="button" data-i="2" aria-pressed="false"><span class="n">03</span><span class="t">BrandYou<small>Private-label skincare, developed under your practice's own name.</small></span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></button></li>
+        <li><button type="button" data-i="3" aria-pressed="false"><span class="n">04</span><span class="t">VistaDerm<small>Practice management that keeps records and patients organised.</small></span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></button></li>
+        <li><button type="button" data-i="4" aria-pressed="false"><span class="n">05</span><span class="t">Dermapreneur<small>Guidance for doctors building their practice into a business.</small></span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></button></li>
+      </ul>
+      <div class="acts dx-acts">
+        <a class="btn-arrow k" href="#derm"><span class="b">Join the Doctor Portal</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+        <a class="btn-brk" href="#wwd"><svg class="l" viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg>Practice Solutions<svg class="r" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+      </div>
+    </div>
+    <div class="guide">
+      <div class="cover"><svg viewBox="94.25 558.167 184.583 185.833" aria-hidden="true"><use href="#compass"/></svg></div>
+      <div><p class="eyebrow" style="color:#a3a3a3">Featured clinical resource · for healthcare professionals</p><h3>The Acne Treatment Pathway: A Practical Guide</h3><p class="s">Free for registered dermatologists in the Doctor Portal.</p></div>
+      <a class="btn-arrow w" href="#derm"><span class="b">Get the Guide</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- 06 Therapy areas -->
+<section class="ta band" id="therapy">
+  <div class="wrap">
+    <div class="ta-head">
+      <div><p class="eyebrow">For healthcare professionals</p><h2 class="ta-h">Every Concern. The Right Care.</h2></div>
+      <a class="ta-link" href="#therapy">All therapy areas<svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+    </div>
+    <div class="ta-grid">
+      <a class="ta-card img c-acne" href="#therapy"><img src="assets/acne.webp" alt="Woman in soft daylight with mild acne on her cheek" loading="lazy" style="object-position:60% 40%"><span class="ov"></span><span class="nm">01</span><span class="tt">Acne</span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+      <a class="ta-card img c-pig" href="#therapy"><img src="assets/clinical.jpg" alt="Dermatologist examining skin with a dermatoscope" loading="lazy"><span class="ov"></span><span class="nm">02</span><span class="tt">Pigmentation</span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+      <a class="ta-card img c-hair" href="#therapy"><img src="assets/hair-exam.jpg" alt="Dermatologist examining a patient's scalp with a trichoscope" loading="lazy" style="object-position:50% 22%"><span class="ov"></span><span class="nm">03</span><span class="tt">Hair and Scalp</span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+      <a class="ta-card img c-pso" href="#therapy"><img src="assets/dermsplit.jpg" alt="Dermatologist in consultation with a patient" loading="lazy"><span class="ov"></span><span class="nm">04</span><span class="tt">Psoriasis</span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+      <a class="ta-card img c-ecz" href="#therapy"><img src="assets/cream.jpg" alt="Soothing moisturising cream texture" loading="lazy"><span class="ov"></span><span class="nm">05</span><span class="tt">Eczema and Dermatitis</span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+      <a class="ta-card img c-fun" href="#therapy"><img src="assets/fungal.webp" alt="Circular fungal rash on a woman's upper back" loading="lazy" style="object-position:68% 72%"><span class="ov"></span><span class="nm">06</span><span class="tt">Fungal Infections</span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+      <a class="ta-card img c-age" href="#therapy"><img src="assets/cosmetology.jpg" alt="Gentle in-clinic skin treatment" loading="lazy"><span class="ov"></span><span class="nm">07</span><span class="tt">Ageing Skin</span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+      <a class="ta-card all c-all" href="#therapy"><span class="nm">11 areas</span><span class="tt">All Therapy Areas</span><svg class="ar" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- 07 Film -->
+<section class="film" aria-label="Brand film">
+  <div class="media" id="filmMedia">
+    <video autoplay muted loop playsinline poster="assets/dermsplit.jpg" aria-hidden="true"><source src="assets/film.mp4" type="video/mp4"></video>
+    <div class="shade"></div>
+    <div class="over">
+      <h2>Two Decades of Care. <em>In Every Direction.</em></h2>
+      <button class="play" type="button" data-film><span class="ring"><svg class="mk" viewBox="94.25 558.167 184.583 185.833" aria-hidden="true"><use href="#compass"/></svg><svg class="tri" viewBox="0 0 16 18" aria-hidden="true"><path d="M0 0l16 9-16 9z"/></svg></span>Watch the Film</button>
+      <details><summary>Read the transcript</summary><p>The transcript will be published here with the final brand film. The film on this preview is stock footage.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 08 Science and quality -->
+<section class="band" id="science">
+  <div class="wrap">
+    <p class="eyebrow">How we work</p>
+    <h2 class="h2" style="margin-top:14px">Evidence First. <em>Quality Always.</em></h2>
+    <div class="two">
+      <article><span class="lab">Research and Formulation</span><div class="ph"><img src="assets/science.jpg" alt="Scientist working in a laboratory" loading="lazy"></div><p>Every product begins with a need dermatologists see in practice, and is thoughtfully developed through formulation and testing.</p><a class="btn-brk" href="#science"><svg class="l" viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg>Our Science<svg class="r" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a></article>
+      <article><span class="lab">Quality and Manufacturing</span><div class="ph"><img src="assets/quality.jpg" alt="Quality check in a manufacturing facility" loading="lazy"></div><p>Made to documented quality standards, with every batch checked before it reaches a clinic or a patient.</p><a class="btn-brk" href="#science"><svg class="l" viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg>Our Quality<svg class="r" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a></article>
+    </div>
+  </div>
+</section>
+
+<!-- 09 Skin insights -->
+<section class="band" id="insights" style="padding-top:0">
+  <div class="wrap">
+    <div class="rail-head">
+      <h2 class="h2">Skin Insights.</h2>
+      <div class="arrows"><button type="button" data-rail="ins" data-d="-1" aria-label="Previous"><svg viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg></button><button type="button" data-rail="ins" data-d="1" aria-label="Next"><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></button></div>
+    </div>
+    <div class="tabs" role="group" aria-label="Filter insights">
+      <button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="stories" aria-pressed="false">Doctor Stories</button><button type="button" data-f="science" aria-pressed="false">Skin Science</button><button type="button" data-f="podcasts" aria-pressed="false">Podcasts</button><button type="button" data-f="news" aria-pressed="false">News</button>
+    </div>
+    <div class="rail" id="rail-ins">
+      <a class="card feature" data-c="stories" href="#insights"><div class="ph"><img src="assets/intro2.jpg" alt="Dermatologist portrait" loading="lazy"></div><div class="tx"><span class="k">Doctor story</span><h3>Building a clinic around one condition</h3><p>How a focus on acne care shaped one practice's patients, team and growth.</p><span class="link">Read the story<svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></span></div></a>
+      <a class="card" data-c="science" href="#insights"><div class="ph"><img src="assets/skinprofile.jpg" alt="" loading="lazy"></div><span class="k">Skin science · 6 min read</span><h3>What the skin barrier does, and how to protect it</h3></a>
+      <a class="card" data-c="podcasts" href="#insights"><div class="ph"><img src="assets/dermsplit.jpg" alt="" loading="lazy"></div><span class="k">Dermatalk podcast · 24 min</span><h3>Sunscreen questions patients ask most often</h3></a>
+      <a class="card" data-c="news" href="#insights"><div class="ph"><img src="assets/quality.jpg" alt="" loading="lazy"></div><span class="k">Press release</span><h3>UBIK unveils its new identity</h3></a>
+      <a class="card" data-c="science" href="#insights"><div class="ph"><img src="assets/clinical.jpg" alt="" loading="lazy"></div><span class="k">Skin science · 8 min read</span><h3>Treating pigmentation safely on Indian skin</h3></a>
+    </div>
+    <div class="progress"><i id="prog-ins"></i></div>
+    <p class="note-s">Preview articles, shown to demonstrate the layout.</p>
+  </div>
+</section>
+
+<!-- 10 Brands -->
+<section class="brands band" id="brands">
+  <div class="wrap">
+    <div class="rail-head">
+      <div><p class="eyebrow">Dermocosmetics</p><h2 class="h2" style="margin-top:14px">Thoughtful Care. <em>Every Day.</em></h2></div>
+      <div class="arrows"><button type="button" data-rail="br" data-d="-1" aria-label="Previous"><svg viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg></button><button type="button" data-rail="br" data-d="1" aria-label="Next"><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></button></div>
+    </div>
+    <div class="rail" id="rail-br">
+      <a class="pack" href="#brands"><div class="ph"><img src="assets/Acmed-Facewash-Tube.png" alt="Acmed face wash tube" loading="lazy"></div><h3>Acmed</h3><span>Face wash</span></a>
+      <a class="pack" href="#brands"><div class="ph"><img src="assets/Lipidz-Cream.png" alt="Lipidz cream" loading="lazy"></div><h3>Lipidz</h3><span>Moisturising cream</span></a>
+      <a class="pack" href="#brands"><div class="ph"><img src="assets/Liftage-Serum.png" alt="Liftage serum" loading="lazy"></div><h3>Liftage</h3><span>Serum</span></a>
+      <a class="pack" href="#brands"><div class="ph"><img src="assets/Hyalu-Serum-Box.jpg" alt="Hyalu serum pack" loading="lazy"></div><h3>Hyalu</h3><span>Serum</span></a>
+      <a class="pack" href="#brands"><div class="ph"><img src="assets/Hydromax-Cream.jpg" alt="Hydromax cream" loading="lazy"></div><h3>Hydromax</h3><span>Cream</span></a>
+      <a class="pack" href="#brands"><div class="ph"><img src="assets/Trichospire-Hair-Kit-Ethiall-Remedies.png" alt="Trichospire hair kit" loading="lazy"></div><h3>Trichospire</h3><span>Hair kit</span></a>
+    </div>
+    <div class="progress"><i id="prog-br"></i></div>
+  </div>
+</section>
+
+<!-- 11 Global + work -->
+<section class="glob on-dark band" id="global">
+  <div class="wrap grid">
+    <div><p class="eyebrow">Beyond India</p><h2 class="h2" style="margin-top:14px">Made in India. <em>Trusted Abroad.</em></h2><p class="lead" style="margin-top:22px">Delivering value beyond India, UBIK exports and registers its products in markets around the world. The confirmed country list will appear here.</p><div style="margin-top:32px"><a class="btn-brk" href="#global"><svg class="l" viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg>Global Presence<svg class="r" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a></div></div>
+    <div class="ph"><img src="assets/global.jpg" alt="Container port with ships being loaded"></div>
+  </div>
+</section>
+<section class="band" id="work">
+  <div class="wrap">
+    <div class="mosaic">
+      <div class="m-intro"><p class="eyebrow">Work with UBIK</p><h2 class="h2" style="margin-top:14px">Grow With Us. <em>Build With Us.</em></h2></div>
+      <a class="mt t-careers" href="#work"><img src="assets/careers.jpg" alt="UBIK team at work"><span class="lab">Careers</span></a>
+      <a class="mt t-investors" href="#work"><img src="assets/investors.jpg" alt="Business meeting"><span class="lab">Investors</span></a>
+      <a class="mt t-partners" href="#work"><img src="assets/cream.jpg" alt="Skin care formulation"><span class="lab">Partners and Export</span></a>
+      <a class="mt t-place" href="#work"><img src="assets/quality.jpg" alt="UBIK manufacturing facility"><span class="lab">Our Workplace</span></a>
+      <div class="m-text">
+        <p>A responsibility towards life starts with the people who carry it. At UBIK, our sales, science, quality and marketing teams work closely with the dermatologists they serve.</p>
+        <p>We partner with distributors abroad and with clinics building their own skincare label through BrandYou. Investors can find reports and disclosures in one place.</p>
+        <a class="btn-arrow k" href="#work"><span class="b">Explore Careers</span><svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a>
+        <span class="fraud">Beware of fake job offers. UBIK never charges a fee to apply.</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- 12 Footer -->
+<footer class="ftr" id="footer">
+  <div class="wrap inner">
+    <div class="news">
+      <div><h2>Stay Connected.</h2><p class="lead" style="margin-top:14px;color:#c9c9c9">Clinical updates, Dermatalk and event invitations, once a month.</p></div>
+      <form id="newsForm" novalidate>
+        <div class="row"><label for="email" class="sr" style="position:absolute;left:-9999px">Email address</label><input id="email" type="email" placeholder="Email address" autocomplete="email" required><button type="submit">Subscribe</button></div>
+        <label for="hcp"><input id="hcp" type="checkbox"> I am a registered healthcare professional</label>
+        <p class="msg" id="newsMsg" role="status"></p>
+      </form>
+    </div>
+    <div class="cols">
+      <div class="brand"><a class="logo" href="#top"><img src="assets/logo-white.svg" alt="UBIK Solutions"></a><p class="about">An unconventional pharma company focused on dermatology and cosmetology, working alongside dermatologists since 2003.</p></div>
+      <div><h4>Company</h4><ul><li><a href="#who">About</a></li><li><a href="#who">Our Story</a></li><li><a href="#global">Global Presence</a></li><li><a href="#insights">News</a></li></ul></div>
+      <div><h4>Doctors</h4><ul><li><a href="#derm">Doctor Portal</a></li><li><a href="#therapy">Therapy Areas</a></li><li><a href="#derm">Practice Solutions</a></li><li><a href="#insights">Skin Insights</a></li></ul></div>
+      <div><h4>Brands</h4><ul><li><a href="#brands">Our Brands</a></li><li><a href="#science">Quality</a></li><li><a href="#work">Partners</a></li></ul></div>
+      <div class="safety"><h4>Contacts and services</h4><ul><li><a href="#footer">Report a Side Effect</a></li><li><a href="#footer">Medical Information</a></li><li><a href="#footer">Press Area</a></li><li><a href="#footer">Ethics and Compliance</a></li><li><a href="#work">Recruitment Fraud Notice</a></li><li><a href="#footer">Contact</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 UBIK Solutions Pvt. Ltd. · Rajkot, Gujarat, India</span><span><a href="#footer">Privacy</a> · <a href="#footer">Terms</a> · <a href="#footer">Cookies</a> · Product information is for healthcare professionals only</span></div>
+  </div>
+  <div class="ftr-mark" id="ftrMark" aria-hidden="true">
+    <svg viewBox="94.25 558.167 184.583 185.833"><g id="ftrNeedle">
+      <path class="bl" d="M120.399 640.065L144.922 612.329L137.282 612.329C130.175 612.329 123.413 615.394 118.728 620.739L94.487 648.395L101.915 648.395C108.985 648.395 115.716 645.362 120.399 640.065Z"/>
+      <path class="bl" d="M101.919 649.598L94.298 649.598L119.914 680.812C124.601 686.522 131.599 689.832 138.987 689.832L146.583 689.832L120.999 658.628C116.312 652.912 109.31 649.598 101.919 649.598Z"/>
+      <path class="bl" d="M175.845 584.305L148.109 608.828L148.109 601.188C148.109 594.081 151.174 587.319 156.519 582.634L184.175 558.393L184.175 565.821C184.175 572.891 181.142 579.622 175.845 584.305Z"/>
+      <path class="bl" d="M185.378 565.825L185.378 558.204L216.592 583.82C222.302 588.507 225.612 595.505 225.612 602.893L225.612 610.489L194.408 584.905C188.692 580.218 185.378 573.216 185.378 565.825Z"/>
+      <path class="bl" d="M175.845 717.927L148.109 693.404L148.109 701.044C148.109 708.151 151.174 714.913 156.519 719.598L184.175 743.839L184.175 736.411C184.175 729.341 181.142 722.609 175.845 717.927Z"/>
+      <path class="bl" d="M185.378 736.407L185.378 744.028L216.592 718.412C222.302 713.725 225.612 706.727 225.612 699.339L225.612 691.743L194.408 717.327C188.692 722.014 185.378 729.016 185.378 736.407Z"/>
+      <path class="bl hot" d="M252.747 640.065L228.224 612.329L235.864 612.329C242.971 612.329 249.733 615.394 254.418 620.739L278.659 648.395L271.231 648.395C264.161 648.395 257.43 645.362 252.747 640.065Z"/>
+      <path class="bl hot" d="M271.227 649.598L278.848 649.598L253.232 680.812C248.545 686.522 241.547 689.832 234.159 689.832L226.563 689.832L252.147 658.628C256.834 652.912 263.836 649.598 271.227 649.598Z"/>
+    </g></svg>
+  </div>
+</footer>
+
+<dialog class="vid" id="filmDlg" aria-label="UBIK brand film">
+  <button class="x" type="button" id="filmClose" aria-label="Close film">×</button>
+  <video id="filmFull" controls playsinline preload="none" poster="assets/dermsplit.jpg"><source src="assets/film.mp4" type="video/mp4"></video>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  /* Expand icon references into real shapes (fragment refs can fail inside the artifact frame) */
+  document.querySelectorAll("svg use").forEach(u => {
+    const id = (u.getAttribute("href") || u.getAttribute("xlink:href") || "").slice(1);
+    const sym = document.getElementById(id); if (!sym) return;
+    const svg = u.ownerSVGElement;
+    Array.from(sym.children).forEach(c => svg.insertBefore(c.cloneNode(true), u));
+    u.remove();
+  });
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+  /* Header: solid after the hero top, mobile menu */
+  const hdr = $('#hdr');
+  const setHdr = () => hdr.classList.toggle('solid', window.scrollY > 60);
+  setHdr(); window.addEventListener('scroll', setHdr, {passive:true});
+  const menuBtn = $('#menuBtn'), mob = $('#mob');
+  menuBtn.addEventListener('click', () => {
+    const open = mob.hidden; mob.hidden = !open; hdr.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', String(open)); menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  $$('#mob a').forEach(a => a.addEventListener('click', () => { mob.hidden = true; hdr.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false'); }));
+
+  /* Film dialog */
+  const dlg = $('#filmDlg'), full = $('#filmFull');
+  $$('[data-film]').forEach(b => b.addEventListener('click', () => {
+    if (typeof dlg.showModal === 'function') { dlg.showModal(); full.play().catch(()=>{}); }
+  }));
+  const closeDlg = () => { full.pause(); dlg.close(); };
+  $('#filmClose').addEventListener('click', closeDlg);
+  dlg.addEventListener('click', e => { if (e.target === dlg) closeDlg(); });
+  dlg.addEventListener('close', () => full.pause());
+
+  /* Services: point at one to change the picture */
+  const caps = ['iDoc Academy','iDoc Solutions','BrandYou','VistaDerm','Dermapreneur'];
+  const imgs = $$('#stage img'), items = $$('#svc li');
+  const pick = i => {
+    items.forEach((li, k) => { li.classList.toggle('on', k===i); li.querySelector('button').setAttribute('aria-pressed', String(k===i)); });
+    imgs.forEach((im, k) => im.classList.toggle('on', k===i));
+    $('#stageCap').textContent = caps[i];
+  };
+  $$('#svc button').forEach(b => { const i = +b.dataset.i; b.addEventListener('mouseenter', () => pick(i)); b.addEventListener('focus', () => pick(i)); b.addEventListener('click', () => pick(i)); });
+
+  /* Carousels: arrows, progress, filters */
+  function rail(id){
+    const r = $('#rail-'+id), bar = $('#prog-'+id), btns = $$(`[data-rail="${id}"]`);
+    const upd = () => {
+      const max = r.scrollWidth - r.clientWidth;
+      const p = max > 0 ? r.scrollLeft / max : 1;
+      const vis = Math.min(1, r.clientWidth / r.scrollWidth);
+      bar.style.width = (vis*100) + '%'; bar.style.left = (p * (1 - vis) * 100) + '%';
+      btns[0].disabled = r.scrollLeft < 4; btns[1].disabled = r.scrollLeft > max - 4;
+    };
+    btns.forEach(b => b.addEventListener('click', () => {
+      const card = r.querySelector('a:not([hidden])');
+      const step = card ? card.getBoundingClientRect().width + 24 : r.clientWidth * .8;
+      r.scrollBy({left: step * (+b.dataset.d), behavior: reduce ? 'auto' : 'smooth'});
+    }));
+    r.addEventListener('scroll', upd, {passive:true}); window.addEventListener('resize', upd); upd();
+    return upd;
+  }
+  const updIns = rail('ins'); rail('br');
+  $$('.tabs button').forEach(b => b.addEventListener('click', () => {
+    $$('.tabs button').forEach(x => x.setAttribute('aria-pressed', String(x===b)));
+    const f = b.dataset.f;
+    $$('#rail-ins .card').forEach(c => c.hidden = !(f==='all' || c.dataset.c===f));
+    $('#rail-ins').scrollLeft = 0; updIns();
+  }));
+
+  /* Newsletter (preview: nothing is sent) */
+  $('#newsForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const em = $('#email'), msg = $('#newsMsg');
+    if (!em.value || !em.checkValidity()) { msg.textContent = 'Enter a valid email address, for example name@clinic.in.'; em.focus(); return; }
+    msg.textContent = 'This preview does not send yet. On the live site, ' + em.value + ' would now be subscribed' + ($('#hcp').checked ? ' to clinical updates.' : ' to general news.');
+  });
+
+  /* Count-up: final value shows at rest, counts once on entry */
+  function countUp(el){
+    const end = +el.dataset.count, start = el.hasAttribute('data-plain') ? end - 23 : 0, t0 = performance.now(), dur = 1400;
+    const step = now => { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(start + (end - start) * e); if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+
+  if (reduce || !window.gsap || !window.ScrollTrigger) {
+    $$('#statement .w').forEach(w => w.classList.add('lit'));
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Smooth scroll */
+  let lenis = null;
+  if (window.Lenis) {
+    lenis = new Lenis({lerp: .11, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.2});
+    if (!window.__preDone && document.getElementById('pre')) lenis.stop();
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+    $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+      const id = a.getAttribute('href'); const t = id.length > 1 ? document.querySelector(id) : null;
+      if (t) { e.preventDefault(); lenis.scrollTo(t, {offset: -110, duration: 1.1}); }
+    }));
+  } else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    /* Fallback smooth wheel if Lenis could not load */
+    let target = window.scrollY, cur = window.scrollY;
+    const max = () => document.documentElement.scrollHeight - window.innerHeight;
+    window.addEventListener('wheel', e => {
+      if (e.ctrlKey || document.documentElement.classList.contains('is-loading')) return;
+      e.preventDefault(); target = Math.max(0, Math.min(max(), target + e.deltaY));
+    }, {passive: false});
+    window.addEventListener('scroll', () => { if (Math.abs(window.scrollY - cur) > 2) { target = cur = window.scrollY; } }, {passive: true});
+    gsap.ticker.add(() => { if (Math.abs(target - cur) < .5) return; cur += (target - cur) * .09; window.scrollTo(0, cur); });
+  }
+
+  /* 02 Hero: text rises in */
+  const heroIn = () => { gsap.from('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {y: 40, opacity: 0, duration: 1.3, ease: 'expo.out', stagger: .12, delay: .25}); };
+  if (window.__preDone || !document.getElementById('pre')) heroIn();
+  else { gsap.set('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {opacity: 0}); window.__onPreDone = () => { gsap.set('.hero .hero-eb, .hero h1, .hero .sub, .hero .acts', {opacity: 1}); heroIn(); if (lenis) lenis.start(); ScrollTrigger.refresh(); }; }
+  /* Hero scroll: no pin. The page moves immediately; the film drifts slower than the page and the copy eases away,
+     so the next section is always arriving and the screen never goes empty */
+  gsap.timeline({defaults: {ease: 'none'}, scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}})
+    .to('#heroMedia', {yPercent: 22, scale: 1.05}, 0)
+    .to('.hero .copy', {y: () => -window.innerHeight * 0.12, opacity: 0.15}, 0)
+    .to('.hero .cue', {opacity: 0, duration: 0.12}, 0);
+
+  /* 03 Who we are: the statement types itself out once; facts count up once */
+  const st = $('#statement');
+  const stText = st.textContent.replace(/\s+/g, ' ').trim();
+  st.setAttribute('aria-label', stText);
+  st.textContent = '';
+  /* Scroll-driven reveal: the whole statement sits dim; words brighten one after another, with a soft edge */
+  const wds = stText.split(' ').map((w, i, arr) => {
+    const s = document.createElement('span'); s.className = 'wd'; s.setAttribute('aria-hidden', 'true'); s.textContent = w;
+    st.appendChild(s); if (i < arr.length - 1) st.appendChild(document.createTextNode(' ')); return s;
+  });
+  const soft = 4, DIM = 0.2;
+  const paint = v => {
+    const x = v * (wds.length + soft);
+    wds.forEach((w, i) => { const t = Math.min(1, Math.max(0, (x - i) / soft)); w.style.opacity = (DIM + (1 - DIM) * t).toFixed(3); });
+  };
+  const prog = {v: 0}; paint(0);
+  gsap.to(prog, {v: 1, ease: 'none', onUpdate: () => paint(prog.v),
+    scrollTrigger: {trigger: st, start: 'top 85%', end: 'bottom 30%', scrub: 1.2}});
+  $$('.facts b').forEach(b => ScrollTrigger.create({trigger: b, start: 'top 88%', once: true, onEnter: () => countUp(b)}));
+
+  /* 04 What we do: pinned sideways scroll on desktop */
+  const mm = gsap.matchMedia();
+  mm.add('(min-width: 900px)', () => {
+    const track = $('#track'), num = $('#wwdNum'), bar = $('#wwdBar');
+    /* End with the last card sitting on the same right gutter as the page, not flush to the edge */
+    const dist = () => {
+      const last = track.lastElementChild, pad = parseFloat(getComputedStyle(track).paddingLeft) || 32;
+      return Math.max(0, last.offsetLeft + last.offsetWidth + pad - window.innerWidth);
+    };
+    const tw = gsap.to(track, {x: () => -dist(), ease: 'none', scrollTrigger: {trigger: '#wwd', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
+      onUpdate: s => { const i = Math.min(3, Math.floor(s.progress * 4 - 1e-6)); num.textContent = '0' + (Math.max(0,i) + 1); bar.style.width = (25 + s.progress * 75) + '%'; }}});
+    return () => { tw.scrollTrigger && tw.scrollTrigger.kill(); tw.kill(); gsap.set(track, {x: 0}); };
+  });
+  mm.add('(max-width: 899px)', () => {
+    const track = $('#track'), num = $('#wwdNum'), bar = $('#wwdBar');
+    const upd = () => { const max = track.scrollWidth - track.clientWidth; const p = max > 0 ? track.scrollLeft / max : 0; num.textContent = '0' + (Math.round(p * 3) + 1); bar.style.width = (25 + p * 75) + '%'; };
+    track.addEventListener('scroll', upd, {passive: true});
+    return () => track.removeEventListener('scroll', upd);
+  });
+
+  /* 07 Film grows to full width */
+  gsap.to('#filmMedia', {clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: {trigger: '.film', start: 'top 85%', end: 'top 5%', scrub: true}});
+  gsap.from('.film .over > *', {y: 30, stagger: .1, duration: 1, ease: 'expo.out', scrollTrigger: {trigger: '.film', start: 'top 55%'}});
+
+  /* 12 Footer compass: blades assemble as you reach the end, then the red needle follows the pointer */
+  (function(){
+    const box = $('#ftrMark'), needle = $('#ftrNeedle'); if (!box || !needle) return;
+    const bl = $$('#ftrNeedle .bl');
+    const scatter = [[-260,-40,-70],[-240,80,60],[-60,-220,50],[70,-240,-60],[-80,240,-50],[60,220,70],[260,-60,80],[250,70,-40]];
+    gsap.timeline({scrollTrigger: {trigger: box, start: 'top bottom', end: 'bottom bottom', scrub: 1.2}})
+      .fromTo(bl, {x: i => scatter[i][0], y: i => scatter[i][1], rotation: i => scatter[i][2], transformOrigin: '50% 50%'},
+        {x: 0, y: 0, rotation: 0, ease: 'power3.out', stagger: 0.04});
+    const rot = gsap.quickTo(needle, 'rotation', {duration: 0.9, ease: 'power3.out'});
+    gsap.set(needle, {transformOrigin: '50% 50%'});
+    let last = 0;
+    const toward = e => {
+      const r = box.querySelector('svg').getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      let a = Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+      while (a - last > 180) a -= 360; while (a - last < -180) a += 360;
+      last = a; rot(a);
+    };
+    const ftr = $('#footer');
+    ftr.addEventListener('pointermove', toward);
+    ftr.addEventListener('pointerleave', () => { const back = Math.round(last / 360) * 360; last = back; rot(back); });
+  })();
+
+  /* 11b Work with UBIK: tiles start half revealed and slide open as you scroll in */
+  const rad = () => (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--radius')) || 28) + 'px';
+  const reveal = {
+    't-careers':  'inset(0% 50% 0% 0%',
+    't-investors':'inset(0% 50% 0% 0%',
+    't-partners': 'inset(0% 50% 0% 0%',
+    't-place':    'inset(0% 50% 0% 0%'
+  };
+  $$('.mosaic .mt').forEach(el => {
+    const key = Object.keys(reveal).find(k => el.classList.contains(k)); if (!key) return;
+    const img = el.querySelector('img'), lab = el.querySelector('.lab');
+    const tl = gsap.timeline({defaults: {ease: 'none'}, scrollTrigger: {trigger: el, start: 'top 95%', end: 'top 40%', scrub: 1}});
+    tl.fromTo(el, {clipPath: () => reveal[key] + ' round ' + rad() + ')'}, {clipPath: () => 'inset(0% 0% 0% 0% round ' + rad() + ')'}, 0)
+      .fromTo(img, {scale: 1.18}, {scale: 1}, 0)
+      .fromTo(lab, {y: 12}, {y: 0}, 0.4);
+  });
+  gsap.from('.m-intro .h2', {y: 40, duration: 1.1, ease: 'expo.out', scrollTrigger: {trigger: '.mosaic', start: 'top 85%'}});
+  gsap.from('.m-text > *', {y: 24, duration: .9, ease: 'expo.out', stagger: .08, scrollTrigger: {trigger: '.m-text', start: 'top 90%'}});
+
+  /* 08 Photos settle as they enter */
+  $$('.two .ph img').forEach(im => gsap.to(im, {scale: 1, ease: 'none', scrollTrigger: {trigger: im, start: 'top bottom', end: 'center center', scrub: true}}));
+
+  /* Gentle rise for section headings (visible at rest) */
+  $$('.band .h2').forEach(h => gsap.from(h, {y: 36, duration: 1.1, ease: 'expo.out', scrollTrigger: {trigger: h, start: 'top 90%'}}));
+  $$('.ta-card, .pack, .card').forEach((el, i) => gsap.from(el, {y: 28, duration: .9, ease: 'expo.out', delay: (i % 4) * .06, scrollTrigger: {trigger: el, start: 'top 94%'}}));
+
+
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+
+</body></html>
