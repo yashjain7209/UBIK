@@ -479,6 +479,9 @@ html.logo-wait .hdr .logo{opacity:0}
 #pre .dial text.ic{font-size:26px;font-weight:800;fill:#c2c2c2}
 #pre .dial,#pre .mark,#pre .chev{opacity:0}
 #pre .mark path{fill:#ed1651}
+#pre .labs text{font-family:Manrope,system-ui,sans-serif;dominant-baseline:central;stroke:none}
+#pre .labs .k{fill:#1d1d1d;font-weight:600;font-size:23px}
+#pre .labs .m{fill:#b3b3b3;font-weight:500;font-size:21px}
 #pre .bp *{fill:none;stroke:#dedede;stroke-width:1}
 #pre .bp .soft{stroke:#ececec}
 #pre .bp .dash{stroke-dasharray:2 7}
@@ -518,6 +521,7 @@ html.logo-wait .hdr .logo{opacity:0}
         <g class="chev" data-dx="0" data-dy="1"><path d="M175.845 717.927L148.109 693.404L148.109 701.044C148.109 708.151 151.174 714.913 156.519 719.598L184.175 743.839L184.175 736.411C184.175 729.341 181.142 722.609 175.845 717.927Z"/><path d="M185.378 736.407L185.378 744.028L216.592 718.412C222.302 713.725 225.612 706.727 225.612 699.339L225.612 691.743L194.408 717.327C188.692 722.014 185.378 729.016 185.378 736.407Z"/></g>
         <g class="chev" data-dx="-1" data-dy="0"><path d="M120.399 640.065L144.922 612.329L137.282 612.329C130.175 612.329 123.413 615.394 118.728 620.739L94.487 648.395L101.915 648.395C108.985 648.395 115.716 645.362 120.399 640.065Z"/><path d="M101.919 649.598L94.298 649.598L119.914 680.812C124.601 686.522 131.599 689.832 138.987 689.832L146.583 689.832L120.999 658.628C116.312 652.912 109.31 649.598 101.919 649.598Z"/></g>
       </g></g>
+      <g class="labs" id="preLabs"></g>
     </svg>
   </div>
 </div>
@@ -609,6 +613,22 @@ html.logo-wait .hdr .logo{opacity:0}
     label(qx + 23, qy + 17, '2003', 1.3, 'middle');
   })();
 
+  /* Direction labels: who each arrow points to, and what it means */
+  var labsG = document.getElementById('preLabs'), labs = [];
+  (function(){
+    var narrow = window.innerWidth < 600;
+    function tx(g, x, y, cls, anchor, txt){ var e = document.createElementNS(NS, 'text'); e.setAttribute('x', x); e.setAttribute('y', y); e.setAttribute('class', cls); e.setAttribute('text-anchor', anchor); e.textContent = txt; g.appendChild(e); }
+    [['Dermatologists','Guidance',0,-1],['Team','Progress',1,0],['Customers','Alignment',0,1],['Practices','Direction',-1,0]].forEach(function(d){
+      var g = document.createElementNS(NS, 'g'); g.style.opacity = 0; labsG.appendChild(g);
+      if (d[3] === -1) { tx(g, 0, -146, 'k', 'middle', d[0]); tx(g, 0, -180, 'm', 'middle', d[1]); }
+      else if (d[3] === 1) { tx(g, 0, 146, 'k', 'middle', d[0]); tx(g, 0, 180, 'm', 'middle', d[1]); }
+      else if (narrow) { var x = d[2] * 140, a = d[2] > 0 ? 'start' : 'end'; tx(g, x, -2, 'k', a, d[0]); tx(g, x, 30, 'm', a, d[1]); }
+      else if (d[2] > 0) { tx(g, 140, 0, 'k', 'start', d[0]); tx(g, 212, 0, 'm', 'start', d[1]); }
+      else { tx(g, -140, 0, 'k', 'end', d[0]); tx(g, -258, 0, 'm', 'end', d[1]); }
+      labs.push({g: g, dx: d[2], dy: d[3]});
+    });
+  })();
+
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var loaded = document.readyState === 'complete';
   window.addEventListener('load', function(){ loaded = true; });
@@ -622,7 +642,7 @@ html.logo-wait .hdr .logo{opacity:0}
   function seg(t, s, d){ return cl((t - s) / d); }
 
   /* Timeline (seconds) */
-  var SWEEP = [0.15, 1.6], CHEV = 1.05, CHEV_D = 1.0, CHEV_GAP = 0.11, SPIN = 1.95, SPIN_D = 1.7, HOLD = 0.25, OUT_D = 1.1;
+  var SWEEP = [0.15, 1.6], CHEV = 1.05, CHEV_D = 1.0, CHEV_GAP = 0.11, SPIN = 1.95, SPIN_D = 1.7, HOLD = 2.0, LAB = 3.65, OUT_D = 1.1;
   var spinEnd = SPIN + SPIN_D, extra = 0, outStart = null, t0 = performance.now(), done = false, progress = 0;
 
   function frame(now){
@@ -631,7 +651,15 @@ html.logo-wait .hdr .logo{opacity:0}
     /* 1. Dial: fades up and sweeps in clockwise from north while turning gently into place */
     var s = eo(seg(t, SWEEP[0], SWEEP[1]));
     arc.setAttribute('stroke-dashoffset', (1 - s).toFixed(4));
-    dial.style.opacity = Math.min(1, seg(t, SWEEP[0], .5));
+    /* Once the mark settles on north the dial steps back and the four directions are named */
+    var dim = q(seg(t, LAB, .6));
+    dial.style.opacity = (Math.min(1, seg(t, SWEEP[0], .5)) * (1 - .86 * dim)).toFixed(3);
+    bp.style.opacity = (1 - .45 * dim).toFixed(3);
+    labs.forEach(function(l, i){
+      var k = eo(seg(t, LAB + .5 + i * .12, 1));
+      l.g.style.opacity = k.toFixed(3);
+      l.g.setAttribute('transform', 'translate(' + (l.dx * -14 * (1 - k)).toFixed(2) + ' ' + (l.dy * -14 * (1 - k)).toFixed(2) + ')');
+    });
     var dialRot = -24 * (1 - s);
 
     /* 2. Chevrons: N, E, S, W converge one after another */
@@ -668,11 +696,12 @@ html.logo-wait .hdr .logo{opacity:0}
     if (outStart !== null) {
       var u = t - outStart;
       if (pre.isConnected) {
-        dial.style.opacity = (1 - eo(cl(u / .6))).toFixed(3);
+        dial.style.opacity = (.14 * (1 - eo(cl(u / .6)))).toFixed(3);
         dialRot += 14 * eo(cl(u / 1.1));
         chevs.forEach(function(c, i){ if (c !== flyer) c.style.opacity = (1 - q(cl((u - i * .06) / .55))).toFixed(3); });
         pre.style.clipPath = 'inset(0 0 ' + (100 * q(cl((u - CURTAIN[0]) / CURTAIN[1]))).toFixed(2) + '% 0)';
-        bp.style.opacity = (1 - eo(cl(u / .7))).toFixed(3);
+        bp.style.opacity = (.55 * (1 - eo(cl(u / .7)))).toFixed(3);
+        labsG.style.opacity = (1 - eo(cl(u / .5))).toFixed(3);
       }
       if (fly(u)) return;
       if (pre.isConnected && u >= CURTAIN[0] + CURTAIN[1]) pre.remove();
