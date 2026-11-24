@@ -66,8 +66,8 @@ section{position:relative}
 .hdr .top nav{display:flex;gap:24px}
 .hdr .top a{text-decoration:none;color:#3f3f3f;transition:color .25s ease}.hdr .top a:hover{color:var(--red)}
 .hdr .main .wrap{display:flex;align-items:center;gap:40px;height:84px}
-.hdr .logo{display:block;width:126px;flex:none}
-.hdr .logo img{width:126px;height:auto}
+.hdr .logo{display:block;width:100px;flex:none}
+.hdr .logo img{width:100px;height:auto}
 .hdr .logo .dk{display:none}
 .hdr .main nav{display:flex;justify-content:center;gap:30px;flex:1;font-size:15px;font-weight:600}
 .hdr .main nav a{text-decoration:none;position:relative}
@@ -86,6 +86,7 @@ section{position:relative}
 @media (max-width:1080px){
   .hdr .main nav,.hdr .portal,.hdr .top nav.aud{display:none}
   .menu-btn{display:block}
+  .hdr .logo,.hdr .logo img{width:82px}
   .hdr.open{background:var(--ink);color:var(--white)}
   .hdr.open .logo .lt{display:block}.hdr.open .logo .dk{display:none}
   .mob{display:block;background:var(--ink);color:var(--white);max-height:calc(100dvh - 122px);overflow:auto}
@@ -463,6 +464,7 @@ dialog.vid .x{position:absolute;right:10px;top:10px;z-index:2;width:44px;height:
 
 /* Preloader: dial draws in, four brand chevrons converge, the mark turns to north, then the curtain lifts */
 html.is-loading,html.is-loading body{overflow:hidden}
+html.logo-wait .hdr .logo{opacity:0}
 #pre{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;clip-path:inset(0 0 0 0)}
 #pre .dialwrap{position:relative;width:min(78vmin,560px);aspect-ratio:1}
 #pre svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
@@ -515,7 +517,7 @@ html.is-loading,html.is-loading body{overflow:hidden}
 </div>
 <script>
 (function(){
-  var root = document.documentElement; root.classList.add('is-loading');
+  var root = document.documentElement; root.classList.add('is-loading'); if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('logo-wait');
   var NS = 'http://www.w3.org/2000/svg', inner = document.getElementById('preDialInner');
   function el(t, a, p){ var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); (p||inner).appendChild(e); return e; }
 
@@ -565,7 +567,7 @@ html.is-loading,html.is-loading body{overflow:hidden}
     chevs.forEach(function(c, i){
       var p = eo(seg(t, CHEV + i * CHEV_GAP, CHEV_D));
       var d = 46 * (1 - p);
-      c.style.opacity = Math.min(1, seg(t, CHEV + i * CHEV_GAP, .45));
+      if (outStart === null) c.style.opacity = Math.min(1, seg(t, CHEV + i * CHEV_GAP, .45));
       c.setAttribute('transform', 'translate(' + (c.dataset.dx * d).toFixed(2) + ' ' + (c.dataset.dy * d).toFixed(2) + ')');
     });
     mark.style.opacity = 1;
@@ -585,24 +587,74 @@ html.is-loading,html.is-loading body{overflow:hidden}
     progress += (Math.min(target, t / (SPIN + SPIN_D)) - progress) * .08;
     bar.style.transform = 'scaleX(' + progress.toFixed(4) + ')';
 
-    /* 4. Exit: dial dissolves, mark lifts, curtain rises */
+    /* 4. Exit: dial dissolves, three chevrons fade, the west chevron flies up and becomes the K of the logo */
     if (outStart === null && loaded && t >= spinEnd + HOLD) {
       outStart = t; window.__preDone = true; root.classList.remove('is-loading');
       if (typeof window.__onPreDone === 'function') setTimeout(window.__onPreDone, 350);
     }
     if (outStart !== null) {
-      var o = seg(t, outStart, OUT_D), oe = q(o);
-      dial.style.opacity = (1 - eo(seg(t, outStart, .6))).toFixed(3);
-      dialRot += 14 * eo(o);
-      markScale = 1 - .18 * oe;
-      mark.style.opacity = (1 - q(seg(t, outStart + .15, .7))).toFixed(3);
-      pre.style.clipPath = 'inset(0 0 ' + (100 * q(seg(t, outStart + .2, OUT_D - .2))).toFixed(2) + '% 0)';
-      document.querySelector('#pre .bar').style.opacity = 1 - o * 3;
-      if (o >= 1) { pre.remove(); return; }
+      var u = t - outStart;
+      if (pre.isConnected) {
+        dial.style.opacity = (1 - eo(cl(u / .6))).toFixed(3);
+        dialRot += 14 * eo(cl(u / 1.1));
+        chevs.forEach(function(c, i){ if (c !== flyer) c.style.opacity = (1 - q(cl((u - i * .06) / .55))).toFixed(3); });
+        pre.style.clipPath = 'inset(0 0 ' + (100 * q(cl((u - CURTAIN[0]) / CURTAIN[1]))).toFixed(2) + '% 0)';
+        preBarWrap.style.opacity = Math.max(0, 1 - u * 3);
+      }
+      if (fly(u)) return;
+      if (pre.isConnected && u >= CURTAIN[0] + CURTAIN[1]) pre.remove();
     }
-    dial.setAttribute('transform', 'rotate(' + dialRot.toFixed(3) + ')');
-    mark.setAttribute('transform', 'rotate(' + markRot.toFixed(3) + ') scale(' + markScale.toFixed(4) + ')');
+    if (pre.isConnected) {
+      dial.setAttribute('transform', 'rotate(' + dialRot.toFixed(3) + ')');
+      mark.setAttribute('transform', 'rotate(' + markRot.toFixed(3) + ') scale(' + markScale.toFixed(4) + ')');
+    }
     requestAnimationFrame(frame);
+  }
+
+  /* The flight: the west chevron leaves the compass, travels to the header and lands exactly on the K's arms */
+  var flyer = chevs[3], preBarWrap = pre.querySelector('.bar'), CURTAIN = [.35, 1.05];
+  var FLY0 = .15, FLY_D = 1.45, ov = null, ovChev, ovK, startR, logoWrap = null;
+  var PINK = [237, 22, 81];
+  var KX = 248.045, KY = 356.043, KW = 41.808, KH = 63.78; /* K arms inside the logo's viewBox */
+  function logoImg(){ var im = logoWrap && [].slice.call(logoWrap.querySelectorAll('img')).filter(function(i){ return i.offsetWidth > 0; })[0]; return im; }
+  function targetRect(){
+    var im = logoImg(); if (!im) return null; var r = im.getBoundingClientRect(), k = r.width / 185.917;
+    return {x: r.left + (KX - 105.833) * k, y: r.top + (KY - 356) * k, w: KW * k, h: KH * k, dark: im.classList.contains('dk')};
+  }
+  function lerp(a, b, x){ return a + (b - a) * x; }
+  function fly(u){
+    if (!logoWrap) logoWrap = document.querySelector('.hdr .logo');
+    if (!logoWrap) return u >= CURTAIN[0] + CURTAIN[1] + .1;
+    if (!ov) {
+      if (u < FLY0) return false;
+      startR = flyer.getBoundingClientRect();
+      ov = document.createElement('div');
+      ov.setAttribute('aria-hidden', 'true');
+      ov.style.cssText = 'position:fixed;left:0;top:0;z-index:10000;pointer-events:none;will-change:transform,width,height';
+      ov.innerHTML = '<svg viewBox="' + KX + ' ' + KY + ' ' + KW + ' ' + KH + '" preserveAspectRatio="none" style="display:block;width:100%;height:100%;overflow:visible">'
+        + '<g class="c" fill="#ed1651" transform="translate(' + KX + ' ' + KY + ') scale(' + (KW / 52.285).toFixed(5) + ' ' + (KH / 77.503).toFixed(5) + ') translate(-94.298 -612.329)">' + flyer.innerHTML + '</g>'
+        + '<g class="k" fill="#ed1651" opacity="0"><path d="M254.139 387.651L248.045 387.651L268.528 412.61C272.276 417.176 277.872 419.823 283.779 419.823L289.853 419.823L269.395 394.871C265.648 390.301 260.049 387.651 254.139 387.651Z"/><path d="M254.139 386.889L248.045 386.889L268.528 362.958C272.276 358.58 277.872 356.043 283.779 356.043L289.853 356.043L269.395 379.966C265.648 384.348 260.049 386.889 254.139 386.889Z"/></g></svg>';
+      document.body.appendChild(ov);
+      ovChev = ov.querySelector('.c'); ovK = ov.querySelector('.k');
+      flyer.style.opacity = 0;
+    }
+    var tr = targetRect(); if (!tr) { ov.remove(); return true; }
+    var p = cl((u - FLY0) / FLY_D), px = io(p), py = io(cl(p * 1.1)), ps = q(p);
+    var x = lerp(startR.left, tr.x, px), y = lerp(startR.top, tr.y, py);
+    var w = lerp(startR.width, tr.w, ps), h = lerp(startR.height, tr.h, ps);
+    var rot = -14 * Math.sin(Math.PI * p);
+    ov.style.width = w.toFixed(2) + 'px'; ov.style.height = h.toFixed(2) + 'px';
+    ov.style.transform = 'translate(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px) rotate(' + rot.toFixed(2) + 'deg)';
+    /* chevron blades resolve into the K's arms in the last stretch of the flight */
+    var m = q(cl((p - .5) / .42));
+    ovChev.setAttribute('opacity', (1 - m).toFixed(3)); ovK.setAttribute('opacity', m.toFixed(3));
+    /* after landing: pink settles into the logo colour, and the rest of the wordmark fades up around it */
+    var land = u - FLY0 - FLY_D;
+    var c = q(cl(land / .55)), to = tr.dark ? [35, 31, 32] : [255, 255, 255];
+    ovK.setAttribute('fill', 'rgb(' + PINK.map(function(v, i){ return Math.round(lerp(v, to[i], c)); }).join(',') + ')');
+    logoWrap.style.opacity = q(cl((land + .05) / .7)).toFixed(3);
+    if (land >= .8) { ov.remove(); root.classList.remove('logo-wait'); logoWrap.style.opacity = ''; return true; }
+    return false;
   }
 
   if (reduce) {
