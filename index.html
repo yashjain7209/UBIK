@@ -734,7 +734,7 @@ html.logo-wait .hdr .logo{opacity:0}
 
   /* The flight: the west chevron leaves the compass, travels to the header and lands exactly on the K's arms */
   var flyer = chevs[3], CURTAIN = [.35, 1.05];
-  var FLY0 = .15, FLY_D = 1.45, ov = null, ovChev, ovK, startR, logoWrap = null;
+  var FLY0 = .1, FLY_D = 1.0, ov = null, ovChev, ovK, startR, logoWrap = null;
   var PINK = [237, 22, 81];
   var KX = 248.045, KY = 356.043, KW = 41.808, KH = 63.78; /* K arms inside the logo's viewBox */
   function logoImg(){ var im = logoWrap && [].slice.call(logoWrap.querySelectorAll('img')).filter(function(i){ return i.offsetWidth > 0; })[0]; return im; }
@@ -771,10 +771,10 @@ html.logo-wait .hdr .logo{opacity:0}
     ovChev.setAttribute('opacity', (1 - m).toFixed(3)); ovK.setAttribute('opacity', m.toFixed(3));
     /* after landing: pink settles into the logo colour, and the rest of the wordmark fades up around it */
     var land = u - FLY0 - FLY_D;
-    var c = q(cl(land / .55)), to = tr.dark ? [35, 31, 32] : [255, 255, 255];
+    var c = q(cl((land + .12) / .32)), to = tr.dark ? [35, 31, 32] : [255, 255, 255];
     ovK.setAttribute('fill', 'rgb(' + PINK.map(function(v, i){ return Math.round(lerp(v, to[i], c)); }).join(',') + ')');
-    logoWrap.style.opacity = q(cl((land + .05) / .7)).toFixed(3);
-    if (land >= .8) { ov.remove(); root.classList.remove('logo-wait'); logoWrap.style.opacity = ''; return true; }
+    logoWrap.style.opacity = q(cl((land + .3) / .4)).toFixed(3); /* wordmark starts just before the K lands */
+    if (land >= .25) { ov.remove(); root.classList.remove('logo-wait'); logoWrap.style.opacity = ''; return true; }
     return false;
   }
 
