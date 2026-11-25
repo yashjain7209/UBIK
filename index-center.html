@@ -78,6 +78,11 @@ section{position:relative}
 .hdr .portal{--h:44px;padding:0 24px;font-size:14px}
 .hdr.solid{background:var(--white);color:var(--ink)}
 .hdr.solid .top{border-color:var(--line);background:var(--white)}
+/* Over the hero the top bar is transparent, divided from the main header by a hairline */
+.hdr .top{transition:background .35s ease,color .35s ease,border-color .35s ease}
+.hdr:not(.solid):not(.open) .top{background:transparent;color:rgba(255,255,255,.88);border-bottom:1px solid rgba(255,255,255,.18)}
+.hdr:not(.solid):not(.open) .top a{color:rgba(255,255,255,.88)}
+.hdr:not(.solid):not(.open) .top a:hover{color:var(--white)}
 .hdr:not(.solid):not(.open) .portal{background:var(--white);color:var(--ink)}
 .hdr:not(.solid):not(.open) .portal:hover{background:#f1f1f1}
 .hdr.solid .logo .lt{display:none}.hdr.solid .logo .dk{display:block}
@@ -117,7 +122,7 @@ section{position:relative}
 .hero.center .sub{margin-inline:auto}
 .hero.center .acts{justify-content:center}
 .hero.center .shade{background:linear-gradient(180deg,rgba(14,14,14,.42) 0%,rgba(14,14,14,.4) 45%,rgba(14,14,14,.55) 100%)}
-.hero h1{font-size:clamp(40px,min(6.4vw,10.5svh),104px);line-height:1.02;letter-spacing:-0.035em;max-width:14ch}
+.hero h1{font-size:clamp(36px,min(5.8vw,9.5svh),96px);line-height:1;letter-spacing:-0.025em;max-width:12em;text-transform:uppercase}
 .hero h1 .r{color:var(--white);display:block}
 .hero .sub{margin-top:24px;font-size:clamp(18px,1.8vw,25px);line-height:1.4;max-width:38ch;color:#e6e6e6}
 .hero .hero-eb{margin-bottom:22px;color:#e6e6e6}
@@ -125,9 +130,6 @@ section{position:relative}
 .hero .cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;width:26px;animation:cue 2.4s ease-in-out infinite}
 .hero .cue{fill:var(--white)}
 @keyframes cue{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
-.hcp-strip{background:var(--red);color:var(--white);font-size:14px;font-weight:600}
-.hcp-strip .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;min-height:52px;flex-wrap:wrap;padding-block:10px}
-.hcp-strip a{color:var(--white);font-weight:700}
 
 /* 03 Who we are */
 .who{overflow:hidden}
@@ -147,6 +149,33 @@ section{position:relative}
 .facts b{display:block;font-size:clamp(44px,5vw,72px);line-height:1;font-weight:700;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
 .facts span{display:block;margin-top:12px;color:#bdbdbd;font-size:15px}
 .who .more{margin-top:48px}
+/* Who we are: hairline grid in the manner of an architectural plan */
+.wg-sec{--wg-bg:#f8f5ef;--wg-line:#e3ddd2;background:var(--wg-bg);color:var(--ink)}
+.wg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.05fr) minmax(0,1fr);grid-template-rows:clamp(72px,10vw,150px) minmax(clamp(380px,36vw,520px),auto) minmax(clamp(320px,28vw,420px),auto);border-top:1px solid var(--wg-line)}
+.wg .c{border-bottom:1px solid var(--wg-line);min-width:0}
+.wg .ca,.wg .cb{border-right:1px solid var(--wg-line)}
+.wg .mid{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(40px,5vw,72px) clamp(24px,4vw,64px)}
+.wg .mid .eyebrow{color:#8a8378}
+.wg .statement{margin-top:22px;max-width:19ch;font-size:clamp(30px,3.4vw,52px);line-height:1.12;font-weight:600;letter-spacing:-.025em;color:var(--ink)}
+.wg .statement .red{color:inherit}
+.wg .ph{position:relative;overflow:hidden}
+.wg .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wg .ph-r{margin-right:16px}
+.wg .ph-l{margin-left:16px}
+.wg .facts{margin-top:0;width:100%;max-width:560px;border-top:0;padding-top:0;text-align:center}
+.wg .facts span{color:#7d776d}
+.wg .more{margin-top:40px}
+@media (max-width:860px){
+  .wg{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .wg .r1,.wg .ca.r2,.wg .cc.r3{display:none}
+  .wg .cb.r2{grid-column:1/-1;grid-row:1;border-right:0}
+  .wg .ph-r{grid-column:2;grid-row:2;margin:0;aspect-ratio:3/4;border-right:0}
+  .wg .ph-l{grid-column:1;grid-row:2;margin:0;aspect-ratio:3/4;border-right:1px solid var(--wg-line)}
+  .wg .cb.r3{grid-column:1/-1;grid-row:3;border-right:0}
+  .wg .facts{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .wg .facts b{font-size:clamp(30px,9vw,44px)}
+  .wg .facts span{font-size:13px}
+}
 
 /* 04 What we do (pinned) */
 .wwd{overflow:hidden}
@@ -463,7 +492,6 @@ dialog.vid .x{position:absolute;right:10px;top:10px;z-index:2;width:44px;height:
   .hero .copy{padding-block:140px 24px}
   .hero .sub{margin-top:20px;font-size:18px}
   .hero .acts{margin-top:32px;gap:20px}
-  .hcp-strip .wrap{font-size:13px}
   .film .media{height:70vh}
   .news .row{flex-direction:column;gap:10px}
 }
@@ -699,8 +727,9 @@ html.logo-wait .hdr .logo{opacity:0}
         bp.style.opacity = (.55 * (1 - eo(cl(u / .7)))).toFixed(3);
         labsG.style.opacity = (1 - eo(cl(u / .5))).toFixed(3);
       }
-      if (fly(u)) return;
+      if (!flyDone && fly(u)) flyDone = true;
       if (pre.isConnected && u >= CURTAIN[0] + CURTAIN[1]) pre.remove();
+      if (flyDone && !pre.isConnected) return; /* stop only once both the curtain and the logo hand-off are finished */
     }
     if (pre.isConnected) {
       dial.setAttribute('transform', 'rotate(' + dialRot.toFixed(3) + ')');
@@ -710,8 +739,8 @@ html.logo-wait .hdr .logo{opacity:0}
   }
 
   /* The flight: the west chevron leaves the compass, travels to the header and lands exactly on the K's arms */
-  var flyer = chevs[3], CURTAIN = [.35, 1.05];
-  var FLY0 = .15, FLY_D = 1.45, ov = null, ovChev, ovK, startR, logoWrap = null;
+  var flyDone = false, flyer = chevs[3], CURTAIN = [.35, 1.05];
+  var FLY0 = .1, FLY_D = 1.0, ov = null, ovChev, ovK, startR, logoWrap = null;
   var PINK = [237, 22, 81];
   var KX = 248.045, KY = 356.043, KW = 41.808, KH = 63.78; /* K arms inside the logo's viewBox */
   function logoImg(){ var im = logoWrap && [].slice.call(logoWrap.querySelectorAll('img')).filter(function(i){ return i.offsetWidth > 0; })[0]; return im; }
@@ -748,10 +777,10 @@ html.logo-wait .hdr .logo{opacity:0}
     ovChev.setAttribute('opacity', (1 - m).toFixed(3)); ovK.setAttribute('opacity', m.toFixed(3));
     /* after landing: pink settles into the logo colour, and the rest of the wordmark fades up around it */
     var land = u - FLY0 - FLY_D;
-    var c = q(cl(land / .55)), to = tr.dark ? [35, 31, 32] : [255, 255, 255];
+    var c = q(cl((land + .12) / .32)), to = tr.dark ? [35, 31, 32] : [255, 255, 255];
     ovK.setAttribute('fill', 'rgb(' + PINK.map(function(v, i){ return Math.round(lerp(v, to[i], c)); }).join(',') + ')');
-    logoWrap.style.opacity = q(cl((land + .05) / .7)).toFixed(3);
-    if (land >= .8) { ov.remove(); root.classList.remove('logo-wait'); logoWrap.style.opacity = ''; return true; }
+    logoWrap.style.opacity = q(cl((land + .3) / .4)).toFixed(3); /* wordmark starts just before the K lands */
+    if (land >= .25) { ov.remove(); root.classList.remove('logo-wait'); logoWrap.style.opacity = ''; return true; }
     return false;
   }
 
@@ -804,17 +833,20 @@ html.logo-wait .hdr .logo{opacity:0}
   <svg class="cue" viewBox="148 691 78 53" aria-hidden="true"><use href="#ch-d"/></svg>
 </section>
 
-<div class="hcp-strip"><div class="wrap">
-  <span>Product and clinical information on this site is for registered healthcare professionals in India.</span>
-  <a href="#derm">Enter the Doctor Portal</a>
-</div></div>
 
-<!-- 03 Who we are -->
-<section class="who on-dark band" id="who">
-  <div class="wrap grid">
-    <div><p class="eyebrow">Who we are</p></div>
-    <div>
+
+<!-- 03 Who we are: hairline grid, centred statement, photos in offset cells -->
+<section class="who wg-sec" id="who">
+  <div class="wg">
+    <div class="c ca r1"></div><div class="c cb r1"></div><div class="c cc r1"></div>
+    <div class="c ca r2"></div>
+    <div class="c cb r2 mid">
+      <p class="eyebrow">Who we are</p>
       <p class="statement" id="statement">We believe healthcare is beyond profession; <span class="red">it is a responsibility towards life.</span></p>
+    </div>
+    <div class="c cc r2 ph ph-r"><img src="assets/intro2.jpg" alt="Dermatologist in her clinic" loading="lazy"></div>
+    <div class="c ca r3 ph ph-l"><img src="assets/hair-exam.jpg" alt="Dermatologist examining a patient's scalp" loading="lazy"></div>
+    <div class="c cb r3 mid">
       <div class="facts">
         <div><b data-count="2003" data-plain>2003</b><span>Founded in Rajkot, Gujarat</span></div>
         <div><b data-count="11">11</b><span>Therapy areas we serve</span></div>
@@ -822,6 +854,7 @@ html.logo-wait .hdr .logo{opacity:0}
       </div>
       <div class="more"><a class="btn-brk" href="#wwd"><svg class="l" viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg>Our Story<svg class="r" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a></div>
     </div>
+    <div class="c cc r3"></div>
   </div>
 </section>
 

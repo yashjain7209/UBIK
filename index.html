@@ -78,6 +78,11 @@ section{position:relative}
 .hdr .portal{--h:44px;padding:0 24px;font-size:14px}
 .hdr.solid{background:var(--white);color:var(--ink)}
 .hdr.solid .top{border-color:var(--line);background:var(--white)}
+/* Over the hero the top bar is transparent, divided from the main header by a hairline */
+.hdr .top{transition:background .35s ease,color .35s ease,border-color .35s ease}
+.hdr:not(.solid):not(.open) .top{background:transparent;color:rgba(255,255,255,.88);border-bottom:1px solid rgba(255,255,255,.18)}
+.hdr:not(.solid):not(.open) .top a{color:rgba(255,255,255,.88)}
+.hdr:not(.solid):not(.open) .top a:hover{color:var(--white)}
 .hdr:not(.solid):not(.open) .portal{background:var(--white);color:var(--ink)}
 .hdr:not(.solid):not(.open) .portal:hover{background:#f1f1f1}
 .hdr.solid .logo .lt{display:none}.hdr.solid .logo .dk{display:block}
@@ -722,8 +727,9 @@ html.logo-wait .hdr .logo{opacity:0}
         bp.style.opacity = (.55 * (1 - eo(cl(u / .7)))).toFixed(3);
         labsG.style.opacity = (1 - eo(cl(u / .5))).toFixed(3);
       }
-      if (fly(u)) return;
+      if (!flyDone && fly(u)) flyDone = true;
       if (pre.isConnected && u >= CURTAIN[0] + CURTAIN[1]) pre.remove();
+      if (flyDone && !pre.isConnected) return; /* stop only once both the curtain and the logo hand-off are finished */
     }
     if (pre.isConnected) {
       dial.setAttribute('transform', 'rotate(' + dialRot.toFixed(3) + ')');
@@ -733,7 +739,7 @@ html.logo-wait .hdr .logo{opacity:0}
   }
 
   /* The flight: the west chevron leaves the compass, travels to the header and lands exactly on the K's arms */
-  var flyer = chevs[3], CURTAIN = [.35, 1.05];
+  var flyDone = false, flyer = chevs[3], CURTAIN = [.35, 1.05];
   var FLY0 = .1, FLY_D = 1.0, ov = null, ovChev, ovK, startR, logoWrap = null;
   var PINK = [237, 22, 81];
   var KX = 248.045, KY = 356.043, KW = 41.808, KH = 63.78; /* K arms inside the logo's viewBox */
