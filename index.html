@@ -525,7 +525,7 @@ html.logo-wait .hdr .logo{opacity:0}
 #pre .dial text.ic{font-size:26px;font-weight:800;fill:#c2c2c2}
 #pre .dial,#pre .mark,#pre .chev{opacity:0}
 #pre .mark path{fill:#ed1651}
-#pre .labs text{font-family:Manrope,system-ui,sans-serif;dominant-baseline:central;stroke:none}
+#pre .labs text{font-family:Manrope,system-ui,sans-serif;dominant-baseline:central;stroke:#fff;stroke-width:9px;stroke-linejoin:round;paint-order:stroke fill}
 #pre .labs .k{fill:#1d1d1d;font-weight:600;font-size:23px}
 #pre .labs .m{fill:#b3b3b3;font-weight:500;font-size:21px}
 #pre .bp *{fill:none;stroke:#dedede;stroke-width:1}
@@ -585,6 +585,7 @@ html.logo-wait .hdr .logo{opacity:0}
   }
   var card = {0:'N', 90:'E', 180:'S', 270:'W'};
   for (var b = 0; b < 360; b += 10) {
+    if (b === 90 || b === 270) continue; /* E and W are named by the Team / Practices labels */
     var t = card[b] !== undefined ? card[b] : String(b % 90);
     var tx = el('text', {y:-232, transform:'rotate(' + b + ')', 'class': card[b] !== undefined ? 'c' : ''}); tx.textContent = t;
   }
@@ -687,8 +688,8 @@ html.logo-wait .hdr .logo{opacity:0}
     arc.setAttribute('stroke-dashoffset', (1 - s).toFixed(4));
     /* Once the mark settles on north the dial steps back and the four directions are named */
     var dim = 1; /* the dial stays a faint backdrop from the start */
-    dial.style.opacity = (Math.min(1, seg(t, SWEEP[0], .5)) * (1 - .86 * dim)).toFixed(3);
-    bp.style.opacity = (1 - .45 * dim).toFixed(3);
+    dial.style.opacity = (Math.min(1, seg(t, SWEEP[0], .5)) * (1 - .35 * dim)).toFixed(3);
+    bp.style.opacity = (1 - .2 * dim).toFixed(3);
     labs.forEach(function(l, i){
       var k = eo(seg(t, LAB + i * .09, .8));
       l.g.style.opacity = k.toFixed(3);
@@ -730,11 +731,11 @@ html.logo-wait .hdr .logo{opacity:0}
     if (outStart !== null) {
       var u = t - outStart;
       if (pre.isConnected) {
-        dial.style.opacity = (.14 * (1 - eo(cl(u / .6)))).toFixed(3);
+        dial.style.opacity = (.65 * (1 - eo(cl(u / .6)))).toFixed(3);
         dialRot += 14 * eo(cl(u / 1.1));
         chevs.forEach(function(c, i){ if (c !== flyer) c.style.opacity = (1 - q(cl((u - i * .06) / .55))).toFixed(3); });
         pre.style.clipPath = 'inset(0 0 ' + (100 * q(cl((u - CURTAIN[0]) / CURTAIN[1]))).toFixed(2) + '% 0)';
-        bp.style.opacity = (.55 * (1 - eo(cl(u / .7)))).toFixed(3);
+        bp.style.opacity = (.8 * (1 - eo(cl(u / .7)))).toFixed(3);
         labsG.style.opacity = (1 - eo(cl(u / .5))).toFixed(3);
       }
       if (!flyDone && fly(u)) flyDone = true;
