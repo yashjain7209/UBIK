@@ -205,8 +205,8 @@ section{position:relative}
 .wx-card:hover img{transform:scale(1.04)}
 .wx-card .tag{position:absolute;left:16px;top:16px;z-index:2;padding:6px 12px;border-radius:0 10px 0 10px;background:rgba(255,255,255,.9);color:var(--ink);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:0;font:700 10.5px/1 var(--font);letter-spacing:.16em;text-transform:uppercase}
 .wx-card .tx{position:absolute;left:20px;right:20px;bottom:20px;z-index:2}
-.wx-card h3{font-size:clamp(20px,1.6vw,24px);line-height:1.15;font-weight:700;min-height:2.3em} /* same box on every card, so titles start on one line and descriptions on another */
-.wx-card p{margin-top:8px;font-size:14px;line-height:1.5;min-height:4.5em;color:rgba(255,255,255,.82)}
+.wx-card h3{font-size:clamp(20px,1.6vw,24px);line-height:1.15;font-weight:700}
+.wx-card p{margin-top:8px;font-size:14px;line-height:1.5;color:rgba(255,255,255,.82)}
 @media (max-width:1100px){.wx-card{flex-basis:calc((100% - 16px) / 2.3)}}
 @media (max-width:700px){.wx-card{flex-basis:80%;min-height:380px}.wx-nav{display:none}}
 
@@ -1144,6 +1144,23 @@ html.logo-wait .hdr .logo{opacity:0}
     const step = now => { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(start + (end - start) * e); if (k < 1) requestAnimationFrame(step); };
     requestAnimationFrame(step);
   }
+
+  /* 04 What we do: every card gets the tallest title box and the tallest description box,
+     so headings start on one line and descriptions on another at any screen width */
+  (function(){
+    const cards = $$('.wx-card'); if (!cards.length) return;
+    const eq = () => {
+      ['h3', 'p'].forEach(sel => {
+        const els = cards.map(c => c.querySelector('.tx ' + sel));
+        els.forEach(e => e.style.minHeight = '');
+        const h = Math.max(...els.map(e => e.offsetHeight));
+        els.forEach(e => e.style.minHeight = h + 'px');
+      });
+    };
+    eq(); window.addEventListener('resize', eq);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(eq);
+    window.addEventListener('load', eq);
+  })();
 
   /* 04 What we do: prev / next step one card; disabled at either end */
   (function(){
