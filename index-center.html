@@ -62,12 +62,13 @@ section{position:relative}
 .play .tri path{fill:currentColor}
 
 /* Header */
-.hdr{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;color:var(--white);transition:background .35s ease,color .35s ease,transform .35s ease}
+.hdr{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;color:var(--white);padding:0;transition:padding .45s cubic-bezier(.2,.7,.2,1),color .35s ease,transform .35s ease}
 .hdr .top{background:var(--white);color:#3f3f3f;border-bottom:1px solid var(--line);font-size:12.5px;font-weight:600}
 .hdr .top .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;gap:16px}
 .hdr .top nav{display:flex;gap:24px}
 .hdr .top a{text-decoration:none;color:#3f3f3f;transition:color .25s ease}.hdr .top a:hover{color:var(--red)}
-.hdr .main .wrap{display:flex;align-items:center;gap:40px;height:84px}
+.hdr .main{border:1px solid transparent;transition:background-color .4s ease,border-color .4s ease,box-shadow .4s ease,border-radius .45s ease}
+.hdr .main .wrap{display:flex;align-items:center;gap:40px;height:84px;transition:height .45s cubic-bezier(.2,.7,.2,1)}
 .hdr .logo{display:block;width:100px;flex:none}
 .hdr .logo img{width:100px;height:auto}
 .hdr .logo .dk{display:none}
@@ -76,10 +77,15 @@ section{position:relative}
 .hdr .main nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
 .hdr .main nav a:hover::after{transform:scaleX(1)}
 .hdr .portal{--h:44px;padding:0 24px;font-size:14px}
-.hdr.solid{background:var(--white);color:var(--ink)}
-.hdr.solid .top{border-color:var(--line);background:var(--white)}
+.hdr .top{max-height:40px;overflow:hidden}
+/* Sticky state: a floating frosted-glass bar, inset from the top and sides; the utility row tucks away */
+.hdr.solid{color:var(--ink);padding:12px 16px 0}
+.hdr.solid .top{max-height:0;border-bottom-width:0}
+.hdr.solid .main{background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);border-color:rgba(255,255,255,.7);border-radius:18px;box-shadow:0 10px 30px rgba(20,20,20,.08),0 1px 0 rgba(255,255,255,.6) inset}
+.hdr.solid .main .wrap{height:66px;padding-left:24px;padding-right:12px;max-width:none}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.hdr.solid .main{background:rgba(255,255,255,.94)}}
 /* Over the hero the top bar is transparent, divided from the main header by a hairline */
-.hdr .top{transition:background .35s ease,color .35s ease,border-color .35s ease}
+.hdr .top{transition:background .35s ease,color .35s ease,border-color .35s ease,max-height .45s cubic-bezier(.2,.7,.2,1)}
 .hdr:not(.solid):not(.open) .top{background:transparent;color:rgba(255,255,255,.88);border-bottom:1px solid rgba(255,255,255,.18)}
 .hdr:not(.solid):not(.open) .top a{color:rgba(255,255,255,.88)}
 .hdr:not(.solid):not(.open) .top a:hover{color:var(--white)}
@@ -97,6 +103,10 @@ section{position:relative}
   .menu-btn{display:block}
   .hdr .logo,.hdr .logo img{width:82px}
   .hdr.open{background:var(--ink);color:var(--white)}
+  .hdr.solid.open{padding:0}
+  .hdr.solid.open .main{background:var(--ink);border-color:transparent;border-radius:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .hdr.solid .main .wrap{padding-left:16px;padding-right:8px}
+  .hdr.solid.open .main .wrap{padding-left:max(32px,var(--gut-l));padding-right:max(32px,var(--gut-r))}
   .hdr.open .logo .lt{display:block}.hdr.open .logo .dk{display:none}
   .mob{display:block;background:var(--ink);color:var(--white);max-height:calc(100dvh - 122px);overflow:auto}
   .mob[hidden]{display:none!important}
