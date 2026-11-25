@@ -164,6 +164,17 @@ section{position:relative}
 .wg-sec{--wg-bg:#f8f5ef;--wg-line:#e3ddd2;background:var(--wg-bg);color:var(--ink)}
 .wg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.05fr) minmax(0,1fr);grid-template-rows:clamp(72px,10vw,150px) minmax(clamp(380px,36vw,520px),auto) minmax(clamp(320px,28vw,420px),auto);border-top:1px solid var(--wg-line)}
 .wg .c{border-bottom:1px solid var(--wg-line);min-width:0}
+/* full grid on desktop: outer verticals on the content edges, and every horizontal line runs to the screen edges */
+@media (min-width:861px){
+  .wg{position:relative;border-left:1px solid var(--wg-line);border-right:1px solid var(--wg-line)}
+  .wg::before{content:"";position:absolute;top:-1px;left:-100vw;right:-100vw;height:1px;background:var(--wg-line);pointer-events:none}
+  .wg .c{position:relative}
+  .wg .ca::after,.wg .cc::after{content:"";position:absolute;bottom:-1px;width:100vw;height:1px;background:var(--wg-line);pointer-events:none}
+  .wg .ca::after{right:calc(100% + 1px)}
+  .wg .cc::after{left:calc(100% + 1px)}
+  .wg .ph{overflow:visible}
+  .wg .ph img{z-index:0}
+}
 .wg .ca,.wg .cb{border-right:1px solid var(--wg-line)}
 .wg .mid{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(40px,5vw,72px) clamp(24px,4vw,64px)}
 .wg .mid .eyebrow{color:#8a8378}
