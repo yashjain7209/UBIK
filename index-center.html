@@ -190,6 +190,8 @@ section{position:relative}
 
 /* 04 What we do (pinned) */
 /* 04 What we do: heading left, prev/next right, four tall photo cards with an I-shaped tag and text over the image */
+/* Section 3 shares section 2's outer edges: 16px from the screen sides, like the grid photos */
+@media (min-width:861px){.wx-wrap{max-width:none;padding-left:16px;padding-right:16px}}
 .wx-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
 .wx-h{font-size:clamp(30px,3vw,46px)}
 .wx-sub{margin-top:14px;max-width:52ch;color:var(--grey-1);font-size:16px;line-height:1.55}
@@ -841,7 +843,7 @@ html.logo-wait .hdr .logo{opacity:0}
 
 <!-- 04 What we do -->
 <section class="wwd band" id="wwd">
-  <div class="wrap">
+  <div class="wrap wx-wrap">
     <div class="wx-head">
       <div><p class="eyebrow">What we do</p><h2 class="h2 wx-h" style="margin-top:14px">One Purpose. <em>Every Direction.</em></h2><p class="wx-sub">Four businesses working as one ecosystem, from the prescription to the practice, across dermatology and cosmetology.</p></div>
       <div class="wx-nav"><button type="button" data-wx="-1" aria-label="Previous"><svg viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg>Prev</button><button type="button" data-wx="1" aria-label="Next">Next<svg viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></button></div>
