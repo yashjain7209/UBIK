@@ -1270,17 +1270,17 @@ html.logo-wait .hdr .logo{opacity:0}
     const sec = $('#wwd'), cards = $$('#wwd .wx-card'); if (!sec || cards.length < 2) return;
     const step = () => cards[1].offsetLeft - cards[0].offsetLeft;
     cards.forEach((c, i) => { c.style.zIndex = String(cards.length - i); c.style.willChange = 'transform'; });
-    const tl = gsap.timeline({defaults: {ease: 'power3.inOut'}, scrollTrigger: {
-      trigger: sec, start: 'top top', end: () => '+=' + Math.round(window.innerHeight * 1.3),
-      pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true}});
+    const tl = gsap.timeline({defaults: {ease: 'power2.inOut'}, scrollTrigger: {
+      trigger: sec, start: 'top top', end: () => '+=' + Math.round(window.innerHeight * .7),
+      pin: true, scrub: .35, anticipatePin: 1, invalidateOnRefresh: true}});
     cards.forEach((c, i) => {
-      if (!i) { tl.fromTo(c, {boxShadow: '0 30px 60px -20px rgba(14,14,14,.35)'}, {boxShadow: '0 0 0 0 rgba(14,14,14,0)', duration: 1.6}, 0); return; }
+      if (!i) { tl.fromTo(c, {boxShadow: '0 30px 60px -20px rgba(14,14,14,.35)'}, {boxShadow: '0 0 0 0 rgba(14,14,14,0)', duration: 1.44}, 0); return; }
       tl.fromTo(c,
         {x: () => -step() * i + i * 18, scale: 1 - i * .035, yPercent: 0, /* stacked behind card 1, each edge peeking out like a fanned deck */ boxShadow: '0 30px 60px -20px rgba(14,14,14,.35)'},
         {x: 0, scale: 1, yPercent: 0, boxShadow: '0 0 0 0 rgba(14,14,14,0)', duration: 1},
-        (i - 1) * .3);
+        (i - 1) * .22);
     });
-    tl.to({}, {duration: .25}); /* a short rest once the row is complete */
+    tl.to({}, {duration: .1}); /* a brief rest once the row is complete */
     return () => cards.forEach(c => { c.style.zIndex = ''; c.style.willChange = ''; });
   });
 
