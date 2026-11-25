@@ -673,6 +673,7 @@ html.logo-wait .hdr .logo{opacity:0}
   /* Direction labels: who each arrow points to, and what it means */
   var labsG = document.getElementById('preLabs'), labs = [];
   (function(){
+    return; /* labels removed: the opening shows only the compass and the four arrows */
     var narrow = window.innerWidth < 600;
     function tx(g, x, y, cls, anchor, txt){ var e = document.createElementNS(NS, 'text'); e.setAttribute('x', x); e.setAttribute('y', y); e.setAttribute('class', cls); e.setAttribute('text-anchor', anchor); e.textContent = txt; g.appendChild(e); }
     [['Dermatologists','Guidance',0,-1],['Team','Progress',1,0],['Customers','Alignment',0,1],['Practices','Direction',-1,0]].forEach(function(d){
@@ -700,7 +701,7 @@ html.logo-wait .hdr .logo{opacity:0}
   function seg(t, s, d){ return cl((t - s) / d); }
 
   /* Timeline (seconds) */
-  var SWEEP = [0, 1.1], CHEV = .15, CHEV_D = .8, CHEV_GAP = .07, SPIN = .75, SPIN_D = 2.2, HOLD = 1.15, LAB = 2.75, OUT_D = 1.1;
+  var SWEEP = [0, 1.1], CHEV = .15, CHEV_D = .8, CHEV_GAP = .07, SPIN = .75, SPIN_D = 2.2, HOLD = .35, LAB = 2.75, OUT_D = 1.1;
   var spinEnd = SPIN + SPIN_D, extra = 0, outStart = null, t0 = performance.now(), done = false, progress = 0;
 
   function frame(now){
