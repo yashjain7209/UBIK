@@ -147,6 +147,33 @@ section{position:relative}
 .facts b{display:block;font-size:clamp(44px,5vw,72px);line-height:1;font-weight:700;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
 .facts span{display:block;margin-top:12px;color:#bdbdbd;font-size:15px}
 .who .more{margin-top:48px}
+/* Who we are: hairline grid in the manner of an architectural plan */
+.wg-sec{--wg-bg:#f8f5ef;--wg-line:#e3ddd2;background:var(--wg-bg);color:var(--ink)}
+.wg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.05fr) minmax(0,1fr);grid-template-rows:clamp(72px,10vw,150px) minmax(clamp(380px,36vw,520px),auto) minmax(clamp(320px,28vw,420px),auto);border-top:1px solid var(--wg-line)}
+.wg .c{border-bottom:1px solid var(--wg-line);min-width:0}
+.wg .ca,.wg .cb{border-right:1px solid var(--wg-line)}
+.wg .mid{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(40px,5vw,72px) clamp(24px,4vw,64px)}
+.wg .mid .eyebrow{color:#8a8378}
+.wg .statement{margin-top:22px;max-width:19ch;font-size:clamp(30px,3.4vw,52px);line-height:1.12;font-weight:600;letter-spacing:-.025em;color:var(--ink)}
+.wg .statement .red{color:inherit}
+.wg .ph{position:relative;overflow:hidden}
+.wg .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wg .ph-r{margin-right:16px}
+.wg .ph-l{margin-left:16px}
+.wg .facts{margin-top:0;width:100%;max-width:560px;border-top:0;padding-top:0;text-align:center}
+.wg .facts span{color:#7d776d}
+.wg .more{margin-top:40px}
+@media (max-width:860px){
+  .wg{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .wg .r1,.wg .ca.r2,.wg .cc.r3{display:none}
+  .wg .cb.r2{grid-column:1/-1;grid-row:1;border-right:0}
+  .wg .ph-r{grid-column:2;grid-row:2;margin:0;aspect-ratio:3/4;border-right:0}
+  .wg .ph-l{grid-column:1;grid-row:2;margin:0;aspect-ratio:3/4;border-right:1px solid var(--wg-line)}
+  .wg .cb.r3{grid-column:1/-1;grid-row:3;border-right:0}
+  .wg .facts{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .wg .facts b{font-size:clamp(30px,9vw,44px)}
+  .wg .facts span{font-size:13px}
+}
 
 /* 04 What we do (pinned) */
 .wwd{overflow:hidden}
@@ -809,12 +836,18 @@ html.logo-wait .hdr .logo{opacity:0}
   <a href="#derm">Enter the Doctor Portal</a>
 </div></div>
 
-<!-- 03 Who we are -->
-<section class="who on-dark band" id="who">
-  <div class="wrap grid">
-    <div><p class="eyebrow">Who we are</p></div>
-    <div>
+<!-- 03 Who we are: hairline grid, centred statement, photos in offset cells -->
+<section class="who wg-sec" id="who">
+  <div class="wg">
+    <div class="c ca r1"></div><div class="c cb r1"></div><div class="c cc r1"></div>
+    <div class="c ca r2"></div>
+    <div class="c cb r2 mid">
+      <p class="eyebrow">Who we are</p>
       <p class="statement" id="statement">We believe healthcare is beyond profession; <span class="red">it is a responsibility towards life.</span></p>
+    </div>
+    <div class="c cc r2 ph ph-r"><img src="assets/intro2.jpg" alt="Dermatologist in her clinic" loading="lazy"></div>
+    <div class="c ca r3 ph ph-l"><img src="assets/hair-exam.jpg" alt="Dermatologist examining a patient's scalp" loading="lazy"></div>
+    <div class="c cb r3 mid">
       <div class="facts">
         <div><b data-count="2003" data-plain>2003</b><span>Founded in Rajkot, Gujarat</span></div>
         <div><b data-count="11">11</b><span>Therapy areas we serve</span></div>
@@ -822,6 +855,7 @@ html.logo-wait .hdr .logo{opacity:0}
       </div>
       <div class="more"><a class="btn-brk" href="#wwd"><svg class="l" viewBox="94 612 53 78" aria-hidden="true"><use href="#ch-l"/></svg>Our Story<svg class="r" viewBox="226 612 53 78" aria-hidden="true"><use href="#ch-r"/></svg></a></div>
     </div>
+    <div class="c cc r3"></div>
   </div>
 </section>
 
